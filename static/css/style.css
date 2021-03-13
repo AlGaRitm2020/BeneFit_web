@@ -1,0 +1,35 @@
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+.header {
+  font-weight: 600; 
+}
+
+.sub-header{
+    padding-left:20px;
+    color:#888;
+}
+
+.base{
+    margin-bottom: 2rem;
+}
+
+
+
+.form{
+	margin-left: auto;
+    margin-right: auto;
+    max-width: 450px;
+    background-color: #ffcc00;
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.content{
+    margin-left: 5rem;
+}
+
