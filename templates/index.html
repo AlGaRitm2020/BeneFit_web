@@ -3,7 +3,11 @@
 {% block content %}
     {% set cabin = 'Каюта №' %}
     <div class="card border-primary" style="width: 100%;">
+<<<<<<< HEAD
           <div class="main-card-head ">{Username}</div>
+=======
+          <div class="main-card-head bg-primary">{Username}</div>
+>>>>>>> ae2a5d5 (Sidebar card)
           	<h2 class='display-4 text-center mb-5 strong header'>Размещение по каютам</h2>
             {% for ast in astronauts %}
           <h2>{{ast}} - {{cabin}} {{loop.index}} {% if loop.first %}- капитан корабля{% endif %} </h2>

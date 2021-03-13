@@ -32,12 +32,16 @@ nav{
 }
 
 main{
+<<<<<<< HEAD
     background:#0B172A;
 }
 
 .sidebar{
    
 
+=======
+    background:#565c62;
+>>>>>>> ae2a5d5 (Sidebar card)
 }
 .card-head{
     /*background: #abd2ea;*/
@@ -49,6 +53,27 @@ main{
 }
 .main-card-head{
     background: #BC4123;
+    text-align: center;
+    height: 50px;
+    font-size: 20px;
+    color: #24476e;
+}
+
+
+
+.sidebar{
+   
+
+}
+.card-head{
+    /*background: #abd2ea;*/
+    text-align: center;
+    height: 50px;
+    font-size: 20px;
+    color: #24476e;
+}
+.main-card-head{
+    /*background: #3887b8;*/
     text-align: center;
     height: 50px;
     font-size: 20px;
