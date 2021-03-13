@@ -16,7 +16,9 @@
 .base{
     margin-bottom: 2rem;
 }
-
+nav{
+    background: #463940;
+}
 
 
 .form{
@@ -30,7 +32,7 @@
 }
 
 main{
-    background:#565c62;
+    background:#0B172A;
 }
 
 .sidebar{
@@ -39,13 +41,14 @@ main{
 }
 .card-head{
     /*background: #abd2ea;*/
+    background: #BC4123;
     text-align: center;
     height: 50px;
     font-size: 20px;
     color: #24476e;
 }
 .main-card-head{
-    /*background: #3887b8;*/
+    background: #BC4123;
     text-align: center;
     height: 50px;
     font-size: 20px;
