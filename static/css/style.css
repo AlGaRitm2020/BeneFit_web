@@ -29,7 +29,28 @@
     padding: 10px;
 }
 
-.content{
-    margin-left: 5rem;
+main{
+    background:#565c62;
 }
+
+.sidebar{
+   
+
+}
+.card-head{
+    /*background: #abd2ea;*/
+    text-align: center;
+    height: 50px;
+    font-size: 20px;
+    color: #24476e;
+}
+.main-card-head{
+    /*background: #3887b8;*/
+    text-align: center;
+    height: 50px;
+    font-size: 20px;
+    color: #24476e;
+}
+
+
 
