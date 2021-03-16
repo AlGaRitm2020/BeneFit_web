@@ -37,14 +37,12 @@ def load_user(user_id):
 @app.route("/")
 def home_page():
     """"Home page (/) show all current user news and all public news"""
-    db_sess = db_session.create_session()
-    # news = db_sess.query(News).filter(News.is_private != True)
-    # if current_user.is_authenticated:
-    #     news = db_sess.query(News).filter(
-    #         (News.user == current_user) | (News.is_private != True))
-    # else:
-    #     news = db_sess.query(News).filter(News.is_private != True)
     return render_template("index.html")
+
+@app.route("/calculator")
+def calculator_page():
+    """"Calculator page (/calculator)"""
+    return render_template("calculator.html")
 
 
 @app.route('/register', methods=['GET', 'POST'])
