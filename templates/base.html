@@ -24,10 +24,10 @@
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Главная</a>
+          <a class="nav-link active" aria-current="page" href="/">Главная</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Калькулятор</a>
+          <a class="nav-link" href="/calc">Калькулятор</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Тренировки</a>
@@ -53,8 +53,14 @@
       <div class="container-fluid">
         <a href=""></a>
         <form class="d-flex flex-space-between">
-          <button type="button" class="btn btn-outline-light">Войти</button>
-          <button type="button" class="btn btn-outline-secondary">Зарегистрироваться</button>
+              {% if current_user.is_authenticated %}
+    <a class="navbar-brand" href="/logout">{{ current_user.name }}</a>
+{% else %}
+    <p>
+        <a class="btn btn-primary " href="/register">Зарегистрироваться</a>
+        <a class="btn btn-success" href="/login">Войти</a>
+    </p>
+{% endif %}
         </form>
       </div>
     </div>
