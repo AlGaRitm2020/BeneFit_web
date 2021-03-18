@@ -6,8 +6,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from .db_session import SqlAlchemyBase
 from sqlalchemy import orm
 
-class User(SqlAlchemyBase, UserMixin):
-    __tablename__ = 'users'
+class User_login(SqlAlchemyBase, UserMixin):
+    __tablename__ = 'users_login'
 
     id = sqlalchemy.Column(sqlalchemy.Integer,
                            primary_key=True, autoincrement=True)

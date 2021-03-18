@@ -4,12 +4,10 @@
     <div class="card border-primary" style="width: 100%;">
           <div class="main-card-head bg-primary">{{ current_user.name }}</div>
           	<h2 class='display-4 text-center mb-5 strong header'>Главная</h2>
-            {% for ast in astronauts %}
-          <h2>{{ast}} - {{cabin}} {{loop.index}} {% if loop.first %}- капитан корабля{% endif %} </h2>
-
-      		{% endfor %}
-          </div>
-        </div>
+          	<a  class="btn btn-dark btn-download" href="https://drive.google.com/uc?export=download&id=1GCm08LI9zoYRPjuc3rPmdB6UnWu63nWS">Cкачать BeneFit-Desktop</a>
+          
+    </div>
+        
     
 
 {% endblock %}
