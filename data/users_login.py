@@ -19,6 +19,8 @@ class User_login(SqlAlchemyBase, UserMixin):
     created_date = sqlalchemy.Column(sqlalchemy.DateTime,
                                      default=datetime.datetime.now)
 
+    orm.relation("User_data", back_populates='user_login')
+
 
 
     def set_password(self, password):

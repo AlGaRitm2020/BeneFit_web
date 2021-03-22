@@ -37,16 +37,39 @@ def home_page():
     return render_template("index.html")
 
 
-@app.route("/calculator")
+@app.route("/calculator", methods=['GET', "POST"])
 def calculator_page():
     """"Calculator page (/calculator)"""
     form = CalculatorForm()
-    if form.validate_on_submit():
-        return render_template('calculator.html', title='Калькулятор',
-                               form=form,
-                               message="Easy wtf")
 
-    return render_template("calculator.html", title='Калькулятор', form=form, message='fadsfasd')
+    if form.validate_on_submit():
+        db_sess = db_session.create_session()
+        user_data = User_data()
+        user_data.weight = form.weight.data
+        user_data.height = form.height.data
+
+        current_user.user_data.append(user_data)
+        db_sess.merge(current_user)
+        db_sess.commit()
+
+    # if form.validate_on_submit():
+    #     # new session
+    #     db_sess = db_session.create_session()
+    #
+    #     print(current_user)
+    #
+    #
+    #
+    #     # user login info
+    #     user_data = User_data(
+    #         weight=form.weight.data,
+    #         height=form.height.data
+    #     )
+    #     db_sess.add(user_data)
+    #     db_sess.commit()
+
+
+    return render_template("calculator.html", title='Калькулятор', form=form, message='{Status message}')
 
 
 @app.route('/register', methods=['GET', 'POST'])
