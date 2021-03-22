@@ -1,10 +1,28 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class="card border-primary" style="width: 100%;">
-          <div class="main-card-head bg-primary">{{ current_user.name }}</div>
+   	<div class="card border-primary" style="width: 100%;">
+        <div class="main-card-head bg-primary">{{ current_user.name }}</div>
           	<h2 class='display-4 text-center mb-5 strong header'>Калькулятор</h2>
           	<p class='display-6 text-left'>Вес: {{current_user.weight}}</p>
+
+    	<form action="" method="post">
+        {{ form.hidden_tag() }}
+
+        <p>
+            {{ form.height.label }}<br>
+            {{ form.height(class="form-control", type="number") }}<br>
+            {% for error in form.height.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </p>
+
+    
+        <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+        <div>{{ message }}</div>
+    </form>
           
     </div>
         

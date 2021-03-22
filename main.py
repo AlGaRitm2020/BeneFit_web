@@ -7,11 +7,10 @@ from data import db_session
 from data.users_login import User_login
 from data.users_data import User_data
 
-
 # forms
+from forms.calculator_form import CalculatorForm
 from forms.register_form import RegisterForm
 from forms.login_form import LoginForm
-
 
 # extra modules
 import datetime
@@ -37,10 +36,17 @@ def home_page():
     """"Home page (/) show all current user news and all public news"""
     return render_template("index.html")
 
+
 @app.route("/calculator")
 def calculator_page():
     """"Calculator page (/calculator)"""
-    return render_template("calculator.html")
+    form = CalculatorForm()
+    if form.validate_on_submit():
+        return render_template('calculator.html', title='Калькулятор',
+                               form=form,
+                               message="Easy wtf")
+
+    return render_template("calculator.html", title='Калькулятор', form=form, message='fadsfasd')
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -112,9 +118,6 @@ def logout_page():
     kill current user session and redirect to home(/)"""
     logout_user()
     return redirect("/")
-
-
-
 
 
 def main():
