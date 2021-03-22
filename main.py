@@ -4,8 +4,7 @@ from flask_login import LoginManager, login_user, login_required, current_user, 
 
 # models
 from data import db_session
-from data.users_login import User_login
-from data.users_data import User_data
+from data.user import User
 
 # forms
 from forms.calculator_form import CalculatorForm
@@ -28,7 +27,7 @@ login_manager.init_app(app)
 def load_user(user_id):
     """"Get user with user_id"""
     db_sess = db_session.create_session()
-    return db_sess.query(User_login).get(user_id)
+    return db_sess.query(User).get(user_id)
 
 
 @app.route("/")
@@ -44,11 +43,11 @@ def calculator_page():
 
     if form.validate_on_submit():
         db_sess = db_session.create_session()
-        user_data = User_data()
+        user_data = User()
         user_data.weight = form.weight.data
         user_data.height = form.height.data
 
-        current_user.user_data.append(user_data)
+        current_user.user.append(user_data)
         db_sess.merge(current_user)
         db_sess.commit()
 
@@ -67,7 +66,6 @@ def calculator_page():
     #     )
     #     db_sess.add(user_data)
     #     db_sess.commit()
-
 
     return render_template("calculator.html", title='Калькулятор', form=form, message='{Status message}')
 
@@ -88,13 +86,12 @@ def reqister_page():
         # new session
         db_sess = db_session.create_session()
         # check registered
-        if db_sess.query(User_login).filter(User_login.email == form.email.data).first():
-            # this email was registered
+        if db_sess.query(User).filter(User.email == form.email.data).first():
             return render_template('register.html', title='Регистрация',
                                    form=form,
                                    message="Такой пользователь уже есть")
         # user login info
-        user_login = User_login(
+        user_login = User(
             name=form.name.data,
             email=form.email.data,
             about=form.about.data
@@ -119,7 +116,7 @@ def login_page():
     if form.validate_on_submit():
         db_sess = db_session.create_session()
         # user search
-        user = db_sess.query(User_login).filter(User_login.email == form.email.data).first()
+        user = db_sess.query(User).filter(User.email == form.email.data).first()
         # check password
         if user and user.check_password(form.password.data):
             login_user(user, remember=form.remember_me.data)
@@ -148,7 +145,7 @@ def main():
     db_session.global_init("db/users.db")
 
     app.run(port=8080, host='127.0.0.1')
-    print(load_user(1))
+
 
 
 if __name__ == '__main__':
