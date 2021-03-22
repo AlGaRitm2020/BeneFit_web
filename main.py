@@ -43,11 +43,11 @@ def calculator_page():
 
     if form.validate_on_submit():
         db_sess = db_session.create_session()
-        user_data = User()
-        user_data.weight = form.weight.data
-        user_data.height = form.height.data
+        # user_data = User()
+        current_user.weight = form.weight.data
+        current_user.height = form.height.data
 
-        current_user.user.append(user_data)
+        # current_user.append(user_data)
         db_sess.merge(current_user)
         db_sess.commit()
 
