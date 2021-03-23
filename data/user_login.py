@@ -10,7 +10,7 @@ class User_login(SqlAlchemyBase, UserMixin):
     __tablename__ = 'user_login'
 
     id = sqlalchemy.Column(sqlalchemy.Integer,
-                           primary_key=True, autoincrement=True)
+                           primary_key=True, autoincrement=True, nullable=True)
     name = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     about = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     email = sqlalchemy.Column(sqlalchemy.String,

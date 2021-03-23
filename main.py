@@ -44,15 +44,14 @@ def calculator_page():
 
     if form.validate_on_submit():
         db_sess = db_session.create_session()
-        # user_data = User()
 
-        current_user.user_inputs.height = form.height.data
-        current_user.user_inputs.weight = form.weight.data
+        current_user.user_inputs[0].weight = form.weight.data
+        current_user.user_inputs[0].height = form.height.data
 
 
         db_sess.merge(current_user)
         db_sess.commit()
-
+        return redirect('/')
 
     return render_template("calculator.html", title='Калькулятор', form=form, message='{Status message}')
 

@@ -11,11 +11,12 @@ class User_inputs(SqlAlchemyBase, UserMixin):
 
     user_id = sqlalchemy.Column(sqlalchemy.Integer,
                                 sqlalchemy.ForeignKey("user_login.id"),
-                                primary_key=True, autoincrement=True)
+                                primary_key=True, autoincrement=True, nullable=True)
 
     height = sqlalchemy.Column(sqlalchemy.Integer, nullable=True)
 
     weight = sqlalchemy.Column(sqlalchemy.Integer, nullable=True)
 
     user_login = orm.relation('User_login')
+
 
