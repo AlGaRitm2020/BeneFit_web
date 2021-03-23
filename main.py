@@ -45,6 +45,7 @@ def calculator_page():
     if form.validate_on_submit():
         db_sess = db_session.create_session()
 
+
         current_user.user_inputs[0].weight = form.weight.data
         current_user.user_inputs[0].height = form.height.data
 
@@ -83,10 +84,21 @@ def reqister_page():
             about=form.about.data
         )
 
+
         user_login.set_password(form.password.data)
         db_sess.add(user_login)
+
+        user_data = User_inputs(
+            weight=0,
+            height=0
+        )
+
+        user_login.user_inputs.append(user_data)
+        db_sess.merge(user_login)
         db_sess.commit()
+
         return redirect('/login')
+
     return render_template('register.html', title='Регистрация', form=form)
 
 
