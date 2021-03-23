@@ -6,8 +6,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from .db_session import SqlAlchemyBase
 from sqlalchemy import orm
 
-class User(SqlAlchemyBase, UserMixin):
-    __tablename__ = 'user'
+class User_login(SqlAlchemyBase, UserMixin):
+    __tablename__ = 'user_login'
 
     id = sqlalchemy.Column(sqlalchemy.Integer,
                            primary_key=True, autoincrement=True)
@@ -18,14 +18,8 @@ class User(SqlAlchemyBase, UserMixin):
     hashed_password = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     created_date = sqlalchemy.Column(sqlalchemy.DateTime,
                                      default=datetime.datetime.now)
-
-
-
-    height = sqlalchemy.Column(sqlalchemy.Integer, nullable=True)
-
-    weight = sqlalchemy.Column(sqlalchemy.Integer, nullable=True)
-
-
+    user_inputs = orm.relation("User_inputs", back_populates='user_login')
+    # user_results = orm.relation("User_results", back_populates='user_results')
 
     def set_password(self, password):
         self.hashed_password = generate_password_hash(password)
