@@ -52,10 +52,16 @@ def calculator_page():
 
         db_sess.merge(current_user)
         db_sess.commit()
-        return redirect('/')
+        return redirect('/calculator/results')
 
     return render_template("calculator.html", title='Калькулятор', form=form, message='{Status message}')
 
+@app.route('/calculator/results')
+def calculator_results_page():
+    weight = current_user.user_inputs[0].weight
+    height = current_user.user_inputs[0].height
+    BMI = round(weight / (height / 100) ** 2, 1)
+    return render_template('calculator_results.html', title='Регистрация', BMI=BMI)
 
 @app.route('/register', methods=['GET', 'POST'])
 def reqister_page():
