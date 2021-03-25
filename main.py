@@ -37,9 +37,13 @@ def home_page():
     """"Home page (/) show all current user news and all public news"""
     return render_template("index.html")
 
+@app.route("/calculators", methods=['GET', "POST"])
+def calculators_page():
+    """Show all calculators"""
+    return render_template("calculators.html", title='Калькулятор')
 
-@app.route("/calculator", methods=['GET', "POST"])
-def calculator_page():
+@app.route("/calculators/BMI", methods=['GET', "POST"])
+def calculator_BMI_page():
     """"Calculator page (/calculator)"""
     form = CalculatorForm()
 
@@ -52,10 +56,10 @@ def calculator_page():
             current_user.user_inputs[0].height = form.height.data
             db_sess.merge(current_user)
             db_sess.commit()
-            return redirect('/calculator/results')
+            return redirect('/calculators/BMI/results')
         else:
             "anonymous user"
-            return redirect('/calculator/results')
+            return redirect('/calculators/BMI/results')
 
     if current_user.is_authenticated:
         """Get user_inputs from database and insert into form"""
@@ -70,7 +74,7 @@ def calculator_page():
     return render_template("calculator.html", title='Калькулятор', form=form)
 
 
-@app.route('/calculator/results')
+@app.route('/calculators/BMI/results')
 def calculator_results_page(**json):
     weight = current_user.user_inputs[0].weight
     height = current_user.user_inputs[0].height
