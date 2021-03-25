@@ -1,9 +1,9 @@
 # flask framework
 from flask import Flask, render_template, request, make_response, session, redirect, abort
 from flask_login import LoginManager, login_user, login_required, current_user, logout_user
-
+from flask_restful import reqparse, abort, Api, Resource
 # models
-from data import db_session
+from data import db_session, restful_resourses
 from data.user_inputs import User_inputs
 from data.user_login import User_login
 
@@ -17,6 +17,7 @@ import datetime
 
 # flask init
 app = Flask(__name__)
+api = Api(app)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 
 # login manager init
@@ -43,25 +44,39 @@ def calculator_page():
     form = CalculatorForm()
 
     if form.validate_on_submit():
+        """Submit pressed"""
+        if current_user.is_authenticated:
+            """user was authenticated"""
+            db_sess = db_session.create_session()
+            current_user.user_inputs[0].weight = form.weight.data
+            current_user.user_inputs[0].height = form.height.data
+            db_sess.merge(current_user)
+            db_sess.commit()
+            return redirect('/calculator/results')
+        else:
+            "anonymous user"
+            return redirect('/calculator/results')
+
+    if current_user.is_authenticated:
+        """Get user_inputs from database and insert into form"""
         db_sess = db_session.create_session()
+        current_user_inputs = db_sess.query(User_inputs).filter(User_inputs.user_id == current_user.id).first()
+
+        form.height.data = current_user_inputs.height
+        form.weight.data = current_user_inputs.weight
 
 
-        current_user.user_inputs[0].weight = form.weight.data
-        current_user.user_inputs[0].height = form.height.data
 
+    return render_template("calculator.html", title='Калькулятор', form=form)
 
-        db_sess.merge(current_user)
-        db_sess.commit()
-        return redirect('/calculator/results')
-
-    return render_template("calculator.html", title='Калькулятор', form=form, message='{Status message}')
 
 @app.route('/calculator/results')
-def calculator_results_page():
+def calculator_results_page(**json):
     weight = current_user.user_inputs[0].weight
     height = current_user.user_inputs[0].height
     BMI = round(weight / (height / 100) ** 2, 1)
     return render_template('calculator_results.html', title='Регистрация', BMI=BMI)
+
 
 @app.route('/register', methods=['GET', 'POST'])
 def reqister_page():
@@ -89,7 +104,6 @@ def reqister_page():
             email=form.email.data,
             about=form.about.data
         )
-
 
         user_login.set_password(form.password.data)
         db_sess.add(user_login)
@@ -147,6 +161,9 @@ def logout_page():
 def main():
     """"Initilize database session and run application"""
     db_session.global_init("db/users.db")
+
+    # для одного объекта
+    api.add_resource(restful_resourses.InputsResource, '/api/user_inputs/<int:user_id>')
 
     app.run(port=8080, host='127.0.0.1')
 
