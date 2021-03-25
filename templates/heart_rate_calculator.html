@@ -1,0 +1,34 @@
+{% extends "calculator_template.html" %}
+
+{% block calculator_content %}
+
+        	{{ form.hidden_tag() }}
+	
+        	<p>
+        	    {{ form.age.label }}<br>
+        	    {{ form.age(class="form-control", type="number") }}<br>
+        	    {% for error in form.age.errors %}
+        	        <div class="alert alert-danger" role="alert">
+        	            {{ error }}
+        	        </div>
+        	    {% endfor %}
+        	</p>
+	
+
+	
+    		
+        	<p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+	
+       		{% if form.validate_on_submit():%}
+  
+            <p>Предельная частота сердечных сокращений: {{MHR}} ударов/мин</p>
+            <p>Тренировочный диапазон от {{THR_min}} до {{THR_max}}</p>
+
+
+       		{% endif %}
+
+        
+    
+
+{% endblock %}
+
