@@ -16,6 +16,9 @@ class User_inputs(SqlAlchemyBase, UserMixin):
     height = sqlalchemy.Column(sqlalchemy.Integer, nullable=True)
 
     weight = sqlalchemy.Column(sqlalchemy.Integer, nullable=True)
+    # age = sqlalchemy.Column(sqlalchemy.Integer, nullable=True)
+    # gender = sqlalchemy.Column(sqlalchemy.Boolean, nullable=True)
+
 
     user_login = orm.relation('User_login')
 

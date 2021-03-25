@@ -8,7 +8,7 @@ from data.user_inputs import User_inputs
 from data.user_login import User_login
 
 # forms
-from forms.calculator_form import CalculatorForm
+from forms.BMI_calculator_form import BMICalculatorForm
 from forms.register_form import RegisterForm
 from forms.login_form import LoginForm
 
@@ -37,29 +37,36 @@ def home_page():
     """"Home page (/) show all current user news and all public news"""
     return render_template("index.html")
 
+
 @app.route("/calculators", methods=['GET', "POST"])
 def calculators_page():
     """Show all calculators"""
     return render_template("calculators.html", title='Калькулятор')
 
+
 @app.route("/calculators/BMI", methods=['GET', "POST"])
 def calculator_BMI_page():
-    """"Calculator page (/calculator)"""
-    form = CalculatorForm()
+    """"BMI Calculator page
+    using weight and height"""
+
+    form = BMICalculatorForm()
 
     if form.validate_on_submit():
         """Submit pressed"""
+        weight = form.weight.data
+        height = form.height.data
         if current_user.is_authenticated:
-            """user was authenticated"""
+            """user was authenticated
+            save inputs to database"""
             db_sess = db_session.create_session()
-            current_user.user_inputs[0].weight = form.weight.data
-            current_user.user_inputs[0].height = form.height.data
+            current_user.user_inputs[0].weight = weight
+            current_user.user_inputs[0].height = height
             db_sess.merge(current_user)
             db_sess.commit()
-            return redirect('/calculators/BMI/results')
-        else:
-            "anonymous user"
-            return redirect('/calculators/BMI/results')
+            # anonymous
+
+        BMI = round(weight / (height / 100) ** 2, 1)
+        return render_template("calculator.html", title='Калькулятор', form=form, BMI=BMI)
 
     if current_user.is_authenticated:
         """Get user_inputs from database and insert into form"""
@@ -68,8 +75,6 @@ def calculator_BMI_page():
 
         form.height.data = current_user_inputs.height
         form.weight.data = current_user_inputs.weight
-
-
 
     return render_template("calculator.html", title='Калькулятор', form=form)
 
