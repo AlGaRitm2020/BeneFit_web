@@ -5,7 +5,7 @@
         	{{ form.hidden_tag() }}
 	
         	<p>
-        	    {{ form.height.label }}
+        	    {{ form.height.label }}<br>
         	    {{ form.height(class="form-control", type="number") }}<br>
         	    {% for error in form.height.errors %}
         	        <div class="alert alert-danger" role="alert">

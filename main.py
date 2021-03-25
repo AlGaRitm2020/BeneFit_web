@@ -9,6 +9,7 @@ from data.user_login import User_login
 
 # forms
 from forms.BMI_calculator_form import BMICalculatorForm
+from forms.heart_rate_calculator_form import HeartRateCalculatorForm
 from forms.register_form import RegisterForm
 from forms.login_form import LoginForm
 
@@ -45,7 +46,7 @@ def calculators_page():
 
 
 @app.route("/calculators/BMI", methods=['GET', "POST"])
-def calculator_BMI_page():
+def BMI_calculator_page():
     """"BMI Calculator page
     using weight and height"""
 
@@ -65,16 +66,56 @@ def calculator_BMI_page():
             db_sess.commit()
 
         BMI = round(weight / (height / 100) ** 2, 1)
-        return render_template("BMI_calculator.html", title='Калькулятор индекса массы тела', form=form, BMI=BMI)
+        return render_template("BMI_calculator.html", title='Калькулятор индекса массы тела',
+                               form=form, BMI=BMI)
     if current_user.is_authenticated:
         """Get user_inputs from database and insert into form"""
         db_sess = db_session.create_session()
-        current_user_inputs = db_sess.query(User_inputs).filter(User_inputs.user_id == current_user.id).first()
+        current_user_inputs = db_sess.query(User_inputs).filter(
+            User_inputs.user_id == current_user.id).first()
 
         form.height.data = current_user_inputs.height
         form.weight.data = current_user_inputs.weight
     return render_template("BMI_calculator.html", title='Калькулятор индекса массы тела', form=form)
 
+
+@app.route("/calculators/heart_rate", methods=['GET', "POST"])
+def heart_rate_calculator_page():
+    """"Heart Rate Calculator page
+    using age"""
+
+    form = HeartRateCalculatorForm()
+
+    if form.validate_on_submit():
+        """Submit pressed"""
+        age = form.age.data
+        if current_user.is_authenticated:
+            """user was authenticated
+            save inputs to database"""
+            db_sess = db_session.create_session()
+            current_user.user_inputs[0].age = age
+
+            db_sess.merge(current_user)
+            db_sess.commit()
+
+        max_heart_rate = 220 - age
+        training_heart_rate_min = round((220 - age) * 0.65)
+        training_heart_rate_max = round((220 - age) * 0.85)
+        return render_template("heart_rate_calculator.html",
+                               title='Калькулятор частоты сердечных сокращений', form=form,
+                               MHR=max_heart_rate, THR_min=training_heart_rate_min,
+                               THR_max=training_heart_rate_max)
+
+    if current_user.is_authenticated:
+        """Get user_inputs from database and insert into form"""
+        db_sess = db_session.create_session()
+        current_user_inputs = db_sess.query(User_inputs).filter(
+            User_inputs.user_id == current_user.id).first()
+
+        form.age.data = current_user_inputs.age
+
+    return render_template("heart_rate_calculator.html",
+                           title='Калькулятор частоты сердечных сокращений', form=form)
 
 
 @app.route('/register', methods=['GET', 'POST'])

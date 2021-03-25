@@ -5,8 +5,8 @@ from wtforms.validators import DataRequired
 
 
 class BMICalculatorForm(FlaskForm):
-    height = IntegerField('Рост', validators=[DataRequired()])
-    weight = IntegerField('Вес', validators=[DataRequired()])
+    height = IntegerField('Рост, см', validators=[DataRequired()])
+    weight = IntegerField('Вес, кг', validators=[DataRequired()])
 
 
     # remember_me = BooleanField('Рассчитать процент жира')

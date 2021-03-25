@@ -5,9 +5,7 @@ from wtforms.validators import DataRequired
 
 
 class HeartRateCalculatorForm(FlaskForm):
-    age = IntegerField('Рост', validators=[DataRequired()])
+    age = IntegerField('Возраст, лет', validators=[DataRequired()])
 
 
-
-    # remember_me = BooleanField('Рассчитать процент жира')
-    submit = SubmitField('Рассчитать ИМТ')
+    submit = SubmitField('Рассчитать ЧСС')
