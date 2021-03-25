@@ -63,11 +63,9 @@ def calculator_BMI_page():
             current_user.user_inputs[0].height = height
             db_sess.merge(current_user)
             db_sess.commit()
-            # anonymous
 
         BMI = round(weight / (height / 100) ** 2, 1)
         return render_template("BMI_calculator.html", title='Калькулятор индекса массы тела', form=form, BMI=BMI)
-
     if current_user.is_authenticated:
         """Get user_inputs from database and insert into form"""
         db_sess = db_session.create_session()
@@ -75,16 +73,8 @@ def calculator_BMI_page():
 
         form.height.data = current_user_inputs.height
         form.weight.data = current_user_inputs.weight
-
     return render_template("BMI_calculator.html", title='Калькулятор индекса массы тела', form=form)
 
-
-@app.route('/calculators/BMI/results')
-def calculator_results_page(**json):
-    weight = current_user.user_inputs[0].weight
-    height = current_user.user_inputs[0].height
-    BMI = round(weight / (height / 100) ** 2, 1)
-    return render_template('calculator_results.html', title='Регистрация', BMI=BMI)
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -118,8 +108,15 @@ def reqister_page():
         db_sess.add(user_login)
 
         user_data = User_inputs(
-            weight=0,
-            height=0
+            weight=70,
+            height=175,
+            age=25,
+            gender=True,
+            activity=2,
+            wrists=18,
+            waist=70,
+            neck=25,
+            hip=80
         )
 
         user_login.user_inputs.append(user_data)

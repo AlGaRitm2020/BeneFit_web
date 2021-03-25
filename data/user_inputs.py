@@ -12,14 +12,17 @@ class User_inputs(SqlAlchemyBase, UserMixin):
     user_id = sqlalchemy.Column(sqlalchemy.Integer,
                                 sqlalchemy.ForeignKey("user_login.id"),
                                 primary_key=True, autoincrement=True, nullable=True)
-
     height = sqlalchemy.Column(sqlalchemy.Integer, nullable=True)
-
     weight = sqlalchemy.Column(sqlalchemy.Integer, nullable=True)
-    # age = sqlalchemy.Column(sqlalchemy.Integer, nullable=True)
-    # gender = sqlalchemy.Column(sqlalchemy.Boolean, nullable=True)
+    age = sqlalchemy.Column(sqlalchemy.Integer, nullable=True)
+    gender = sqlalchemy.Column(sqlalchemy.Boolean, nullable=True)
+    activity = sqlalchemy.Column(sqlalchemy.Integer, nullable=True)
+    wrists = sqlalchemy.Column(sqlalchemy.Integer, nullable=True)
+    waist = sqlalchemy.Column(sqlalchemy.Integer, nullable=True)
+    neck = sqlalchemy.Column(sqlalchemy.Integer, nullable=True)
+    hip = sqlalchemy.Column(sqlalchemy.Integer, nullable=True)
 
-
+    # add relation with main user table
     user_login = orm.relation('User_login')
 
 
