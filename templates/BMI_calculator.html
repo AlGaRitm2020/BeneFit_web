@@ -1,0 +1,53 @@
+{% extends "calculator_template.html" %}
+
+{% block calculator_content %}
+
+        	{{ form.hidden_tag() }}
+	
+        	<p>
+        	    {{ form.height.label }}
+        	    {{ form.height(class="form-control", type="number") }}<br>
+        	    {% for error in form.height.errors %}
+        	        <div class="alert alert-danger" role="alert">
+        	            {{ error }}
+        	        </div>
+        	    {% endfor %}
+        	</p>
+	
+        	<p>
+        	    {{ form.weight.label }}<br>
+        	    {{ form.weight(class="form-control", type="number") }}<br>
+        	    {% for error in form.weight.errors %}
+        	        <div class="alert alert-danger" role="alert">
+        	            {{ error }}
+        	        </div>
+        	    {% endfor %}
+        	</p>
+	
+    		
+        	<p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+	
+       		{% if form.validate_on_submit():%}
+       			<p>Ваш индекс массы тела равен {{BMI}}</p>
+       			{% if BMI >= 40 %}
+       			    <p class='text-danger'>Ожирение третьей степени </p>
+       			{% elif BMI >= 35%}
+       			    <p class='text-danger'>Ожирение второй степени </p>
+       			{% elif BMI >= 30%}
+       			    <p class='text-danger'>Ожирение первой степени </p>
+       			{% elif BMI >= 25%}
+       			    <p class='text-warning'>Избыточная масса тела </p>
+       			{% elif BMI >= 18.5%}
+       			    <p class='text-success'>Норма</p>
+       			{% elif BMI > 16%}
+       			    <p class='text-warning'>Недостаточная масса тела </p>
+       			{% else %}
+       			    <p class='text-danger'>Выраженный дефицит массы тела</p>
+       			{% endif %}
+       		{% endif %}
+
+        
+    
+
+{% endblock %}
+

@@ -66,7 +66,7 @@ def calculator_BMI_page():
             # anonymous
 
         BMI = round(weight / (height / 100) ** 2, 1)
-        return render_template("calculator.html", title='Калькулятор', form=form, BMI=BMI)
+        return render_template("BMI_calculator.html", title='Калькулятор индекса массы тела', form=form, BMI=BMI)
 
     if current_user.is_authenticated:
         """Get user_inputs from database and insert into form"""
@@ -76,7 +76,7 @@ def calculator_BMI_page():
         form.height.data = current_user_inputs.height
         form.weight.data = current_user_inputs.weight
 
-    return render_template("calculator.html", title='Калькулятор', form=form)
+    return render_template("BMI_calculator.html", title='Калькулятор индекса массы тела', form=form)
 
 
 @app.route('/calculators/BMI/results')
