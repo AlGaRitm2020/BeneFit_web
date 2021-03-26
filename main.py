@@ -9,6 +9,7 @@ from data.user_login import User_login
 
 # forms
 from forms.BMI_calculator_form import BMICalculatorForm
+from forms.body_type_calculator_form import BodyTypeCalculatorForm
 from forms.calorie_calculator_form import CalorieCalculatorForm
 from forms.heart_rate_calculator_form import HeartRateCalculatorForm
 from forms.register_form import RegisterForm
@@ -234,6 +235,53 @@ def calories_calculator_page():
 
     return render_template("calories_calculator.html",
                            title='Калькулятор дневной нормы калорий', form=form)
+
+
+@app.route("/calculators/body_type", methods=['GET', "POST"])
+def body_type_calculator_page():
+    """"Body Type Calculator page
+    using wrists"""
+
+    form = BodyTypeCalculatorForm()
+
+    if form.validate_on_submit():
+        """Submit pressed"""
+        wrists = form.wrists.data
+        gender = form.gender.data
+        if current_user.is_authenticated:
+            """user was authenticated
+            save inputs to database"""
+            db_sess = db_session.create_session()
+            current_user.user_inputs[0].wrists = wrists
+            current_user.user_inputs[0].gender = gender
+            db_sess.merge(current_user)
+            db_sess.commit()
+
+        if wrists < 18 and gender == 'Мужской' or wrists < 15 and not gender == 'Мужской':
+            body_type_response = "Эктоморф"
+            body_type_index = 0
+        elif wrists > 20 and gender == 'Мужской' or wrists > 17 and not gender == 'Мужской':
+            body_type_response = 'Эндоморф'
+            body_type_index = 1
+        else:
+            body_type_response = "Мезоморф"
+            body_type_index = 2
+
+        return render_template("body_type_calculator.html",
+                               title='Калькулятор частоты сердечных сокращений', form=form,
+                               body_type=body_type_response)
+
+    if current_user.is_authenticated:
+        """Get user_inputs from database and insert into form"""
+        db_sess = db_session.create_session()
+        current_user_inputs = db_sess.query(User_inputs).filter(
+            User_inputs.user_id == current_user.id).first()
+
+        form.wrists.data = current_user_inputs.wrists
+        form.gender.data = current_user_inputs.gender
+
+    return render_template("body_type_calculator.html",
+                           title='Калькулятор частоты сердечных сокращений', form=form)
 
 
 @app.route('/register', methods=['GET', 'POST'])

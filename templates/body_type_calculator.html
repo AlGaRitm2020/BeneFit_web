@@ -4,19 +4,17 @@
 
         	{{ form.hidden_tag() }}
 	
-        
-	
         	<p>
-        	    {{ form.weight.label }}<br>
-        	    {{ form.weight(class="form-control", type="number") }}<br>
-        	    {% for error in form.weight.errors %}
+        	    {{ form.wrists.label }}<br>
+        	    {{ form.wrists(class="form-control", type="number") }}<br>
+        	    {% for error in form.wrists.errors %}
         	        <div class="alert alert-danger" role="alert">
         	            {{ error }}
         	        </div>
         	    {% endfor %}
         	</p>
 
-          <p>
+            <p>
               {{ form.gender.label }}<br>
               {{ form.gender(class="form-control", type="string") }}<br>
               {% for error in form.gender.errors %}
@@ -25,23 +23,17 @@
                   </div>
               {% endfor %}
           </p>
+	
 
-          <p>
-              {{ form.activity.label }}<br>
-              {{ form.activity(class="form-control", type="select") }}<br>
-              {% for error in form.activity.errors %}
-                  <div class="alert alert-danger" role="alert">
-                      {{ error }}
-                  </div>
-              {% endfor %}
-          </p>
 	
     		
         	<p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
 	
        		{% if form.validate_on_submit():%}
-       			<p>Ваша норма воды равна {{water_norm}} литра</p>
-       			
+  
+            <p>Ваш тип телосложения: {{body_type}}</p>
+
+
        		{% endif %}
 
         
