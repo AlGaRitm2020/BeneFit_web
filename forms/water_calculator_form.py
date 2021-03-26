@@ -3,12 +3,16 @@ from wtforms import PasswordField, SubmitField, BooleanField, IntegerField, Sele
 from wtforms.fields.html5 import EmailField
 from wtforms.validators import DataRequired
 
+
 class WaterCalculatorForm(FlaskForm):
     gender = RadioField('Пол', choices=['Мужской', 'Женский'])
     weight = IntegerField('Вес', validators=[DataRequired()])
     activity = SelectField(u'Укажите ваш уровень физической активности',
-                           choices=[('Очень низкая', 0), ('Низкая', 1), ('Средняя', 2), ('Высокая', 3),
-                                    ('Очень высокая', 4)],
+                           choices=[(0, 'Сидячий образ жизни'),
+                                    (1, 'Редкие тренировки'),
+                                    (2, 'Тренировки 3 - 4 раза в неделю'),
+                                    (3, 'Тренировки 5 - 6 раз в неделю'),
+                                    (4, 'Ежедневные интенсивные тренировки')],
                            validators=[DataRequired()])
     # remember_me = BooleanField('Рассчитать процент жира')
-    submit = SubmitField('Рассчитать ИМТ')
+    submit = SubmitField('Рассчитать дневную норму воды')

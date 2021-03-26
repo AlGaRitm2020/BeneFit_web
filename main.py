@@ -17,6 +17,8 @@ from forms.login_form import LoginForm
 import datetime
 
 # flask init
+from forms.water_calculator_form import WaterCalculatorForm
+
 app = Flask(__name__)
 api = Api(app)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
@@ -118,6 +120,53 @@ def heart_rate_calculator_page():
                            title='Калькулятор частоты сердечных сокращений', form=form)
 
 
+@app.route("/calculators/water", methods=['GET', "POST"])
+def water_calculator_page():
+    """"Water Calculator page
+    using gender, weight, activity"""
+
+    form = WaterCalculatorForm()
+
+    if form.validate_on_submit():
+
+        """Submit pressed"""
+        weight = form.weight.data
+        gender = form.gender.data
+        activity = int(form.activity.data)
+
+        if current_user.is_authenticated:
+            """user was authenticated
+            save inputs to database"""
+            db_sess = db_session.create_session()
+            current_user.user_inputs[0].weight = weight
+            current_user.user_inputs[0].gender = gender
+            current_user.user_inputs[0].activity = activity
+
+            db_sess.merge(current_user)
+            db_sess.commit()
+        if gender == 'Мужской':
+            water_norm = round((weight * 34.92 + activity * 251) / 1000, 1)
+        else:
+            water_norm = round((weight * 31.71 + activity * 251) / 1000, 1)
+
+        return render_template("water_calculator.html",
+                               title='Калькулятор дневной нормы воды', form=form,
+                               water_norm=water_norm)
+
+    if current_user.is_authenticated:
+        """Get user_inputs from database and insert into form"""
+        db_sess = db_session.create_session()
+        current_user_inputs = db_sess.query(User_inputs).filter(
+            User_inputs.user_id == current_user.id).first()
+
+        form.weight.data = current_user_inputs.weight
+        form.gender.data = current_user_inputs.gender
+        form.activity.data = str(current_user_inputs.activity)
+
+    return render_template("water_calculator.html",
+                           title='Калькулятор дневной нормы воды', form=form)
+
+
 @app.route('/register', methods=['GET', 'POST'])
 def reqister_page():
     """"Register user with Register Form
@@ -152,7 +201,7 @@ def reqister_page():
             weight=70,
             height=175,
             age=25,
-            gender=True,
+            gender="Male",
             activity=2,
             wrists=18,
             waist=70,
