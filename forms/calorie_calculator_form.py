@@ -4,9 +4,12 @@ from wtforms.fields.html5 import EmailField
 from wtforms.validators import DataRequired
 
 
-class WaterCalculatorForm(FlaskForm):
-    gender = RadioField('Пол', choices=['Мужской', 'Женский'])
+class CalorieCalculatorForm(FlaskForm):
     weight = IntegerField('Вес, кг', validators=[DataRequired()])
+    height = IntegerField('Рост, см', validators=[DataRequired()])
+    age = IntegerField('Возраст, лет', validators=[DataRequired()])
+    gender = RadioField('Пол', choices=['Мужской', 'Женский'])
+
     activity = SelectField(u'Укажите ваш уровень физической активности',
                            choices=[(0, 'Сидячий образ жизни'),
                                     (1, 'Редкие тренировки'),
@@ -15,4 +18,4 @@ class WaterCalculatorForm(FlaskForm):
                                     (4, 'Ежедневные интенсивные тренировки')],
                            validators=[DataRequired()])
     # remember_me = BooleanField('Рассчитать процент жира')
-    submit = SubmitField('Рассчитать дневную норму воды')
+    submit = SubmitField('Рассчитать дневную норму калорий')

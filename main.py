@@ -9,6 +9,7 @@ from data.user_login import User_login
 
 # forms
 from forms.BMI_calculator_form import BMICalculatorForm
+from forms.calorie_calculator_form import CalorieCalculatorForm
 from forms.heart_rate_calculator_form import HeartRateCalculatorForm
 from forms.register_form import RegisterForm
 from forms.login_form import LoginForm
@@ -165,6 +166,74 @@ def water_calculator_page():
 
     return render_template("water_calculator.html",
                            title='Калькулятор дневной нормы воды', form=form)
+
+
+@app.route("/calculators/calories", methods=['GET', "POST"])
+def calories_calculator_page():
+    """"Calories Calculator page
+    using gender, weight, height, age, activity"""
+
+    form = CalorieCalculatorForm()
+
+    if form.validate_on_submit():
+
+        """Submit pressed"""
+        weight = form.weight.data
+        height = form.height.data
+        age = form.age.data
+        gender = form.gender.data
+        activity = int(form.activity.data)
+
+        if current_user.is_authenticated:
+            """user was authenticated
+            save inputs to database"""
+            db_sess = db_session.create_session()
+            current_user.user_inputs[0].weight = weight
+            current_user.user_inputs[0].height = height
+            current_user.user_inputs[0].age = age
+            current_user.user_inputs[0].gender = gender
+            current_user.user_inputs[0].activity = activity
+
+            db_sess.merge(current_user)
+            db_sess.commit()
+
+        """Calculate physical activity quotient"""
+        if activity == 0:
+            physical_activity_quotient = 1.2
+        elif activity == 1:
+            physical_activity_quotient = 1.375
+        elif activity == 2:
+            physical_activity_quotient = 1.55
+        elif activity == 3:
+            physical_activity_quotient = 1.725
+        else:
+            physical_activity_quotient = 1.9
+
+        if gender == 'Мужской':
+            calories_norm = round(
+                (((weight * 10) + (height * 6.25) - (age * 5)) + 5) * physical_activity_quotient)
+        else:
+            calories_norm = round(
+                (((weight * 10) + (height * 6.25) - (age * 5)) - 161) * physical_activity_quotient)
+
+        return render_template("calories_calculator.html",
+                               title='Калькулятор дневной нормы калорий', form=form,
+                               calories_norm=calories_norm)
+
+    if current_user.is_authenticated:
+        """Get user_inputs from database and insert into form"""
+        db_sess = db_session.create_session()
+        current_user_inputs = db_sess.query(User_inputs).filter(
+            User_inputs.user_id == current_user.id).first()
+
+        form.weight.data = current_user_inputs.weight
+        form.height.data = current_user_inputs.height
+        form.age.data = current_user_inputs.age
+        form.gender.data = current_user_inputs.gender
+        form.activity.data = str(current_user_inputs.activity)
+
+    return render_template("calories_calculator.html",
+                           title='Калькулятор дневной нормы калорий', form=form)
 
 
 @app.route('/register', methods=['GET', 'POST'])
