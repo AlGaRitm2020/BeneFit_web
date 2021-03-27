@@ -85,4 +85,15 @@ main{
     margin: auto;
 }
 
+.calculator-result{
+    font-size:30px;
+}
+
+.calculator-result-value{
+    font-weight:800;
+    font-size:40px;
+    color:#BC4123;
+
+
+}
 

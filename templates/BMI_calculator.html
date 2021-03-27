@@ -28,21 +28,21 @@
         	<p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
 	
        		{% if form.validate_on_submit():%}
-       			<p>Ваш индекс массы тела равен {{BMI}}</p>
+<p class="calculator-result">Ваш индекс массы тела равен <strong class="calculator-result-value">{{BMI}}</strong></p>
        			{% if BMI >= 40 %}
-       			    <p class='text-danger'>Ожирение третьей степени </p>
+       			    <p class='text-danger calculator-result'>Ожирение третьей степени </p>
        			{% elif BMI >= 35%}
-       			    <p class='text-danger'>Ожирение второй степени </p>
+       			    <p class='text-danger calculator-result'>Ожирение второй степени </p>
        			{% elif BMI >= 30%}
-       			    <p class='text-danger'>Ожирение первой степени </p>
+       			    <p class='text-danger calculator-result'>Ожирение первой степени </p>
        			{% elif BMI >= 25%}
-       			    <p class='text-warning'>Избыточная масса тела </p>
+       			    <p class='text-warning calculator-result'>Избыточная масса тела </p>
        			{% elif BMI >= 18.5%}
-       			    <p class='text-success'>Норма</p>
+       			    <p class='text-success calculator-result'>Норма</p>
        			{% elif BMI > 16%}
-       			    <p class='text-warning'>Недостаточная масса тела </p>
+       			    <p class='text-warning calculator-result'>Недостаточная масса тела </p>
        			{% else %}
-       			    <p class='text-danger'>Выраженный дефицит массы тела</p>
+       			    <p class='text-danger calculator-result'>Выраженный дефицит массы тела</p>
        			{% endif %}
        		{% endif %}
 

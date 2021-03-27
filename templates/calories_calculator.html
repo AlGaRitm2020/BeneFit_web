@@ -60,7 +60,7 @@
         	<p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
 	
        		{% if form.validate_on_submit():%}
-       			<p>Ваша норма калорий равна {{calories_norm}} ккал</p>
+<p class="calculator-result">Ваша норма калорий равна <strong class="calculator-result-value">{{calories_norm}}</strong> ккал</p>
        			
        		{% endif %}
 

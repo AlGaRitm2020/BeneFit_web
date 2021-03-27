@@ -40,7 +40,7 @@
         	<p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
 	
        		{% if form.validate_on_submit():%}
-       			<p>Ваша норма воды равна {{water_norm}} литра</p>
+<p class="calculator-result">Ваша норма воды равна <strong class="calculator-result-value">{{water_norm}}></strong> литра</p>
        			
        		{% endif %}
 

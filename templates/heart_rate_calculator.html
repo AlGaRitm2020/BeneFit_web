@@ -21,8 +21,8 @@
 	
        		{% if form.validate_on_submit():%}
   
-            <p>Предельная частота сердечных сокращений: {{MHR}} ударов/мин</p>
-            <p>Тренировочный диапазон от {{THR_min}} до {{THR_max}}</p>
+            <p class="calculator-result">Предельная частота сердечных сокращений: <strong class="calculator-result-value">{{MHR}}</strong> ударов/мин</p>
+			<p class="calculator-result">Тренировочный диапазон от <strong class="calculator-result-value">{{THR_min}}</strong> до <strong class="calculator-result-value">{{THR_max}}</strong></p>
 
 
        		{% endif %}
