@@ -322,9 +322,10 @@ def body_fat_calculator_page():
             body_fat = round(
                 495 / (1.29579 - 0.35004 * (log10(waist + hip - neck)) + 0.22100 * (
                     log10(height))) - 450, 1)
-
+        print(body_fat)
         return render_template("body_fat_calculator.html",
-                               title='Калькулятор типа телосложения', form=form)
+                               title='Калькулятор процента жира', form=form,
+                               body_fat=body_fat)
 
     if current_user.is_authenticated:
         """Get user_inputs from database and insert into form"""
