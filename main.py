@@ -1,4 +1,6 @@
 # flask framework
+from math import log10
+
 from flask import Flask, render_template, request, make_response, session, redirect, abort
 from flask_login import LoginManager, login_user, login_required, current_user, logout_user
 from flask_restful import reqparse, abort, Api, Resource
@@ -9,6 +11,7 @@ from data.user_login import User_login
 
 # forms
 from forms.BMI_calculator_form import BMICalculatorForm
+from forms.body_fat_calculator_form import BodyFatCalculatorForm
 from forms.body_type_calculator_form import BodyTypeCalculatorForm
 from forms.calorie_calculator_form import CalorieCalculatorForm
 from forms.heart_rate_calculator_form import HeartRateCalculatorForm
@@ -268,7 +271,7 @@ def body_type_calculator_page():
             body_type_index = 2
 
         return render_template("body_type_calculator.html",
-                               title='Калькулятор частоты сердечных сокращений', form=form,
+                               title='Калькулятор типа телосложения', form=form,
                                body_type=body_type_response)
 
     if current_user.is_authenticated:
@@ -281,7 +284,62 @@ def body_type_calculator_page():
         form.gender.data = current_user_inputs.gender
 
     return render_template("body_type_calculator.html",
-                           title='Калькулятор частоты сердечных сокращений', form=form)
+                           title='Калькулятор типа телосложения', form=form)
+
+
+@app.route("/calculators/body_fat", methods=['GET', "POST"])
+def body_fat_calculator_page():
+    """"Body Fat Calculator page
+    using gender, waist, neck, hip"""
+    form = BodyFatCalculatorForm()
+    if form.gender == "Женский":
+        print('female')
+    if form.validate_on_submit():
+        """Submit pressed"""
+        height = form.height.data
+        waist = form.waist.data
+        neck = form.neck.data
+        hip = form.hip.data
+        gender = form.gender.data
+
+        if current_user.is_authenticated:
+            """user was authenticated
+            save inputs to database"""
+            db_sess = db_session.create_session()
+            current_user.user_inputs[0].height = height
+            current_user.user_inputs[0].waist = waist
+            current_user.user_inputs[0].neck = neck
+            current_user.user_inputs[0].hip = hip
+            current_user.user_inputs[0].gender = gender
+            db_sess.merge(current_user)
+            db_sess.commit()
+
+        if gender == 'Мужской':
+            body_fat = round(
+                495 / (1.0324 - 0.19077 * (log10(waist - neck)) + 0.15456 * (log10(height))) - 450.1,
+                1)
+        else:
+            body_fat = round(
+                495 / (1.29579 - 0.35004 * (log10(waist + hip - neck)) + 0.22100 * (
+                    log10(height))) - 450, 1)
+
+        return render_template("body_fat_calculator.html",
+                               title='Калькулятор типа телосложения', form=form)
+
+    if current_user.is_authenticated:
+        """Get user_inputs from database and insert into form"""
+        db_sess = db_session.create_session()
+        current_user_inputs = db_sess.query(User_inputs).filter(
+            User_inputs.user_id == current_user.id).first()
+
+        form.height.data = current_user_inputs.height
+        form.waist.data = current_user_inputs.waist
+        form.neck.data = current_user_inputs.neck
+        form.hip.data = current_user_inputs.hip
+        form.gender.data = current_user_inputs.gender
+
+    return render_template("body_fat_calculator.html",
+                           title='Калькулятор процента жира', form=form)
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -290,6 +348,7 @@ def reqister_page():
     Fields: name, email, about, password"""
     form = RegisterForm()
     # register button
+
     if form.validate_on_submit():
         # check password match
         if form.password.data != form.password_again.data:
