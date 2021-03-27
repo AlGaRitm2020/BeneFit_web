@@ -6,7 +6,7 @@
 	
         	<p>
         	    {{ form.age.label }}<br>
-        	    {{ form.age(class="form-control", type="number") }}<br>
+        	    {{ form.age(class="form-control", type="number", min='14', max='130') }}<br>
         	    {% for error in form.age.errors %}
         	        <div class="alert alert-danger" role="alert">
         	            {{ error }}

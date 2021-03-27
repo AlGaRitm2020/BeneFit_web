@@ -8,7 +8,7 @@
 	
         	<p>
         	    {{ form.weight.label }}<br>
-        	    {{ form.weight(class="form-control", type="number") }}<br>
+        	    {{ form.weight(class="form-control", type="number", min='20', max='500') }}<br>
         	    {% for error in form.weight.errors %}
         	        <div class="alert alert-danger" role="alert">
         	            {{ error }}

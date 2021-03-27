@@ -6,7 +6,7 @@
 	
         	<p>
         	    {{ form.height.label }}<br>
-        	    {{ form.height(class="form-control", type="number") }}<br>
+        	    {{ form.height(class="form-control", type="number", min='60', max='250') }}<br>
         	    {% for error in form.height.errors %}
         	        <div class="alert alert-danger" role="alert">
         	            {{ error }}
@@ -16,7 +16,7 @@
 	
         	<p>
         	    {{ form.weight.label }}<br>
-        	    {{ form.weight(class="form-control", type="number") }}<br>
+        	    {{ form.weight(class="form-control", type="number", min='20', max='500') }}<br>
         	    {% for error in form.weight.errors %}
         	        <div class="alert alert-danger" role="alert">
         	            {{ error }}

@@ -6,7 +6,7 @@
 	
         	<p>
         	    {{ form.wrists.label }}<br>
-        	    {{ form.wrists(class="form-control", type="number") }}<br>
+        	    {{ form.wrists(class="form-control", type="number", max="30", min="10") }}<br>
         	    {% for error in form.wrists.errors %}
         	        <div class="alert alert-danger" role="alert">
         	            {{ error }}
@@ -16,7 +16,7 @@
 
             <p>
               {{ form.gender.label }}<br>
-              {{ form.gender(class="form-control", type="string") }}<br>
+              {{ form.gender(class="form-control", type="radio") }}<br>
               {% for error in form.gender.errors %}
                   <div class="alert alert-danger" role="alert">
                       {{ error }}
