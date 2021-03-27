@@ -1,4 +1,5 @@
 # flask framework
+import os
 from math import log10
 
 from flask import Flask, render_template, request, make_response, session, redirect, abort
@@ -430,16 +431,19 @@ def logout_page():
     logout_user()
     return redirect("/")
 
-
+"""
 def main():
-    """"Initilize database session and run application"""
+    
     db_session.global_init("db/users.db")
 
     # для одного объекта
     api.add_resource(restful_resourses.InputsResource, '/api/user_inputs/<int:user_id>')
 
     app.run(port=8080, host='127.0.0.1')
+"""
 
 
 if __name__ == '__main__':
-    main()
+    db_session.global_init("db/users.db")
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
