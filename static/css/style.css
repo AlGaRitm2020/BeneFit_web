@@ -1,7 +1,7 @@
 *{
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 .header {
@@ -16,13 +16,15 @@
 .base{
     margin-bottom: 2rem;
 }
-nav{
-    background: #463940;
+
+
+.calculator-form{
+    padding: 2rem 0;
 }
 
 
 .form{
-	margin-left: auto;
+    margin-left: auto;
     margin-right: auto;
     max-width: 450px;
     background-color: #ffcc00;
@@ -32,34 +34,8 @@ nav{
 }
 
 main{
-<<<<<<< HEAD
-    background:#0B172A;
-}
-
-.sidebar{
-   
-
-=======
     background:#565c62;
->>>>>>> ae2a5d5 (Sidebar card)
 }
-.card-head{
-    /*background: #abd2ea;*/
-    background: #BC4123;
-    text-align: center;
-    height: 50px;
-    font-size: 20px;
-    color: #24476e;
-}
-.main-card-head{
-    background: #BC4123;
-    text-align: center;
-    height: 50px;
-    font-size: 20px;
-    color: #24476e;
-}
-
-
 
 .sidebar{
    
@@ -69,15 +45,18 @@ main{
     /*background: #abd2ea;*/
     text-align: center;
     height: 50px;
-    font-size: 20px;
+    font-size: 30px;
     color: #24476e;
+    
 }
 .main-card-head{
     /*background: #3887b8;*/
     text-align: center;
     height: 50px;
-    font-size: 20px;
+    font-size: 30px;
     color: #24476e;
+    font-weight: 900;
+
 }
 
 .btn-download{
