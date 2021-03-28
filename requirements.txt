@@ -1,4 +1,0 @@
-flask
-flask_wtf
-wtforms
-flask_restful
