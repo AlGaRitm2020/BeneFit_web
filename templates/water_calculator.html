@@ -18,7 +18,7 @@
 
           <p>
               {{ form.gender.label }}<br>
-              {{ form.gender(class="form-control", type="string") }}<br>
+              {{ form.gender(class="form-control form-field-gender", type="string") }}<br>
               {% for error in form.gender.errors %}
                   <div class="alert alert-danger" role="alert">
                       {{ error }}
@@ -37,7 +37,7 @@
           </p>
 	
     		
-        	<p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+        	<p>{{ form.submit(type="submit", class="btn calculator-btn") }}</p>
 	
        		{% if form.validate_on_submit():%}
 <p class="calculator-result">Ваша норма воды равна <strong class="calculator-result-value">{{water_norm}}</strong> литра</p>

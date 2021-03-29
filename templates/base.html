@@ -13,9 +13,9 @@
 
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light nav fixed-top">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">BeneFit</a>
+    <a class="nav-brand navbar-brand" href="/">BeneFit</a>
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -40,8 +40,6 @@
             <li><a class="dropdown-item" href="/calculators/calories">Калькулятор калорийности рациона</a></li>
             <li><a class="dropdown-item" href="/calculators/body_type">Калькулятор типа телосложения</a></li>
             <li><a class="dropdown-item" href="/calculators/body_fat">Калькулятор процента жира</a></li>
-
-
           </ul>
         </li>
         <li class="nav-item">
@@ -60,15 +58,33 @@
         <a href=""></a>
         <form class="d-flex flex-space-between">
               {% if current_user.is_authenticated %}
-    <a class="navbar-brand" href="/logout">{{ current_user.name }}</a>
+
+    <div class="btn-group dropstart">
+  <a type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+    {{ current_user.name }}
+  </a>
+  <ul class="dropdown-menu">
+    <li><a class="dropdown-item" href='/logout'>Выйти</a></li>
+    <li><a class="dropdown-item" href="#">Профиль</a></li>
+    
+  </ul>
+</div>
+    <!-- <a class="navbar-brand" href="/logout" id="navbarUserMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{ current_user.name }}</a>
+    <ul class="dropdown-menu dropdown-menu-start" aria-labelledby="navbarUserMenuLink">
+      <li><a class="dropdown-item" href='/logout'>Выйти</a></li> -->
+      
+    
+    </ul>
 {% else %}
     <p>
-        <a class="btn btn-primary " href="/register">Зарегистрироваться</a>
-        <a class="btn btn-success" href="/login">Войти</a>
+        <a class="btn nav-btn-reg" href="/register">Зарегистрироваться</a>
+        <a class="btn nav-btn-auth" href="/login">Войти</a>
     </p>
 {% endif %}
         </form>
       </div>
+
+
     </div>
 
   </div>
@@ -80,17 +96,20 @@
 <main role="main" >
   <div  class="container">
     <div class="row">
-      <div class="col-md-2 col-sm-3 sidebar">
-        <div class="card border-primary" style="width: 100%;">
-          <div class="card-head bg-primary">{{ current_user.name }}</div>
+      <div class="col-md-2 col-sm-3 col-xs-12 sidebar">
+        <div class="card sidebar-card" style="width: 100%;">
+          <div class="card-head sidebar-card-head">{{ current_user.name }}</div>
           <img src="https://avatars.yandex.net/get-yapic/0/0-0/islands-retina-50" class="card-img-top" alt="...">
-          <div class="card-body">
+          <div class="card-body sidebar-card-body">
             <p class="card-text">Цели не заданы</p>
           </div>
         </div>
       </div>
+    
+
       <div class="col-md-10 col-sm-9 content">
         {% block content %}{% endblock %}
+
       </div>
     </div>
   </div>

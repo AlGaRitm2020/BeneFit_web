@@ -16,7 +16,7 @@
 
             <p>
               {{ form.gender.label }}<br>
-              {{ form.gender(class="form-control", type="radio") }}<br>
+              {{ form.gender(class="form-control form-field-gender", type="radio") }}<br>
               {% for error in form.gender.errors %}
                   <div class="alert alert-danger" role="alert">
                       {{ error }}
@@ -27,7 +27,7 @@
 
 	
     		
-        	<p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+        	<p>{{ form.submit(type="submit", class="btn calculator-btn") }}</p>
 	
        		{% if form.validate_on_submit():%}
   

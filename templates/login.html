@@ -1,9 +1,8 @@
 {% extends "base.html" %}
 
 {% block content %}
-   
-    <div class="card border-primary" style="width: 100%;">
-          <div class="main-card-head bg-primary">Авторизация</div>
+    
+    <h1>Авторизация</h1>
     <form action="" method="post">
         {{ form.hidden_tag() }}
 
@@ -27,11 +26,10 @@
             {% endfor %}
         </p>
         <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
-        <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+        <p>{{ form.submit(type="submit", class="btn calculator-btn") }}</p>
         <div>{{ message }}</div>
     </form>
           
-    </div>
 
 
 

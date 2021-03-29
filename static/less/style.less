@@ -1,0 +1,163 @@
+@bg-main:#f7f7f7;
+@bg-form:#ffcc00;
+@health-color:#7fbb48;
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.border(@width: 1px, @type: solid, @color: @health-color){
+    border:@arguments;
+}
+.border-health{
+    border: 1px solid @health-color;
+}
+
+.header {
+  font-weight: 600; 
+}
+
+.sub-header{
+    padding-left:20px;
+    color:#888;
+}
+.btn:hover{
+	box-shadow: @health-color;
+	
+}
+
+.nav{
+
+	background-color: #fff !important;
+
+	&-brand{
+		
+		color:@health-color !important;
+		font-size:30px;
+		color:#fff; 
+	}
+
+	&-btn{
+		&-auth{
+			background-color:@health-color;
+			border: 1px solid lighten(@health-color, 10%);
+			color:@bg-main;
+			&:hover{
+				color:@bg-main;
+				background-color:lighten(@health-color, 10%);
+				border: 1px solid lighten(@health-color, 10%);
+				
+			};
+		}
+		&-reg{
+			background-color:@bg-main;
+			border: 1px solid @health-color;
+			color:@health-color;
+			&:hover{
+				background-color:lighten(@bg-main, 10%);
+				color:lighten(@health-color,10%);
+				border: 1px solid lighten(@health-color, 10%);
+			}
+		}
+
+	}
+}
+
+.base{
+    margin-bottom: 2rem;
+}
+
+
+.calculator-form{
+    padding: 2rem 0;
+}
+
+
+.form{
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 450px;
+    background-color: @bg-form;
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 10px;
+    &-field{
+    	&-gender{
+    		border: none;
+    	}
+    }
+}
+.btn-primary{
+	background-color: @health-color;
+	border-color: @health-color;
+	&:hover{
+		background-color: lighten(@health-color, 10%);
+		border-color: @health-color;
+	}
+	&:active{
+			background-color: lighten(@health-color, 10%);
+		border-color: @health-color;
+	}
+}
+main{
+    background:@bg-main;
+    margin-top: 70px;
+}
+.card-head{
+    background-color: @health-color;
+    text-align: center;
+    height: 50px;
+    font-size: 30px;
+    color: @bg-main;
+
+    &-main{
+    background-color: @health-color;
+    text-align: center;
+    height: 50px;
+    font-size: 30px;
+    color: #24476e;
+    font-weight: 900;
+    }
+    
+}
+
+.sidebar{
+   &-card{
+   	.border-health;
+   	border: 1px solid @health-color;
+   	&-head{
+   		background-color: @health-color;
+   		
+   	}
+   }
+
+}
+
+
+
+.calculator{
+	&-btn{
+		background-color: @health-color;
+		border-color: @health-color;
+		color:#fff;
+		&:hover{
+			color:#fff;
+			background-color: lighten(@health-color, 10%);
+			border-color: @health-color;
+			}
+	
+	}
+
+
+	&-result{
+	    font-size:30px;
+	    &-value{
+	    font-weight:800;
+	    font-size:40px;
+	    color:#BC4123;
+	    }
+	}
+}
+
