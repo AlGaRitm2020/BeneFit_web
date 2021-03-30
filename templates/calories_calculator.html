@@ -1,6 +1,6 @@
 {% extends "calculator_template.html" %}
 
-{% block content %}
+{% block calculator_content %}
 
         	{{ form.hidden_tag() }}
 	
@@ -60,7 +60,7 @@
         	<p>{{ form.submit(type="submit", class="btn calculator-btn") }}</p>
 	
        		{% if form.validate_on_submit():%}
-<p class="calculator-result">Ваша норма калорий равна <strong class="calculator-result-value">{{calories_norm}}</strong> ккал</p>
+          <p class="calculator-result">Ваша норма калорий равна <strong class="calculator-result-value">{{calories_norm}}</strong> ккал</p>
        			
        		{% endif %}
 

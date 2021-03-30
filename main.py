@@ -8,6 +8,10 @@ from flask_login import LoginManager, login_user, login_required, current_user, 
 from flask_restful import reqparse, abort, Api, Resource
 # models
 from data import db_session, restful_resourses
+from data.calculate import calculate_BMI, calculate_max_heart_rate, \
+    calculate_training_heart_rate_min, calculate_training_heart_rate_max, calculate_water, \
+    calculate_physical_activity_quotient, calculate_calories, calculate_body_type, \
+    calculate_body_fat_percent
 from data.user_inputs import User_inputs
 from data.user_login import User_login
 
@@ -75,7 +79,7 @@ def BMI_calculator_page():
             db_sess.merge(current_user)
             db_sess.commit()
 
-        BMI = round(weight / (height / 100) ** 2, 1)
+        BMI = calculate_BMI(weight, height)
         return render_template("BMI_calculator.html", title='Калькулятор индекса массы тела',
                                form=form, BMI=BMI)
     if current_user.is_authenticated:
@@ -108,9 +112,9 @@ def heart_rate_calculator_page():
             db_sess.merge(current_user)
             db_sess.commit()
 
-        max_heart_rate = 220 - age
-        training_heart_rate_min = round((220 - age) * 0.65)
-        training_heart_rate_max = round((220 - age) * 0.85)
+        max_heart_rate = calculate_max_heart_rate(age)
+        training_heart_rate_min = calculate_training_heart_rate_min(age)
+        training_heart_rate_max = calculate_training_heart_rate_max(age)
         return render_template("heart_rate_calculator.html",
                                title='Калькулятор частоты сердечных сокращений', form=form,
                                MHR=max_heart_rate, THR_min=training_heart_rate_min,
@@ -152,10 +156,8 @@ def water_calculator_page():
 
             db_sess.merge(current_user)
             db_sess.commit()
-        if gender == 'Мужской':
-            water_norm = round((weight * 34.92 + activity * 251) / 1000, 1)
-        else:
-            water_norm = round((weight * 31.71 + activity * 251) / 1000, 1)
+
+        water_norm = calculate_water(weight, gender, activity)
 
         return render_template("water_calculator.html",
                                title='Калькулятор дневной нормы воды', form=form,
@@ -204,25 +206,9 @@ def calories_calculator_page():
             db_sess.merge(current_user)
             db_sess.commit()
 
-        """Calculate physical activity quotient"""
-        if activity == 0:
-            physical_activity_quotient = 1.2
-        elif activity == 1:
-            physical_activity_quotient = 1.375
-        elif activity == 2:
-            physical_activity_quotient = 1.55
-        elif activity == 3:
-            physical_activity_quotient = 1.725
-        else:
-            physical_activity_quotient = 1.9
-
-        if gender == 'Мужской':
-            calories_norm = round(
-                (((weight * 10) + (height * 6.25) - (age * 5)) + 5) * physical_activity_quotient)
-        else:
-            calories_norm = round(
-                (((weight * 10) + (height * 6.25) - (age * 5)) - 161) * physical_activity_quotient)
-
+        physical_activity_quotient = calculate_physical_activity_quotient(activity)
+        calories_norm = calculate_calories(weight, height, age, gender, physical_activity_quotient)
+        print(calories_norm)
         return render_template("calories_calculator.html",
                                title='Калькулятор дневной нормы калорий', form=form,
                                calories_norm=calories_norm)
@@ -263,19 +249,11 @@ def body_type_calculator_page():
             db_sess.merge(current_user)
             db_sess.commit()
 
-        if wrists < 18 and gender == 'Мужской' or wrists < 15 and not gender == 'Мужской':
-            body_type_response = "Эктоморф"
-            body_type_index = 0
-        elif wrists > 20 and gender == 'Мужской' or wrists > 17 and not gender == 'Мужской':
-            body_type_response = 'Эндоморф'
-            body_type_index = 1
-        else:
-            body_type_response = "Мезоморф"
-            body_type_index = 2
+        body_type = calculate_body_type(wrists, gender)
 
         return render_template("body_type_calculator.html",
                                title='Калькулятор типа телосложения', form=form,
-                               body_type=body_type_response)
+                               body_type=body_type)
 
     if current_user.is_authenticated:
         """Get user_inputs from database and insert into form"""
@@ -317,15 +295,8 @@ def body_fat_calculator_page():
             db_sess.merge(current_user)
             db_sess.commit()
 
-        if gender == 'Мужской':
-            body_fat = round(
-                495 / (1.0324 - 0.19077 * (log10(waist - neck)) + 0.15456 * (log10(height))) - 450.1,
-                1)
-        else:
-            body_fat = round(
-                495 / (1.29579 - 0.35004 * (log10(waist + hip - neck)) + 0.22100 * (
-                    log10(height))) - 450, 1)
-        print(body_fat)
+        body_fat = calculate_body_fat_percent(height, waist, neck, hip, gender)
+
         return render_template("body_fat_calculator.html",
                                title='Калькулятор процента жира', form=form,
                                body_fat=body_fat)
