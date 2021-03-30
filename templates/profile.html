@@ -1,7 +1,8 @@
-{% extends "calculator_template.html" %}
+{% extends "base.html" %}
 
 {% block content %}
-
+          <h1>Профиль</h1>
+          <form action="" method="post">
         	{{ form.hidden_tag() }}
 	
         
@@ -55,15 +56,55 @@
                   </div>
               {% endfor %}
           </p>
+
+          <p>
+              {{ form.wrists.label }}<br>
+              {{ form.wrists(class="form-control", type="number", max="30", min="10") }}<br>
+              {% for error in form.wrists.errors %}
+                  <div class="alert alert-danger" role="alert">
+                      {{ error }}
+                  </div>
+              {% endfor %}
+          </p>
+
+          <p>
+              {{ form.waist.label }}<br>
+              {{ form.waist(class="form-control", type="number, min='50', max='100'") }}<br>
+              {% for error in form.waist.errors %}
+                  <div class="alert alert-danger" role="alert">
+                      {{ error }}
+                  </div>
+              {% endfor %}
+          </p>
+
+          <p>
+              {{ form.neck.label }}<br>
+              {{ form.neck(class="form-control", type="number", min='30', max='50') }}<br>
+              {% for error in form.neck.errors %}
+                  <div class="alert alert-danger" role="alert">
+                      {{ error }}
+                  </div>
+              {% endfor %}
+          </p>
+
+     
+  
+            <p>
+              {{ form.hip.label }}<br>
+              {{ form.hip(class="form-control", type="number, min='70', max='130'") }}<br>
+              {% for error in form.hip.errors %}
+                  <div class="alert alert-danger" role="alert">
+                      {{ error }}
+                  </div>
+              {% endfor %}
+          </p>
+
 	
     		
         	<p>{{ form.submit(type="submit", class="btn calculator-btn") }}</p>
 	
-       		{% if form.validate_on_submit():%}
-<p class="calculator-result">Ваша норма калорий равна <strong class="calculator-result-value">{{calories_norm}}</strong> ккал</p>
-       			
-       		{% endif %}
 
+</form>
         
     
 

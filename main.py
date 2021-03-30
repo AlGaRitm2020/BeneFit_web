@@ -1,6 +1,7 @@
 # flask framework
 import os
 from math import log10
+from waitress import serve
 
 from flask import Flask, render_template, request, make_response, session, redirect, abort
 from flask_login import LoginManager, login_user, login_required, current_user, logout_user
@@ -16,6 +17,7 @@ from forms.body_fat_calculator_form import BodyFatCalculatorForm
 from forms.body_type_calculator_form import BodyTypeCalculatorForm
 from forms.calorie_calculator_form import CalorieCalculatorForm
 from forms.heart_rate_calculator_form import HeartRateCalculatorForm
+from forms.profile_form import ProfileForm
 from forms.register_form import RegisterForm
 from forms.login_form import LoginForm
 
@@ -423,6 +425,85 @@ def login_page():
     return render_template('login.html', title='Авторизация', form=form)
 
 
+@app.route('/profile', methods=['GET', 'POST'])
+@login_required
+def profile_page():
+    """"In this page user can edit all of him parameters"""
+
+    form = ProfileForm()
+
+    # submit button
+    if form.validate_on_submit():
+        """Submit pressed"""
+        weight = form.weight.data
+        height = form.height.data
+        age = form.age.data
+        gender = form.gender.data
+        activity = int(form.activity.data)
+        wrists = form.wrists.data
+        waist = form.waist.data
+        neck = form.neck.data
+        hip = form.hip.data
+
+        if current_user.is_authenticated:
+            """user was authenticated
+            save inputs to database"""
+            db_sess = db_session.create_session()
+            current_user.user_inputs[0].weight = weight
+            current_user.user_inputs[0].height = height
+            current_user.user_inputs[0].age = age
+            current_user.user_inputs[0].gender = gender
+            current_user.user_inputs[0].activity = activity
+            current_user.user_inputs[0].wrists = wrists
+            current_user.user_inputs[0].waist = waist
+            current_user.user_inputs[0].neck = neck
+            current_user.user_inputs[0].hip = hip
+
+            db_sess.merge(current_user)
+            db_sess.commit()
+
+        """Calculate physical activity quotient"""
+        if activity == 0:
+            physical_activity_quotient = 1.2
+        elif activity == 1:
+            physical_activity_quotient = 1.375
+        elif activity == 2:
+            physical_activity_quotient = 1.55
+        elif activity == 3:
+            physical_activity_quotient = 1.725
+        else:
+            physical_activity_quotient = 1.9
+
+        if gender == 'Мужской':
+            calories_norm = round(
+                (((weight * 10) + (height * 6.25) - (age * 5)) + 5) * physical_activity_quotient)
+        else:
+            calories_norm = round(
+                (((weight * 10) + (height * 6.25) - (age * 5)) - 161) * physical_activity_quotient)
+
+        return render_template("profile.html",
+                               title='Профиль пользователя', form=form)
+
+    if current_user.is_authenticated:
+        """Get user_inputs from database and insert into form"""
+        db_sess = db_session.create_session()
+        current_user_inputs = db_sess.query(User_inputs).filter(
+            User_inputs.user_id == current_user.id).first()
+
+        form.weight.data = current_user_inputs.weight
+        form.height.data = current_user_inputs.height
+        form.age.data = current_user_inputs.age
+        form.gender.data = current_user_inputs.gender
+        form.activity.data = str(current_user_inputs.activity)
+        form.wrists.data = current_user_inputs.wrists
+        form.waist.data = current_user_inputs.waist
+        form.neck.data = current_user_inputs.neck
+        form.hip.data = current_user_inputs.hip
+
+    return render_template("profile.html",
+                           title='Профиль пользователя', form=form)
+
+
 @app.route('/logout')
 @login_required
 def logout_page():
@@ -430,6 +511,7 @@ def logout_page():
     kill current user session and redirect to home(/)"""
     logout_user()
     return redirect("/")
+
 
 """
 def main():
@@ -442,8 +524,8 @@ def main():
     app.run(port=8080, host='127.0.0.1')
 """
 
-
 if __name__ == '__main__':
     db_session.global_init("db/users.db")
     port = int(os.environ.get("PORT", 8080))
-    app.run(host='0.0.0.0', port=port)
+    # app.run(host='0.0.0.0', port=port)
+    serve(app, host='0.0.0.0', port=port)
