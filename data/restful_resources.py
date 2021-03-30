@@ -2,13 +2,13 @@ from flask import jsonify
 from flask_restful import Resource, abort, reqparse
 
 from data import db_session
-from data.user_inputs import User_inputs
-from data.user_results import User_results
+from data.user_inputs import UserInputs
+from data.user_results import UserResults
 
 
 def abort_if_inputs_not_found(news_id):
     session = db_session.create_session()
-    news = session.query(User_inputs).get(news_id)
+    news = session.query(UserInputs).get(news_id)
     if not news:
         abort(404, message=f"News {news_id} not found")
 
@@ -18,14 +18,14 @@ class InputsResource(Resource):
     def get(self, user_id):
         abort_if_inputs_not_found(user_id)
         session = db_session.create_session()
-        user_inputs = session.query(User_inputs).get(user_id)
+        user_inputs = session.query(UserInputs).get(user_id)
         return jsonify({'user_inputs': user_inputs.to_dict(
             only=('height', 'weight'))})
 
     def delete(self, user_id):
         abort_if_inputs_not_found(user_id)
         session = db_session.create_session()
-        user_inputs = session.query(User_inputs).get(user_id)
+        user_inputs = session.query(UserInputs).get(user_id)
         session.delete(user_inputs)
         session.commit()
         return jsonify({'success': 'OK'})

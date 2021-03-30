@@ -1,19 +1,19 @@
 # flask framework
 import os
-from math import log10
 from waitress import serve
 
 from flask import Flask, render_template, request, make_response, session, redirect, abort
 from flask_login import LoginManager, login_user, login_required, current_user, logout_user
 from flask_restful import reqparse, abort, Api, Resource
 # models
-from data import db_session, restful_resourses
+from data import db_session, restful_resources
 from data.calculate import calculate_BMI, calculate_max_heart_rate, \
     calculate_training_heart_rate_min, calculate_training_heart_rate_max, calculate_water, \
     calculate_physical_activity_quotient, calculate_calories, calculate_body_type, \
     calculate_body_fat_percent
-from data.user_inputs import User_inputs
-from data.user_login import User_login
+from data.user_inputs import UserInputs
+from data.user_login import UserLogin
+from data.user_results import UserResults
 
 # forms
 from forms.BMI_calculator_form import BMICalculatorForm
@@ -24,12 +24,12 @@ from forms.heart_rate_calculator_form import HeartRateCalculatorForm
 from forms.profile_form import ProfileForm
 from forms.register_form import RegisterForm
 from forms.login_form import LoginForm
-
+from forms.water_calculator_form import WaterCalculatorForm
 # extra modules
 import datetime
 
 # flask init
-from forms.water_calculator_form import WaterCalculatorForm
+
 
 app = Flask(__name__)
 api = Api(app)
@@ -44,7 +44,7 @@ login_manager.init_app(app)
 def load_user(user_id):
     """"Get user with user_id"""
     db_sess = db_session.create_session()
-    return db_sess.query(User_login).get(user_id)
+    return db_sess.query(UserLogin).get(user_id)
 
 
 @app.route("/")
@@ -72,24 +72,32 @@ def BMI_calculator_page():
         height = form.height.data
         if current_user.is_authenticated:
             """user was authenticated
-            save inputs to database"""
+            save inputs to the database"""
             db_sess = db_session.create_session()
             current_user.user_inputs[0].weight = weight
             current_user.user_inputs[0].height = height
+            db_sess.merge(current_user)
+            db_sess.commit()
+            """save results to the database"""
+            current_user.user_results[0].weight = weight
             db_sess.merge(current_user)
             db_sess.commit()
 
         BMI = calculate_BMI(weight, height)
         return render_template("BMI_calculator.html", title='Калькулятор индекса массы тела',
                                form=form, BMI=BMI)
+
     if current_user.is_authenticated:
         """Get user_inputs from database and insert into form"""
         db_sess = db_session.create_session()
-        current_user_inputs = db_sess.query(User_inputs).filter(
-            User_inputs.user_id == current_user.id).first()
+        current_user_inputs = db_sess.query(UserInputs).filter(
+            UserInputs.user_id == current_user.id).first()
 
         form.height.data = current_user_inputs.height
         form.weight.data = current_user_inputs.weight
+
+
+
     return render_template("BMI_calculator.html", title='Калькулятор индекса массы тела', form=form)
 
 
@@ -123,8 +131,8 @@ def heart_rate_calculator_page():
     if current_user.is_authenticated:
         """Get user_inputs from database and insert into form"""
         db_sess = db_session.create_session()
-        current_user_inputs = db_sess.query(User_inputs).filter(
-            User_inputs.user_id == current_user.id).first()
+        current_user_inputs = db_sess.query(UserInputs).filter(
+            UserInputs.user_id == current_user.id).first()
 
         form.age.data = current_user_inputs.age
 
@@ -166,8 +174,8 @@ def water_calculator_page():
     if current_user.is_authenticated:
         """Get user_inputs from database and insert into form"""
         db_sess = db_session.create_session()
-        current_user_inputs = db_sess.query(User_inputs).filter(
-            User_inputs.user_id == current_user.id).first()
+        current_user_inputs = db_sess.query(UserInputs).filter(
+            UserInputs.user_id == current_user.id).first()
 
         form.weight.data = current_user_inputs.weight
         form.gender.data = current_user_inputs.gender
@@ -216,8 +224,8 @@ def calories_calculator_page():
     if current_user.is_authenticated:
         """Get user_inputs from database and insert into form"""
         db_sess = db_session.create_session()
-        current_user_inputs = db_sess.query(User_inputs).filter(
-            User_inputs.user_id == current_user.id).first()
+        current_user_inputs = db_sess.query(UserInputs).filter(
+            UserInputs.user_id == current_user.id).first()
 
         form.weight.data = current_user_inputs.weight
         form.height.data = current_user_inputs.height
@@ -258,8 +266,8 @@ def body_type_calculator_page():
     if current_user.is_authenticated:
         """Get user_inputs from database and insert into form"""
         db_sess = db_session.create_session()
-        current_user_inputs = db_sess.query(User_inputs).filter(
-            User_inputs.user_id == current_user.id).first()
+        current_user_inputs = db_sess.query(UserInputs).filter(
+            UserInputs.user_id == current_user.id).first()
 
         form.wrists.data = current_user_inputs.wrists
         form.gender.data = current_user_inputs.gender
@@ -304,8 +312,8 @@ def body_fat_calculator_page():
     if current_user.is_authenticated:
         """Get user_inputs from database and insert into form"""
         db_sess = db_session.create_session()
-        current_user_inputs = db_sess.query(User_inputs).filter(
-            User_inputs.user_id == current_user.id).first()
+        current_user_inputs = db_sess.query(UserInputs).filter(
+            UserInputs.user_id == current_user.id).first()
 
         form.height.data = current_user_inputs.height
         form.waist.data = current_user_inputs.waist
@@ -318,7 +326,7 @@ def body_fat_calculator_page():
 
 
 @app.route('/register', methods=['GET', 'POST'])
-def reqister_page():
+def register_page():
     """"Register user with Register Form
     Fields: name, email, about, password"""
     form = RegisterForm()
@@ -334,12 +342,12 @@ def reqister_page():
         # new session
         db_sess = db_session.create_session()
         # check registered
-        if db_sess.query(User_login).filter(User_login.email == form.email.data).first():
+        if db_sess.query(UserLogin).filter(UserLogin.email == form.email.data).first():
             return render_template('register.html', title='Регистрация',
                                    form=form,
                                    message="Такой пользователь уже есть")
         # user login info
-        user_login = User_login(
+        user_login = UserLogin(
             name=form.name.data,
             email=form.email.data,
             about=form.about.data
@@ -348,7 +356,7 @@ def reqister_page():
         user_login.set_password(form.password.data)
         db_sess.add(user_login)
 
-        user_data = User_inputs(
+        user_data = UserInputs(
             weight=70,
             height=175,
             age=25,
@@ -381,7 +389,7 @@ def login_page():
     if form.validate_on_submit():
         db_sess = db_session.create_session()
         # user search
-        user = db_sess.query(User_login).filter(User_login.email == form.email.data).first()
+        user = db_sess.query(UserLogin).filter(UserLogin.email == form.email.data).first()
         # check password
         if user and user.check_password(form.password.data):
             login_user(user, remember=form.remember_me.data)
@@ -433,33 +441,14 @@ def profile_page():
             db_sess.merge(current_user)
             db_sess.commit()
 
-        """Calculate physical activity quotient"""
-        if activity == 0:
-            physical_activity_quotient = 1.2
-        elif activity == 1:
-            physical_activity_quotient = 1.375
-        elif activity == 2:
-            physical_activity_quotient = 1.55
-        elif activity == 3:
-            physical_activity_quotient = 1.725
-        else:
-            physical_activity_quotient = 1.9
-
-        if gender == 'Мужской':
-            calories_norm = round(
-                (((weight * 10) + (height * 6.25) - (age * 5)) + 5) * physical_activity_quotient)
-        else:
-            calories_norm = round(
-                (((weight * 10) + (height * 6.25) - (age * 5)) - 161) * physical_activity_quotient)
-
         return render_template("profile.html",
                                title='Профиль пользователя', form=form)
 
     if current_user.is_authenticated:
         """Get user_inputs from database and insert into form"""
         db_sess = db_session.create_session()
-        current_user_inputs = db_sess.query(User_inputs).filter(
-            User_inputs.user_id == current_user.id).first()
+        current_user_inputs = db_sess.query(UserInputs).filter(
+            UserInputs.user_id == current_user.id).first()
 
         form.weight.data = current_user_inputs.weight
         form.height.data = current_user_inputs.height
@@ -490,7 +479,7 @@ def main():
     db_session.global_init("db/users.db")
 
     # для одного объекта
-    api.add_resource(restful_resourses.InputsResource, '/api/user_inputs/<int:user_id>')
+    api.add_resource(restful_resources.InputsResource, '/api/user_inputs/<int:user_id>')
 
     app.run(port=8080, host='127.0.0.1')
 """

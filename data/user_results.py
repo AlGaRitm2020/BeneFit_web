@@ -7,15 +7,16 @@ from .db_session import SqlAlchemyBase
 from sqlalchemy import orm
 
 
-class User_results(SqlAlchemyBase, UserMixin):
+class UserResults(SqlAlchemyBase, UserMixin):
     __tablename__ = 'user_results'
 
     user_id = sqlalchemy.Column(sqlalchemy.Integer,
                                 sqlalchemy.ForeignKey("user_login.id"),
-                                primary_key=True, autoincrement=True)
+                                primary_key=True, autoincrement=True, nullable=True)
 
     height = sqlalchemy.Column(sqlalchemy.Integer, nullable=True)
 
     weight = sqlalchemy.Column(sqlalchemy.Integer, nullable=True)
 
-    user = orm.relation('User_login')
+    # add relation with main user table
+    user_login = orm.relation('UserLogin')
