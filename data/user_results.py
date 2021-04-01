@@ -14,9 +14,8 @@ class UserResults(SqlAlchemyBase, UserMixin):
                                 sqlalchemy.ForeignKey("user_login.id"),
                                 primary_key=True, autoincrement=True, nullable=True)
 
-    height = sqlalchemy.Column(sqlalchemy.Integer, nullable=True)
-
-    weight = sqlalchemy.Column(sqlalchemy.Integer, nullable=True)
+    BMI = sqlalchemy.Column(sqlalchemy.Integer, nullable=True)
+    body_type = sqlalchemy.Column(sqlalchemy.String, nullable=True)
 
     # add relation with main user table
     user_login = orm.relation('UserLogin')

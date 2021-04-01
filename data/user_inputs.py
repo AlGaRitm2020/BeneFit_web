@@ -5,9 +5,10 @@ from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from .db_session import SqlAlchemyBase
 from sqlalchemy import orm
+from sqlalchemy_serializer import SerializerMixin
 
 
-class UserInputs(SqlAlchemyBase, UserMixin):
+class UserInputs(SqlAlchemyBase, SerializerMixin):
     __tablename__ = 'user_inputs'
 
     user_id = sqlalchemy.Column(sqlalchemy.Integer,
@@ -25,3 +26,5 @@ class UserInputs(SqlAlchemyBase, UserMixin):
 
     # add relation with main user table
     user_login = orm.relation('UserLogin')
+
+

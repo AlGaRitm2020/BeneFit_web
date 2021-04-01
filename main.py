@@ -79,7 +79,7 @@ def BMI_calculator_page():
             db_sess.merge(current_user)
             db_sess.commit()
             """save results to the database"""
-            current_user.user_results[0].weight = weight
+            current_user.user_results[0].BMI = calculate_BMI(weight, height)
             db_sess.merge(current_user)
             db_sess.commit()
 
@@ -256,6 +256,10 @@ def body_type_calculator_page():
             current_user.user_inputs[0].gender = gender
             db_sess.merge(current_user)
             db_sess.commit()
+            """save results to the database"""
+            current_user.user_results[0].body_type = calculate_body_type(wrists, gender)
+            db_sess.merge(current_user)
+            db_sess.commit()
 
         body_type = calculate_body_type(wrists, gender)
 
@@ -356,19 +360,28 @@ def register_page():
         user_login.set_password(form.password.data)
         db_sess.add(user_login)
 
-        user_data = UserInputs(
+        user_inputs = UserInputs(
             weight=70,
             height=175,
             age=25,
-            gender="Male",
+            gender="Мужской",
             activity=2,
             wrists=18,
             waist=70,
-            neck=25,
+            neck=40,
             hip=80
         )
 
-        user_login.user_inputs.append(user_data)
+        user_results = UserResults(
+            BMI=22,
+            body_type='Мезоморф'
+        )
+
+        user_login.user_inputs.append(user_inputs)
+        db_sess.merge(user_login)
+        db_sess.commit()
+
+        user_login.user_results.append(user_results)
         db_sess.merge(user_login)
         db_sess.commit()
 
@@ -394,7 +407,7 @@ def login_page():
         if user and user.check_password(form.password.data):
             login_user(user, remember=form.remember_me.data)
             # go home
-            return redirect("/")
+            return redirect("/profile")
 
         # user error
         return render_template('login.html',
@@ -488,4 +501,6 @@ if __name__ == '__main__':
     db_session.global_init("db/users.db")
     port = int(os.environ.get("PORT", 8080))
     # app.run(host='0.0.0.0', port=port)
+    api.add_resource(restful_resources.InputsResource, '/api/user_inputs/<int:user_id>')
+    # api.add_resource(restful_resources.I, '/api/user_inputs/<int:user_id>')
     serve(app, host='0.0.0.0', port=port)
