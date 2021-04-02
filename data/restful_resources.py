@@ -19,9 +19,20 @@ class InputsResource(Resource):
         abort_if_inputs_not_found(user_id)
         session = db_session.create_session()
         user_inputs = session.query(UserInputs).get(user_id)
+        user_results = session.query(UserResults).get(user_id)
         return jsonify({'user_inputs': user_inputs.to_dict(
             only=(
                 'height', 'weight', 'age', 'gender', 'activity', 'wrists', 'waist', 'neck', 'hip'))})
+
+
+class ResultsResource(Resource):
+    def get(self, user_id):
+        abort_if_inputs_not_found(user_id)
+        session = db_session.create_session()
+        user_results = session.query(UserResults).get(user_id)
+        return jsonify({'user_inputs': user_results.to_dict(
+            only=(
+                'BMI', 'body_type'))})
 
     # def delete(self, user_id):
     #     abort_if_inputs_not_found(user_id)
