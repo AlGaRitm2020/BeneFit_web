@@ -1,6 +1,7 @@
 # flask framework
 import os
 from waitress import serve
+import requests
 
 from flask import Flask, render_template, request, make_response, session, redirect, abort
 from flask_login import LoginManager, login_user, login_required, current_user, logout_user
@@ -30,6 +31,7 @@ import datetime
 
 # flask init
 
+DOMAIN = 'http://benefit2021.herokuapp.com'
 
 app = Flask(__name__)
 api = Api(app)
@@ -285,9 +287,9 @@ def body_fat_calculator_page():
     """"Body Fat Calculator page
     using gender, waist, neck, hip"""
     form = BodyFatCalculatorForm()
-    if form.gender == "Женский":
-        print('female')
     if form.validate_on_submit():
+        resp = requests.get(f"{DOMAIN}/api/user/{current_user.user_inputs[0].user_id}/inputs")
+        print(resp.content)
         """Submit pressed"""
         height = form.height.data
         waist = form.waist.data
@@ -503,5 +505,7 @@ if __name__ == '__main__':
     # app.run(host='0.0.0.0', port=port)
     api.add_resource(restful_resources.InputsResource, '/api/user/<int:user_id>/inputs')
     api.add_resource(restful_resources.ResultsResource, '/api/user/<int:user_id>/results')
+
+    api.add_resource(restful_resources.UpdateUser, '/api/user')
     # api.add_resource(restful_resources.I, '/api/user_inputs/<int:user_id>')
     serve(app, host='0.0.0.0', port=port)

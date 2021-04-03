@@ -120,3 +120,8 @@ main {
   font-size: 40px;
   color: #BC4123;
 }
+
+.error-message{
+    color: #BC4123;
+    font-size:24px;
+}
