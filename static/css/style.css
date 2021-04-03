@@ -99,6 +99,9 @@ main {
 .sidebar-card-head {
   background-color: #7fbb48;
 }
+.home-btn-download {
+  width: 600px;
+}
 .calculator-btn {
   background-color: #7fbb48;
   border-color: #7fbb48;

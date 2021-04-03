@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Регистрация</h1>
+
+<div class="card  row justify-content--center" style="width: 100%;">
+          <div class="card-head main-card-head">Регистрация</div>
 <form action="" method="post">
     {{ form.hidden_tag() }}
     <p>
@@ -52,4 +54,5 @@
     <p>{{ form.submit(type="submit", class="btn calculator-btn") }}</p>
     {{message}}
 </form>
+</div>
 {% endblock %}

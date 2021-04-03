@@ -2,7 +2,9 @@
 
 {% block content %}
     
-    <h1>Авторизация</h1>
+
+    <div class="card  row justify-content--center" style="width: 100%;">
+    <div class="card-head main-card-head">Авторизация</div>
     <form action="" method="post">
         {{ form.hidden_tag() }}
 
@@ -29,6 +31,7 @@
         <p>{{ form.submit(type="submit", class="btn calculator-btn") }}</p>
         <div>{{ message }}</div>
     </form>
+</div>
           
 
 
