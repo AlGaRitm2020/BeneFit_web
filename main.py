@@ -426,6 +426,7 @@ def profile_page():
 
     form = ProfileForm()
 
+
     # submit button
     if form.validate_on_submit():
         """Submit pressed"""

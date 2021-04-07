@@ -1,0 +1,175 @@
+body{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin:0;
+}
+
+.strelka{
+  position: relative;
+  /*padding-top: 7px;*/
+  transition: 0.3s;
+  /*right: -700px;
+  top:-285px;*/
+  right: -40;
+  top: -202px;
+}
+
+.strelka:hover{
+  opacity: 0.5;
+  transition: 0.3s;
+}
+
+.form{
+  height: 370px;
+  width: 400px;
+  padding:32px;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px #ccc;
+  font-family:  Gilroy, sans-serif;
+  letter-spacing: 1px;
+}
+
+.form__input,
+.form__button1,
+.form__button2,
+.btn_form__group_status,
+.p_form__group_status{
+  font-family:  Gilroy, sans-serif;
+  letter-spacing: 1px;
+  font-size: 16px;
+}
+
+.form__title{
+  text-align: center;
+  margin-bottom: 32px;
+  font-weight: 600;
+}
+
+.form__group{
+  position: relative;
+  margin-bottom: 32px;
+}
+
+.form__group_status{
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  margin-bottom: 32px;
+  align-items: center;
+}
+
+.form__label{
+  position: absolute;
+  top:0;
+  z-index: -1;
+  color:#9e9e9e;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.form__input{
+  width: 100%;
+  padding-bottom: 10px;
+  border: 0;
+  border-bottom: 2px solid #e0e0e0;
+  background-color: transparent;
+  outline:none;
+  transition: 0.3s;
+}
+
+.form__input:focus{
+  border-bottom: 2px solid grey;
+}
+
+.p_form__group_status{
+  margin: 0;
+  padding: 0;
+  top:0;
+  color:#9e9e9e;
+  font-weight: 600;
+}
+
+.btn_form__group_status{
+  font-weight: 600;
+  padding:10px 10px;
+  border: 2px solid black;
+  border-radius: 5px;
+  color: black;
+  background-color: #dfdfdf;
+  outline:none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+
+
+
+
+
+.form__button1,
+.form__button2{
+  font-weight: 600;
+  padding:10px 10px;
+  border: 2px solid black;
+  border-radius: 5px;
+  color: white;
+  background-color: black;
+  outline:none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.form__button1:focus,
+.form__button1:hover,
+.form__button2:focus,
+.form__button2:hover{
+  background-color: rgba(0, 0, 0, 0.5);
+  border: 2px solid grey;
+  transition: 0.3s;
+}
+
+.form__input:focus ~ .form__label,
+.form__input:not(:placeholder-shown) ~ .form__label{
+  top:-18px;
+  font-size: 12px;
+  color:#e0e0e0;
+}
+
+.form__button2{
+  margin-left: 120px;
+  background-color: white;
+  color:black;
+  border: 2px solid black;
+  transition: 0.3s;
+}
+
+
+.Vhod{
+  text-decoration: none;
+  color:black;
+}
+
+.Reg{
+  text-decoration: none;
+  color:white;
+}
+
+.form__button2:hover > .Vhod{
+  color:white;
+}
+
+.block_buttons {
+  display: flex;
+  justify-content: center;
+}
+
+.listbox{
+  width: 100%;
+  font-family:  Gilroy, sans-serif;
+  letter-spacing: 1px;
+  font-size: 21px;
+  line-height: 20px;
+}
+
