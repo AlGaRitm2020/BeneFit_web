@@ -1,7 +1,10 @@
 <head>
     <link rel="stylesheet" href="../static/css/register.css">
 </head>
-<body>
+{% set list_of_bg = ['body-bg-apples', 'body-bg-avocados'] %}
+
+<body class='{{list_of_bg[bg_index]}}'>
+    {{bg_index}}
 <a href="/" class="strelka"><img src="../static/img/strelkaNazad.png" height="30px" title="Вернуться"></a>
 <form action="" method="post" class='form'>
     <h1 class="form__title">Регистрация</h1>
@@ -16,6 +19,16 @@
                 </p>
         {% endfor %}
       <label class="form__label">Email</label>
+    </div>
+
+    <div class="form__group">
+        {{ form.name(class="form-control form__input", placeholder=' ') }}<br>
+        {% for error in form.name.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+      <label class="form__label">Имя пользователя</label>
     </div>
 
     <div class="form__group">
@@ -36,16 +49,6 @@
             </p>
         {% endfor %}
       <label class="form__label">Повторите пароль</label>
-    </div>
-
-    <div class="form__group">
-        {{ form.name(class="form-control form__input", placeholder=' ') }}<br>
-        {% for error in form.name.errors %}
-            <p class="alert alert-danger" role="alert">
-                {{ error }}
-            </p>
-        {% endfor %}
-      <label class="form__label">Имя пользователя</label>
     </div>
 
     <div class="block_buttons">

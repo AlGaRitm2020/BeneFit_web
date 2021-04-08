@@ -1,5 +1,7 @@
 # flask framework
 import os
+from random import random, randint
+
 from waitress import serve
 import requests
 
@@ -97,8 +99,6 @@ def BMI_calculator_page():
 
         form.height.data = current_user_inputs.height
         form.weight.data = current_user_inputs.weight
-
-
 
     return render_template("BMI_calculator.html", title='Калькулятор индекса массы тела', form=form)
 
@@ -351,7 +351,8 @@ def register_page():
         if db_sess.query(UserLogin).filter(UserLogin.email == form.email.data).first():
             return render_template('register.html', title='Регистрация',
                                    form=form,
-                                   message="Такой пользователь уже есть")
+                                   message="Такой пользователь уже есть",
+                                   bg_index=bg_index)
         # user login info
         user_login = UserLogin(
             name=form.name.data,
@@ -388,8 +389,9 @@ def register_page():
         db_sess.commit()
 
         return redirect('/login')
+    bg_index = randint(0, 1)
 
-    return render_template('register.html', title='Регистрация', form=form)
+    return render_template('register.html', title='Регистрация', form=form, bg_index=bg_index)
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -425,7 +427,6 @@ def profile_page():
     """"In this page user can edit all of him parameters"""
 
     form = ProfileForm()
-
 
     # submit button
     if form.validate_on_submit():
