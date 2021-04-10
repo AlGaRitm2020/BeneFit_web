@@ -3,37 +3,44 @@
     {% set list_of_bg = ['body-bg-apples', 'body-bg-avocados', 'body-bg-cabbages', 'body-bg-limes', 'body-bg-salad'] %}
 </head>
 
-<body class='{{list_of_bg[bg_index]}}'>
+<body class='body {{list_of_bg[bg_index]}}'>
+
+
     <div class="container">
-        <a href="/" class="arrow-back arrow-back-auth"><img src="../static/img/back_arrow.png"    height="   30px"  title="Вернуться"></a>
+        <a href="/" class="arrow-back arrow-back-auth"><img src="../static/img/back_arrow.png" height="30px"        title="Вернуться"></a>
         <form action="" method="post" class='form form-auth'>
-            <h1 class="form__title">Авторизация</h1>
+
+            <h1 class="form-title">Регистрация</h1>
             {{ form.hidden_tag() }}
-        
-            <div class="form__group">
-                {{ form.email(class="form-control form__input", type="email", placeholder='     ') }}<br>
+            <div class="form-group">
+                {{ form.email(class="form-control form-input", type="email", placeholder='     ') }}<br>
                 {% for error in form.email.errors %}
                         <p class="alert alert-danger" role="alert">
                             {{ error }}
                         </p>
                 {% endfor %}
-              <label class="form__label">Email</label>
+              <label class="form-label">Email</label>
             </div>
         
-            <div class="form__group">
-                {{ form.password(class="form-control form__input", type="password" ,        placeholder=' ') }}<br>
+           
+        
+            <div class="form-group">
+                {{ form.password(class="form-control form-input", type="password" ,        placeholder=' ') }}<br>
                 {% for error in form.password.errors %}
                     <p class="alert alert-danger" role="alert">
                         {{ error }}
                     </p>
                 {% endfor %}
-              <label class="form__label">Пароль</label>
+              <label class="form-label">Пароль</label>
             </div>
         
-            <div class="block_buttons">
-                {{ form.submit(type="submit", class="form__button") }}
+            <div class="form-button-block">
+                {{ form.submit(type="submit", class="form-button") }}
         
             </div>
+        
+        
+        
         </form>
     </div>
 </body>
