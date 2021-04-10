@@ -1,11 +1,14 @@
 <head>
     <link rel="stylesheet" href="../static/css/register.css">
 </head>
-{% set list_of_bg = ['body-bg-apples', 'body-bg-avocados'] %}
+{% set list_of_bg = ['body-bg-apples', 'body-bg-avocados', 'body-bg-cabbages', 'body-bg-limes', 'body-bg-salad'] %}
+
 
 <body class='{{list_of_bg[bg_index]}}'>
-    {{bg_index}}
-<a href="/" class="strelka"><img src="../static/img/strelkaNazad.png" height="30px" title="Вернуться"></a>
+
+
+<div class="container">
+<a href="/" class="strelka"><img src="../static/img/back_arrow.png" height="30px"  title="Вернуться"></a>
 <form action="" method="post" class='form'>
     <h1 class="form__title">Регистрация</h1>
     {{ form.hidden_tag() }}
@@ -59,4 +62,5 @@
 
 
 </form>
+</div>
 </body>

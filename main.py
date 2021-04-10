@@ -389,7 +389,7 @@ def register_page():
         db_sess.commit()
 
         return redirect('/login')
-    bg_index = randint(0, 1)
+    bg_index = randint(0, 4)
 
     return render_template('register.html', title='Регистрация', form=form, bg_index=bg_index)
 
