@@ -1,39 +1,52 @@
-{% extends "base.html" %}
 
-{% block content %}
-    
 
-    <div class="card  row justify-content--center" style="width: 100%;">
-    <div class="card-head main-card-head">Авторизация</div>
-    <form action="" method="post">
-        {{ form.hidden_tag() }}
+<head>
+    <link rel="stylesheet" href="../static/css/register.css">
+</head>
+{% set list_of_bg = ['body-bg-apples', 'body-bg-avocados', 'body-bg-cabbages', 'body-bg-limes', 'body-bg-salad'] %}
 
-        <p>
-            {{ form.email.label }}<br>
-            {{ form.email(class="form-control", type="email") }}<br>
-            {% for error in form.email.errors %}
-                <div class="alert alert-danger" role="alert">
+
+<body class='{{list_of_bg[bg_index]}}'>
+
+
+<div class="container">
+<a href="/" class="strelka strelka-auth"><img src="../static/img/back_arrow.png" height="30px"  title="Вернуться"></a>
+<form action="" method="post" class='form form-auth'>
+    <h1 class="form__title">Авторизация</h1>
+    {{ form.hidden_tag() }}
+
+
+    <div class="form__group">
+        {{ form.email(class="form-control form__input", type="email", placeholder=' ') }}<br>
+        {% for error in form.email.errors %}
+                <p class="alert alert-danger" role="alert">
                     {{ error }}
-                </div>
-            {% endfor %}
-        </p>
+                </p>
+        {% endfor %}
+      <label class="form__label">Email</label>
+    </div>
 
-        <p>
-            {{ form.password.label }}<br>
-            {{ form.password(class="form-control", type="password") }}<br>
-            {% for error in form.password.errors %}
-                <div class="alert alert-danger" role="alert">
-                    {{ error }}
-                </div>
-            {% endfor %}
-        </p>
-        <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
-        <p>{{ form.submit(type="submit", class="btn calculator-btn") }}</p>
-        <div>{{ message }}</div>
-    </form>
+
+
+    <div class="form__group">
+        {{ form.password(class="form-control form__input", type="password" , placeholder=' ') }}<br>
+        {% for error in form.password.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+      <label class="form__label">Пароль</label>
+    </div>
+
+
+
+    <div class="block_buttons">
+        {{ form.submit(type="submit", class="form__button1") }}
+
+    </div>
+
+
+
+</form>
 </div>
-          
-
-
-
-{% endblock %}
+</body>

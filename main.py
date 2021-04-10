@@ -389,6 +389,7 @@ def register_page():
         db_sess.commit()
 
         return redirect('/login')
+    # random background image 1 of 5
     bg_index = randint(0, 4)
 
     return render_template('register.html', title='Регистрация', form=form, bg_index=bg_index)
@@ -416,9 +417,12 @@ def login_page():
         # user error
         return render_template('login.html',
                                message="Неправильный логин или пароль",
-                               form=form)
+                               form=form,
+                               bg_index=bg_index)
+    # random background image 1 of 5
+    bg_index = randint(0, 4)
     # return template
-    return render_template('login.html', title='Авторизация', form=form)
+    return render_template('login.html', title='Авторизация', form=form, bg_index=bg_index)
 
 
 @app.route('/profile', methods=['GET', 'POST'])

@@ -41,6 +41,9 @@ body {
   right: -40;
   top: -202px;
 }
+.strelka-auth {
+  top: -132px;
+}
 .strelka:hover {
   opacity: 0.5;
   transition: 0.3s;
@@ -55,6 +58,9 @@ body {
   font-family: Gilroy, sans-serif;
   letter-spacing: 1px;
   z-index: 1;
+}
+.form-auth {
+  height: 250px;
 }
 .form__input,
 .form__button1,
