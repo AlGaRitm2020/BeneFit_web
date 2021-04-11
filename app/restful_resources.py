@@ -60,7 +60,7 @@ class UpdateUser(Resource):
 
 
 class ResultsResource(Resource):
-    def get(self, user_id):
+    def get(self, **user_id):
         abort_if_inputs_not_found(user_id)
         session = db_session.create_session()
         user_results = session.query(UserResults).get(user_id)
