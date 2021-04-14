@@ -64,7 +64,7 @@ class ResultsResource(Resource):
         abort_if_inputs_not_found(user_id)
         session = db_session.create_session()
         user_results = session.query(UserResults).get(user_id)
-        return jsonify({'user_inputs': user_results.to_dict(
+        return jsonify({'user_results': user_results.to_dict(
             only=(
                 'BMI', 'body_type'))})
 

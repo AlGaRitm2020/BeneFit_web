@@ -36,6 +36,8 @@ from forms.water_calculator_form import WaterCalculatorForm
 # flask init
 
 DOMAIN = 'http://benefit2021.herokuapp.com'
+LOCAL_HOST = 'http://127.0.0.1:8080'
+DOMAIN = LOCAL_HOST
 
 app = Flask(__name__)
 api = Api(app)
@@ -292,8 +294,7 @@ def body_fat_calculator_page():
     using gender, waist, neck, hip"""
     form = BodyFatCalculatorForm()
     if form.validate_on_submit():
-        resp = requests.get(f"{DOMAIN}/api/user/{current_user.user_inputs[0].user_id}/inputs")
-        print(resp.content)
+
         """Submit pressed"""
         height = form.height.data
         waist = form.waist.data
@@ -335,10 +336,18 @@ def body_fat_calculator_page():
                            title='Калькулятор процента жира', form=form)
 
 
-# @app.route('/recommendations',methods=['GET'])
-# def recommendations_page():
-#
-#     return render_template('register.html', title='Регистрация', body_type=)
+@app.route('/recommendations', methods=['GET'])
+def recommendations_page():
+    if current_user.is_authenticated:
+
+        resp = requests.get(f"{DOMAIN}/api/user/{current_user.id}/results")
+        body_type = resp.json()['user_results']['body_type']
+        print(body_type)
+        return render_template('recommendations.html', title='Регистрация', body_type=body_type)
+    else:
+        redirect('/')
+
+
 @app.route('/register', methods=['GET', 'POST'])
 def register_page():
     """"Register user with Register Form
@@ -513,13 +522,14 @@ def main():
     app.run(port=8080, host='127.0.0.1')
 """
 
-# if __name__ == '__main__':
-#     db_session.global_init("db/users.db")
-#     port = int(os.environ.get("PORT", 8080))
-#     # app.run(host='0.0.0.0', port=port)
-#     api.add_resource(restful_resources.InputsResource, '/api/user/<int:user_id>/inputs')
-#     api.add_resource(restful_resources.ResultsResource, '/api/user/<int:user_id>/results')
-#
-#     api.add_resource(restful_resources.UpdateUser, '/api/user')
-#     # api.add_resource(restful_resources.I, '/api/user_inputs/<int:user_id>')
-#     serve(app, host='0.0.0.0', port=port)
+if __name__ == '__main__':
+    db_session.global_init("db/users.db")
+    port = int(os.environ.get("PORT", 8080))
+    # app.run(host='0.0.0.0', port=port)
+    api.add_resource(restful_resources.InputsResource, '/api/user/<int:user_id>/inputs')
+    api.add_resource(restful_resources.ResultsResource, '/api/user/<int:user_id>/results')
+
+    api.add_resource(restful_resources.UpdateUser, '/api/user')
+
+    # api.add_resource(restful_resources.I, '/api/user_inputs/<int:user_id>')
+    serve(app, host='0.0.0.0', port=port)

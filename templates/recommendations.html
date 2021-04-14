@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <h1>Персональные рекоммендации</h1>
+  <div class="row">
+    <div class="col-4">
+      <div class="list-group" id="list-tab" role="tablist">
+        <a class="list-group-item list-group-item-action active" id="list-pfc-list" data-bs-toggle="list" href="#list-pfc" role="tab" aria-controls="pfc">Процентное соотношение БЖУ</a>
+        <a class="list-group-item list-group-item-action" id="list-kkal-list" data-bs-toggle="list" href="#list-kkal" role="tab" aria-controls="kkal">Сколько 'cъедать' ккал?</a>
+        <a class="list-group-item list-group-item-action" id="list-meals-list" data-bs-toggle="list" href="#list-meals" role="tab" aria-controls="meals">Количество приемов пищи</a>
+        <a class="list-group-item list-group-item-action" id="list-blacklist-list" data-bs-toggle="list" href="#list-blacklist" role="tab" aria-controls="blacklist">Черный список продуктов</a>
+      </div>
+    </div>
+    <div class="col-8">
+      <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="list-pfc" role="tabpanel" aria-labelledby="list-pfc-list">{{body_type}}</div>
+        <div class="tab-pane fade" id="list-kkal" role="tabpanel" aria-labelledby="list-kkal-list">...</div>
+        <div class="tab-pane fade" id="list-meals" role="tabpanel" aria-labelledby="list-meals-list">...</div>
+        <div class="tab-pane fade" id="list-blacklist" role="tabpanel" aria-labelledby="list-blacklist-list">...</div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
