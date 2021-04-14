@@ -30,6 +30,7 @@ from forms.profile_form import ProfileForm
 from forms.register_form import RegisterForm
 from forms.login_form import LoginForm
 from forms.water_calculator_form import WaterCalculatorForm
+
 # extra modules
 
 # flask init
@@ -334,6 +335,10 @@ def body_fat_calculator_page():
                            title='Калькулятор процента жира', form=form)
 
 
+# @app.route('/recommendations',methods=['GET'])
+# def recommendations_page():
+#
+#     return render_template('register.html', title='Регистрация', body_type=)
 @app.route('/register', methods=['GET', 'POST'])
 def register_page():
     """"Register user with Register Form
