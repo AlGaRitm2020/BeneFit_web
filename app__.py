@@ -338,6 +338,7 @@ def body_fat_calculator_page():
 
 @app.route('/recommendations', methods=['GET'])
 def recommendations_page():
+
     if current_user.is_authenticated:
 
         resp = requests.get(f"{DOMAIN}/api/user/{current_user.id}/results")

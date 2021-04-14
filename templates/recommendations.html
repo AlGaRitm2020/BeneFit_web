@@ -2,7 +2,17 @@
 
 {% block content %}
 
-  <h1>Персональные рекоммендации</h1>
+
+  {%if body_type == 'Эктоморф'%}
+      {% set body_type_index = 0 %}
+  {%elif body_type == 'Мезоморф'%}
+      {% set body_type_index = 1 %}
+  {% else %}
+      {% set body_type_index = 2 %}
+  {% endif %}
+
+  {% set proteins_fats_carbs_list = ['25/20/55', '40/20/40', '45/15/40'] %}
+  <h1>Персональные рекоммендации {{body_type_index}}</h1>
   <div class="row">
     <div class="col-4">
       <div class="list-group" id="list-tab" role="tablist">
@@ -14,7 +24,7 @@
     </div>
     <div class="col-8">
       <div class="tab-content" id="nav-tabContent">
-        <div class="tab-pane fade show active" id="list-pfc" role="tabpanel" aria-labelledby="list-pfc-list">{{body_type}}</div>
+        <div class="tab-pane fade show active" id="list-pfc" role="tabpanel" aria-labelledby="list-pfc-list">Для вас будет оптимальным соотношение белков жиров и углеводов: {{proteins_fats_carbs_list[body_type_index]}}</div>
         <div class="tab-pane fade" id="list-kkal" role="tabpanel" aria-labelledby="list-kkal-list">...</div>
         <div class="tab-pane fade" id="list-meals" role="tabpanel" aria-labelledby="list-meals-list">...</div>
         <div class="tab-pane fade" id="list-blacklist" role="tabpanel" aria-labelledby="list-blacklist-list">...</div>
