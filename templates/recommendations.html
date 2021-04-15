@@ -13,25 +13,33 @@
 
   {% set proteins_fats_carbs_list = ['25/20/55', '40/20/40', '45/15/40'] %}
   {% set calories_norm_list = ['увеличенная на 10%', 'увеличенная на 5%', 'уменьшенная на 10%'] %}
+  {% set black_list = ['Вы именно тот человек, который может есть и не толстеть, поэтому для вас нет запрещенных продуктов.
+                              Но не увлекайтесь: правильное питание в любом случае полезнее, чем фастфуд.',
+                            'Вам следует ограничить упротребление простых углеводов(сахар, мучные изделия),
+                              но не обязательно исключать их полностью. ',
+                            'Вам следует полностью отказаться от простых углеводов (сахар, мучные изделия)
+                              и от фастфуда. Ограничьте потребление жирной пищи.'] %}
   {% set meals_count_list = ['Питайтесь как можно чаще! Желательно 6-8 раз в день. Избегайте больших перерывов между приемами пищи',
-                            'Питайтесь часто! Желательно 5 раз в день. Между приемами пищи не более 4 часов.',
-                            'Для вас количество приемов не так важно. Главное питайтесь хотя-бы 3 раза в день.'] %}
+                      'Питайтесь часто! Желательно 5 раз в день. Между приемами пищи не более 4 часов.',
+                      'Для вас количество приемов не так важно. Главное питайтесь хотя-бы 3 раза в день.'] %}
+
   <h1>Персональные рекоммендации {{body_type_index}}</h1>
+ 
   <div class="row">
-    <div class="col-4">
+    <div class="col-md-4 col-sm-6">
       <div class="list-group" id="list-tab" role="tablist">
-        <a class="list-group-item list-group-item-action active" id="list-pfc-list" data-bs-toggle="list" href="#list-pfc" role="tab" aria-controls="pfc">Процентное соотношение БЖУ</a>
+        <a class="list-group-item list-group-item-action active bg-health" id="list-pfc-list" data-bs-toggle="list" href="#list-pfc" role="tab" aria-controls="pfc">Процентное соотношение БЖУ</a>
         <a class="list-group-item list-group-item-action" id="list-kkal-list" data-bs-toggle="list" href="#list-kkal" role="tab" aria-controls="kkal">Сколько 'cъедать' ккал?</a>
         <a class="list-group-item list-group-item-action" id="list-meals-list" data-bs-toggle="list" href="#list-meals" role="tab" aria-controls="meals">Количество приемов пищи</a>
         <a class="list-group-item list-group-item-action" id="list-blacklist-list" data-bs-toggle="list" href="#list-blacklist" role="tab" aria-controls="blacklist">Черный список продуктов</a>
       </div>
     </div>
-    <div class="col-8">
+    <div class="col-md-8 col-sm-6">
       <div class="tab-content" id="nav-tabContent">
         <div class="tab-pane fade show active" id="list-pfc" role="tabpanel" aria-labelledby="list-pfc-list">Для вас будет оптимальным соотношение белков жиров и углеводов: {{proteins_fats_carbs_list[body_type_index]}}</div>
         <div class="tab-pane fade" id="list-kkal" role="tabpanel" aria-labelledby="list-kkal-list">Для вас будет оптимальным норма калорий {{calories_norm_list[body_type_index]}} <br> (Норму калорий можно рассчитать в разделе калькулятор)</div>
         <div class="tab-pane fade" id="list-meals" role="tabpanel" aria-labelledby="list-meals-list">{{meals_count_list[body_type_index]}}</div>
-        <div class="tab-pane fade" id="list-blacklist" role="tabpanel" aria-labelledby="list-blacklist-list">...</div>
+        <div class="tab-pane fade" id="list-blacklist" role="tabpanel" aria-labelledby="list-blacklist-list">{{black_list[body_type_index]}}</div>
       </div>
     </div>
   </div>

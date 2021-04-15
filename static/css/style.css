@@ -100,7 +100,7 @@ main {
   background-color: #7fbb48;
 }
 .home-btn-download {
-  width: 600px;
+  width: 200px;
 }
 .calculator-btn {
   background-color: #7fbb48;
@@ -120,8 +120,11 @@ main {
   font-size: 40px;
   color: #BC4123;
 }
-
-.error-message{
-    color: #BC4123;
-    font-size:24px;
+.error-message {
+  color: #bc4123;
+  font-size: 24px;
+}
+.list-group .active {
+  background-color: #7fbb48;
+  border-color: #99c96d;
 }
