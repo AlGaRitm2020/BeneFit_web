@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+  {%if body_type == 'Эктоморф'%}
+      {% set body_type_index = 0 %}
+  {%elif body_type == 'Мезоморф'%}
+      {% set body_type_index = 1 %}
+  {% else %}
+      {% set body_type_index = 2 %}
+  {% endif %}
+
+  {% set proteins_fats_carbs_list = ['25/20/55', '40/20/40', '45/15/40'] %}
+  
+  
+  
+{% endblock %}
