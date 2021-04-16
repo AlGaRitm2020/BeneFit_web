@@ -12,7 +12,30 @@
   {% endif %}
 
   {% set proteins_fats_carbs_list = ['25/20/55', '40/20/40', '45/15/40'] %}
+  <form action="" method="post" class='col-md-8 m-auto calculator-form'>
+          {{ form.hidden_tag() }}
+      
+
+          <p>
+              {{ form.query.label }}<br>
+              {{ form.query(class="form-control", list='product_names_list') }}<br>
+              <datalist id="product_names_list" name='datalist'>
+                  {% for product_data in nutrition_list %}
+                      <option value={{product_data[0]}}></option>
+                  {% endfor %}
+              </datalist>
+
+
+          </p>
+
+          <p>{{ form.submit(type="submit", class="btn health-button") }}</p>
+
+          {% if form.validate_on_submit():%}
   
-  
-  
+          <p>Submited</p>
+
+
+          {% endif %}
+  </form>
+
 {% endblock %}

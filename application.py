@@ -30,9 +30,10 @@ from forms.profile_form import ProfileForm
 from forms.register_form import RegisterForm
 from forms.login_form import LoginForm
 from forms.water_calculator_form import WaterCalculatorForm
+from forms.nutrition_search_form import NutritionSearchForm
 
 # extra modules
-
+import csv
 # flask init
 
 DOMAIN = 'http://benefit2021.herokuapp.com'
@@ -343,10 +344,25 @@ def recommendations_page():
 
         resp = requests.get(f"{DOMAIN}/api/user/{current_user.id}/results")
         body_type = resp.json()['user_results']['body_type']
-        print(body_type)
         return render_template('recommendations.html', title='Регистрация', body_type=body_type)
     else:
         redirect('/')
+
+@app.route('/nutrition', methods=['GET', 'POST'])
+def nutrition_page():
+    """Nutrition page
+    You can chose a product and check calories, proteins, fats, carbs in it"""
+
+    global nutrition_list
+    form = NutritionSearchForm()
+
+    if form.validate_on_submit():
+        """Submit pressed"""
+        print('submit')
+        return render_template('nutrition.html', title='Питание', nutrition_list=nutrition_list, form=form)
+
+    return render_template('nutrition.html', title='Питание', nutrition_list=nutrition_list, form=form)
+
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -512,18 +528,21 @@ def logout_page():
     return redirect("/")
 
 
-"""
-def main():
-    
-    db_session.global_init("db/users.db")
 
-    # для одного объекта
-    api.add_resource(restful_resources.InputsResource, '/api/user_inputs/<int:user_id>')
+def create_nutrition_list():
+    global nutrition_list
+    nutrition_list = []
+    with open('static/csv/pfcc.csv', encoding="utf-8") as csvfile:
+        reader = csv.reader(csvfile, delimiter=';', quotechar='"')
+        for index, row in enumerate(reader):
+            if row:
+                nutrition_list.append((row[0], row[1].replace(" ", ""), row[2].replace(
+                    " ", ""), row[3].replace(" ", ""), row[4].replace(" ", "")))
 
-    app.run(port=8080, host='127.0.0.1')
-"""
+    print(nutrition_list)
 
 if __name__ == '__main__':
+    create_nutrition_list()
     db_session.global_init("db/users.db")
     port = int(os.environ.get("PORT", 8080))
     # app.run(host='0.0.0.0', port=port)
