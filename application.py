@@ -105,7 +105,8 @@ def BMI_calculator_page():
         form.height.data = current_user_inputs.height
         form.weight.data = current_user_inputs.weight
 
-    return render_template("BMI_calculator.html", title='Калькулятор индекса массы тела', form=form)
+    return render_template("BMI_calculator.html", title='Калькулятор индекса массы тела',
+                           form=form, active_calculator='active')
 
 
 @app.route("/calculators/heart_rate", methods=['GET', "POST"])
@@ -133,7 +134,8 @@ def heart_rate_calculator_page():
         return render_template("heart_rate_calculator.html",
                                title='Калькулятор частоты сердечных сокращений', form=form,
                                MHR=max_heart_rate, THR_min=training_heart_rate_min,
-                               THR_max=training_heart_rate_max)
+                               THR_max=training_heart_rate_max,
+                               active_calculator='active')
 
     if current_user.is_authenticated:
         """Get user_inputs from database and insert into form"""
@@ -144,7 +146,8 @@ def heart_rate_calculator_page():
         form.age.data = current_user_inputs.age
 
     return render_template("heart_rate_calculator.html",
-                           title='Калькулятор частоты сердечных сокращений', form=form)
+                           title='Калькулятор частоты сердечных сокращений', form=form,
+                           active_calculator='active')
 
 
 @app.route("/calculators/water", methods=['GET', "POST"])
@@ -176,7 +179,7 @@ def water_calculator_page():
 
         return render_template("water_calculator.html",
                                title='Калькулятор дневной нормы воды', form=form,
-                               water_norm=water_norm)
+                               water_norm=water_norm, active_calculator='active')
 
     if current_user.is_authenticated:
         """Get user_inputs from database and insert into form"""
@@ -189,7 +192,8 @@ def water_calculator_page():
         form.activity.data = str(current_user_inputs.activity)
 
     return render_template("water_calculator.html",
-                           title='Калькулятор дневной нормы воды', form=form)
+                           title='Калькулятор дневной нормы воды', form=form,
+                           active_calculator='active')
 
 
 @app.route("/calculators/calories", methods=['GET', "POST"])
@@ -226,7 +230,7 @@ def calories_calculator_page():
         print(calories_norm)
         return render_template("calories_calculator.html",
                                title='Калькулятор дневной нормы калорий', form=form,
-                               calories_norm=calories_norm)
+                               calories_norm=calories_norm, active_calculator='active')
 
     if current_user.is_authenticated:
         """Get user_inputs from database and insert into form"""
@@ -241,7 +245,8 @@ def calories_calculator_page():
         form.activity.data = str(current_user_inputs.activity)
 
     return render_template("calories_calculator.html",
-                           title='Калькулятор дневной нормы калорий', form=form)
+                           title='Калькулятор дневной нормы калорий', form=form,
+                           active_calculator='active')
 
 
 @app.route("/calculators/body_type", methods=['GET', "POST"])
@@ -272,7 +277,7 @@ def body_type_calculator_page():
 
         return render_template("body_type_calculator.html",
                                title='Калькулятор типа телосложения', form=form,
-                               body_type=body_type)
+                               body_type=body_type, active_calculator='active')
 
     if current_user.is_authenticated:
         """Get user_inputs from database and insert into form"""
@@ -284,7 +289,8 @@ def body_type_calculator_page():
         form.gender.data = current_user_inputs.gender
 
     return render_template("body_type_calculator.html",
-                           title='Калькулятор типа телосложения', form=form)
+                           title='Калькулятор типа телосложения', form=form,
+                           active_calculator='active')
 
 
 @app.route("/calculators/body_fat", methods=['GET', "POST"])
@@ -317,7 +323,7 @@ def body_fat_calculator_page():
 
         return render_template("body_fat_calculator.html",
                                title='Калькулятор процента жира', form=form,
-                               body_fat=body_fat)
+                               body_fat=body_fat, active_calculator='active')
 
     if current_user.is_authenticated:
         """Get user_inputs from database and insert into form"""
@@ -332,7 +338,7 @@ def body_fat_calculator_page():
         form.gender.data = current_user_inputs.gender
 
     return render_template("body_fat_calculator.html",
-                           title='Калькулятор процента жира', form=form)
+                           title='Калькулятор процента жира', form=form, active_calculator='active')
 
 
 @app.route('/recommendations', methods=['GET'])
@@ -342,10 +348,11 @@ def recommendations_page():
 
         resp = requests.get(f"{DOMAIN}/api/user/{current_user.id}/results")
         body_type = resp.json()['user_results']['body_type']
-        return render_template('recommendations.html', title='Регистрация', body_type=body_type)
+        return render_template('recommendations.html', title='Регистрация', body_type=body_type,
+                               active_recommendations='active')
     else:
 
-        return render_template('recommendations.html', title='Регистрация')
+        return render_template('recommendations.html', title='Регистрация', active_recommendations='active')
 
 @app.route('/nutrition', methods=['GET', 'POST'])
 def nutrition_page():
@@ -357,9 +364,11 @@ def nutrition_page():
 
     if form.validate_on_submit():
         """Submit pressed"""
-        return render_template('nutrition.html', title='Питание', nutrition_dict=nutrition_dict, form=form)
+        return render_template('nutrition.html', title='Питание', nutrition_dict=nutrition_dict, form=form,
+                               active_nutrition='active')
 
-    return render_template('nutrition.html', title='Питание', nutrition_dict=nutrition_dict, form=form)
+    return render_template('nutrition.html', title='Питание', nutrition_dict=nutrition_dict, form=form,
+                           active_nutrition='active')
 
 
 
