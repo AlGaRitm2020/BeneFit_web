@@ -20,8 +20,8 @@
               {{ form.query.label }}<br>
               {{ form.query(class="form-control", list='product_names_list') }}<br>
               <datalist id="product_names_list" name='datalist'>
-                  {% for product_data in nutrition_list %}
-                      <option value={{product_data[1]}} {{product_data[0]}}></option>
+                  {% for product_name in nutrition_dict.keys() %}
+                      <option value={{product_name}}></option>
                   {% endfor %}
               </datalist>
 
@@ -32,9 +32,15 @@
 
           {% if form.validate_on_submit():%}
     
-              {% for product_data in nutrition_list %}
-                      {% if form.query.data == product_data[1]:%}
-                          <p>{{product_data[1]}}</p>
+              {% for product_name, product_data in nutrition_dict.items() %}
+                      {% if form.query.data == product_name:%}
+                          <p class='nutrition-product-data'>
+                            Пищевая ценность на 100 грамм продукта <br>
+                            Белки:        {{product_data[0]}} г <br>
+                            Жиры:         {{product_data[1]}} г <br>
+                            Углеводы:     {{product_data[2]}} г <br>
+                            Калорийность: {{product_data[3]}} г <br>
+                          </p>
                           
                       {% endif %}
               {% endfor %}

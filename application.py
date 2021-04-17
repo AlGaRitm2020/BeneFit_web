@@ -353,15 +353,14 @@ def nutrition_page():
     """Nutrition page
     You can chose a product and check calories, proteins, fats, carbs in it"""
 
-    global nutrition_list
+    global nutrition_dict
     form = NutritionSearchForm()
 
     if form.validate_on_submit():
         """Submit pressed"""
-        print('submit')
-        return render_template('nutrition.html', title='Питание', nutrition_list=nutrition_list, form=form)
+        return render_template('nutrition.html', title='Питание', nutrition_dict=nutrition_dict, form=form)
 
-    return render_template('nutrition.html', title='Питание', nutrition_list=nutrition_list, form=form)
+    return render_template('nutrition.html', title='Питание', nutrition_dict=nutrition_dict, form=form)
 
 
 
@@ -529,9 +528,9 @@ def logout_page():
 
 
 
-def create_nutrition_list():
+def create_nutrition_dict():
     """This function create list of tuples based on file pfcc.csv where saved data of products"""
-    global nutrition_list
+    global nutrition_dict
     nutrition_dict = {}
     with open('static/csv/pfcc.csv', encoding="utf-8") as csvfile:
         reader = csv.reader(csvfile, delimiter=';', quotechar='"')
@@ -541,10 +540,11 @@ def create_nutrition_list():
                     " ", ""), row[3].replace(" ", ""), row[4].replace(" ", ""))
 
 
+    for i in nutrition_dict.keys():
 
-    print(nutrition_dict['7up'])
+        print(i)
 if __name__ == '__main__':
-    create_nutrition_list()
+    create_nutrition_dict()
     db_session.global_init("db/users.db")
     port = int(os.environ.get("PORT", 8080))
     # app.run(host='0.0.0.0', port=port)
