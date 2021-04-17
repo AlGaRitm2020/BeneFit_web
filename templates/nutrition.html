@@ -18,10 +18,11 @@
 
           <p>
               {{ form.query.label }}<br>
-              {{ form.query(class="form-control", list='product_names_list') }}<br>
+              {{ form.query(class="form-control", list='product_names_list', max='20') }}<br>
               <datalist id="product_names_list" name='datalist'>
                   {% for product_name in nutrition_dict.keys() %}
-                      <option value={{product_name}}></option>
+                  
+                      <option value='{{product_name}}'></option>
                   {% endfor %}
               </datalist>
 
