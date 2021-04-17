@@ -22,9 +22,11 @@
   {% set meals_count_list = ['Питайтесь как можно чаще! Желательно 6-8 раз в день. Избегайте больших перерывов между приемами пищи',
                       'Питайтесь часто! Желательно 5 раз в день. Между приемами пищи не более 4 часов.',
                       'Для вас количество приемов не так важно. Главное питайтесь хотя-бы 3 раза в день.'] %}
-
-  <h1>Персональные рекоммендации для {{ current_user.name }}</h1>
-
+  {% if current_user.is_authenticated: %}
+    <h1>Персональные рекоммендации для {{ current_user.name }}</h1>
+  {% else: %}
+    <h1>Персональные рекоммендации</h1>
+  {% endif %}
   <div class="row">
     <div class="col-md-4 col-sm-6">
       <div class="list-group" id="list-tab" role="tablist">
@@ -34,6 +36,7 @@
         <a class="list-group-item list-group-item-action" id="list-blacklist-list" data-bs-toggle="list" href="#list-blacklist" role="tab" aria-controls="blacklist">Черный список продуктов</a>
       </div>
     </div>
+    {% if current_user.is_authenticated: %}
     <div class="col-md-8 col-sm-6">
       <div class="tab-content recommendations" id="nav-tabContent">
         <div class="tab-pane fade show active" id="list-pfc" role="tabpanel" aria-labelledby="list-pfc-list">Для вас будет оптимальным соотношение белков жиров и углеводов: {{proteins_fats_carbs_list[body_type_index]}}</div>
@@ -42,5 +45,14 @@
         <div class="tab-pane fade" id="list-blacklist" role="tabpanel" aria-labelledby="list-blacklist-list">{{black_list[body_type_index]}}</div>
       </div>
     </div>
+    {% else: %}
+      <div class="col-md-8 col-sm-6">
+        <div class="tab-content recommendations" id="nav-tabContent">
+
+          <p>Для получения персональных рекомендаций необходимо войти в аккаунт</p>
+
+        </div>
+      </div>
+    {% endif %}
   </div>
 {% endblock %}

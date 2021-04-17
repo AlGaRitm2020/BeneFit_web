@@ -59,7 +59,7 @@ def load_user(user_id):
 @app.route("/")
 def home_page():
     """"Home page (/) show all current user news and all public news"""
-    return render_template("index.html")
+    return render_template("index.html", active_home='active')
 
 
 @app.route("/calculators", methods=['GET', "POST"])
@@ -94,7 +94,7 @@ def BMI_calculator_page():
 
         BMI = calculate_BMI(weight, height)
         return render_template("BMI_calculator.html", title='Калькулятор индекса массы тела',
-                               form=form, BMI=BMI)
+                               form=form, BMI=BMI, active_calculator='active')
 
     if current_user.is_authenticated:
         """Get user_inputs from database and insert into form"""
@@ -344,7 +344,8 @@ def recommendations_page():
         body_type = resp.json()['user_results']['body_type']
         return render_template('recommendations.html', title='Регистрация', body_type=body_type)
     else:
-        redirect('/')
+
+        return render_template('recommendations.html', title='Регистрация')
 
 @app.route('/nutrition', methods=['GET', 'POST'])
 def nutrition_page():
