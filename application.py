@@ -469,7 +469,7 @@ def login_page():
 @app.route('/profile', methods=['GET', 'POST'])
 @login_required
 def profile_page():
-    """"In this page user can edit all of him parameters"""
+    """"In this page user can edit all of yours parameters"""
 
     form = ProfileForm()
 
