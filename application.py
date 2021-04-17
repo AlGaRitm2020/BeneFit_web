@@ -38,7 +38,7 @@ import csv
 
 DOMAIN = 'http://benefit2021.herokuapp.com'
 LOCAL_HOST = 'http://127.0.0.1:8080'
-# DOMAIN = LOCAL_HOST
+DOMAIN = LOCAL_HOST
 
 app = Flask(__name__)
 api = Api(app)
@@ -539,10 +539,6 @@ def create_nutrition_dict():
                 nutrition_dict[row[0]] = (row[1].replace(" ", ""), row[2].replace(
                     " ", ""), row[3].replace(" ", ""), row[4].replace(" ", ""))
 
-
-    for i in nutrition_dict.keys():
-
-        print(i)
 if __name__ == '__main__':
     create_nutrition_dict()
     db_session.global_init("db/users.db")
