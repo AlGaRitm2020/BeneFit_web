@@ -128,3 +128,13 @@ main {
   background-color: #7fbb48;
   border-color: #99c96d;
 }
+.health-button {
+  background-color: #7fbb48;
+  border-color: #7fbb48;
+  color: #fff;
+}
+.health-button:hover {
+  color: #fff;
+  background-color: #99c96d;
+  border-color: #7fbb48;
+}

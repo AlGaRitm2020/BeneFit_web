@@ -530,17 +530,19 @@ def logout_page():
 
 
 def create_nutrition_list():
+    """This function create list of tuples based on file pfcc.csv where saved data of products"""
     global nutrition_list
-    nutrition_list = []
+    nutrition_dict = {}
     with open('static/csv/pfcc.csv', encoding="utf-8") as csvfile:
         reader = csv.reader(csvfile, delimiter=';', quotechar='"')
         for index, row in enumerate(reader):
             if row:
-                nutrition_list.append((row[0], row[1].replace(" ", ""), row[2].replace(
-                    " ", ""), row[3].replace(" ", ""), row[4].replace(" ", "")))
+                nutrition_dict[row[0]] = (row[1].replace(" ", ""), row[2].replace(
+                    " ", ""), row[3].replace(" ", ""), row[4].replace(" ", ""))
 
-    print(nutrition_list)
 
+
+    print(nutrition_dict['7up'])
 if __name__ == '__main__':
     create_nutrition_list()
     db_session.global_init("db/users.db")

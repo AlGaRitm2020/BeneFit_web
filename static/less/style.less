@@ -182,3 +182,14 @@ main{
 
 	}
 }
+
+.health-button{
+	background-color: @health-color;
+		border-color: @health-color;
+		color:#fff;
+		&:hover{
+			color:#fff;
+			background-color: lighten(@health-color, 10%);
+			border-color: @health-color;
+			}
+}
