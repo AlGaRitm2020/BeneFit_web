@@ -142,3 +142,18 @@ main {
   background-color: #99c96d;
   border-color: #7fbb48;
 }
+.recommendations {
+  background-color: #ffffff;
+  padding: 3px;
+  font-size: 20px;
+}
+.nutrition-card {
+  background-color: #7fbb48;
+  color: #ffffff;
+  border-radius: 15px;
+}
+.nutrition-card-head {
+  background-color: #ffffff;
+  color: #7fbb48;
+  border-radius: 15px 15px 0 0;
+}

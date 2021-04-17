@@ -1,4 +1,5 @@
 @bg-main:#f7f7f7;
+@light:#ffffff;
 @bg-form:#ffcc00;
 @health-color:#7fbb48;
 @accent-color:#BC4123;
@@ -212,3 +213,31 @@ main{
 			border-color: @health-color;
 			}
 }
+
+.recommendations{
+	// border:1px solid @health-color;
+	background-color: @light;
+	padding: 3px;
+	font-size:20px;
+}
+
+.nutrition{
+	&-card{
+		&-head{
+			background-color: @light;
+			color:@health-color;
+			border-radius:15px 15px 0 0;
+		}
+		background-color: @health-color;
+		color:@light;
+		border-radius: 15px;
+		
+	}
+}
+
+
+// @media screen(max-width: 450px) {
+// 	.card-head{
+// 		font-size: 12px;
+// 	}
+// }

@@ -35,13 +35,15 @@
     
               {% for product_name, product_data in nutrition_dict.items() %}
                       {% if form.query.data == product_name:%}
-                          <p class='nutrition-product-data'>
-                            Пищевая ценность на 100 грамм продукта <br>
-                            Белки:        {{product_data[0]}} г <br>
-                            Жиры:         {{product_data[1]}} г <br>
-                            Углеводы:     {{product_data[2]}} г <br>
-                            Калорийность: {{product_data[3]}} г <br>
-                          </p>
+                          <div class="card nutrition-card d-flex justify-content-center">
+                                <div class="card-head nutrition-card-head main-card-head"><p>Пищевая ценность</p></div>
+                                <p class="text-center">Белки:        {{product_data[0]}} г </p>
+                                <p class="text-center">Жиры:         {{product_data[1]}} г </p>
+                                <p class="text-center">Углеводы:     {{product_data[2]}} г </p>
+                                <p class="text-center">Калорийность: {{product_data[3]}} г </p>
+                                                      
+                          </div>
+                          
                           
                       {% endif %}
               {% endfor %}

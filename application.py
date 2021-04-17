@@ -82,8 +82,6 @@ def BMI_calculator_page():
         if current_user.is_authenticated:
             """user was authenticated
             save inputs to the database"""
-            print(current_user.id)
-            print(ResultsResource.get(current_user.id))
             db_sess = db_session.create_session()
             current_user.user_inputs[0].weight = weight
             current_user.user_inputs[0].height = height
