@@ -8,7 +8,7 @@
 	
         	<p>
         	    {{ form.weight.label }}<br>
-        	    {{ form.weight(class="form-control", type="number", min='20', max='500') }}<br>
+        	    {{ form.weight(class="form-control input", type="number", min='20', max='500') }}<br>
         	    {% for error in form.weight.errors %}
         	        <div class="alert alert-danger" role="alert">
         	            {{ error }}
@@ -18,7 +18,7 @@
 
           <p>
               {{ form.gender.label }}<br>
-              {{ form.gender(class="form-control form-field-gender", type="string") }}<br>
+              {{ form.gender(class="form-control form-field-gender input", type="string") }}<br>
               {% for error in form.gender.errors %}
                   <div class="alert alert-danger" role="alert">
                       {{ error }}
@@ -28,7 +28,7 @@
 
           <p>
               {{ form.activity.label }}<br>
-              {{ form.activity(class="form-control", type="select") }}<br>
+              {{ form.activity(class="form-control input", type="select") }}<br>
               {% for error in form.activity.errors %}
                   <div class="alert alert-danger" role="alert">
                       {{ error }}

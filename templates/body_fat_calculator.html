@@ -6,7 +6,7 @@
 
           <p>
               {{ form.height.label }}<br>
-              {{ form.height(class="form-control", type="number", min='60', max='250') }}<br>
+              {{ form.height(class="form-control input", type="number", min='60', max='250') }}<br>
               {% for error in form.height.errors %}
                   <div class="alert alert-danger" role="alert">
                       {{ error }}
@@ -16,7 +16,7 @@
 	        
           <p>
               {{ form.gender.label }}<br>
-              {{ form.gender(class="form-control form-field-gender", type="string") }}<br>
+              {{ form.gender(class="form-control form-field-gender input", type="string") }}<br>
               {% for error in form.gender.errors %}
                   <div class="alert alert-danger" role="alert">
                       {{ error }}
@@ -26,7 +26,7 @@
 
         	<p>
         	    {{ form.waist.label }}<br>
-        	    {{ form.waist(class="form-control", type="number, min='50', max='100'") }}<br>
+        	    {{ form.waist(class="form-control input", type="number, min='50', max='100'") }}<br>
         	    {% for error in form.waist.errors %}
         	        <div class="alert alert-danger" role="alert">
         	            {{ error }}
@@ -36,7 +36,7 @@
 
           <p>
               {{ form.neck.label }}<br>
-              {{ form.neck(class="form-control", type="number", min='30', max='50') }}<br>
+              {{ form.neck(class="form-control input", type="number", min='30', max='50') }}<br>
               {% for error in form.neck.errors %}
                   <div class="alert alert-danger" role="alert">
                       {{ error }}
@@ -48,7 +48,7 @@
   
             <p>
               {{ form.hip.label }}<br>
-              {{ form.hip(class="form-control", type="number, min='70', max='130'") }}<br>
+              {{ form.hip(class="form-control input", type="number, min='70', max='130'") }}<br>
               {% for error in form.hip.errors %}
                   <div class="alert alert-danger" role="alert">
                       {{ error }}

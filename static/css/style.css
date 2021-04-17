@@ -16,6 +16,10 @@
 .btn:hover {
   box-shadow: #7fbb48;
 }
+.input:focus {
+  border-color: #7fbb48;
+  box-shadow: 0 0 15px #7fbb48 !important;
+}
 .nav {
   background-color: #fff !important;
 }
