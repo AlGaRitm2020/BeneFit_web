@@ -312,16 +312,15 @@ def body_fat_calculator_page():
                                body_fat=body_fat, active_calculator='active')
 
     if current_user.is_authenticated:
-        """Get user_inputs from database and insert into form"""
-        db_sess = db_session.create_session()
-        current_user_inputs = db_sess.query(UserInputs).filter(
-            UserInputs.user_id == current_user.id).first()
+        """Get user_inputs from API and insert into form"""
+        inputs_json = requests.get(f"{DOMAIN}/api/user/{current_user.id}/inputs").json()
+        form.gender.data = inputs_json['user_inputs']['gender']
+        form.waist.data = inputs_json['user_inputs']['waist']
+        form.height.data = inputs_json['user_inputs']['height']
+        form.hip.data = inputs_json['user_inputs']['hip']
+        form.neck.data = inputs_json['user_inputs']['neck']
 
-        form.height.data = current_user_inputs.height
-        form.waist.data = current_user_inputs.waist
-        form.neck.data = current_user_inputs.neck
-        form.hip.data = current_user_inputs.hip
-        form.gender.data = current_user_inputs.gender
+
 
     return render_template("body_fat_calculator.html",
                            title='Калькулятор процента жира', form=form, active_calculator='active')
