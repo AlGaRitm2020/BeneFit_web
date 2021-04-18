@@ -38,7 +38,7 @@ import csv
 
 DOMAIN = 'http://benefit2021.herokuapp.com'
 LOCAL_HOST = 'http://127.0.0.1:8080'
-
+DOMAIN = LOCAL_HOST
 
 app = Flask(__name__)
 api = Api(app)
