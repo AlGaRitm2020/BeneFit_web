@@ -177,14 +177,13 @@ def water_calculator_page():
                                water_norm=water_norm, active_calculator='active')
 
     if current_user.is_authenticated:
-        """Get user_inputs from database and insert into form"""
-        db_sess = db_session.create_session()
-        current_user_inputs = db_sess.query(UserInputs).filter(
-            UserInputs.user_id == current_user.id).first()
+        """Get user_inputs from API and insert into form"""
+        results_json = requests.get(f"{DOMAIN}/api/user/{current_user.id}/inputs").json()
+        form.gender.data = results_json['user_inputs']['gender']
+        form.weight.data = results_json['user_inputs']['weight']
+        form.activity.data = str(results_json['user_inputs']['activity'])
 
-        form.weight.data = current_user_inputs.weight
-        form.gender.data = current_user_inputs.gender
-        form.activity.data = str(current_user_inputs.activity)
+
 
     return render_template("water_calculator.html",
                            title='Калькулятор дневной нормы воды', form=form,
