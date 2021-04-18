@@ -269,13 +269,10 @@ def body_type_calculator_page():
                                body_type=body_type, active_calculator='active')
 
     if current_user.is_authenticated:
-        """Get user_inputs from database and insert into form"""
-        db_sess = db_session.create_session()
-        current_user_inputs = db_sess.query(UserInputs).filter(
-            UserInputs.user_id == current_user.id).first()
-
-        form.wrists.data = current_user_inputs.wrists
-        form.gender.data = current_user_inputs.gender
+        """Get user_inputs from API and insert into form"""
+        inputs_json = requests.get(f"{DOMAIN}/api/user/{current_user.id}/inputs").json()
+        form.gender.data = inputs_json['user_inputs']['gender']
+        form.wrists.data = inputs_json['user_inputs']['wrists']
 
     return render_template("body_type_calculator.html",
                            title='Калькулятор типа телосложения', form=form,
