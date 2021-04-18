@@ -97,13 +97,10 @@ def BMI_calculator_page():
                                form=form, BMI=BMI, active_calculator='active')
 
     if current_user.is_authenticated:
-        """Get user_inputs from database and insert into form"""
-        db_sess = db_session.create_session()
-        current_user_inputs = db_sess.query(UserInputs).filter(
-            UserInputs.user_id == current_user.id).first()
-
-        form.height.data = current_user_inputs.height
-        form.weight.data = current_user_inputs.weight
+        """Get user_inputs from api and insert into form"""
+        results_json = requests.get(f"{DOMAIN}/api/user/{current_user.id}/inputs").json()
+        form.height.data = results_json['user_inputs']['height']
+        form.weight.data = results_json['user_inputs']['weight']
 
     return render_template("BMI_calculator.html", title='Калькулятор индекса массы тела',
                            form=form, active_calculator='active')
@@ -138,12 +135,10 @@ def heart_rate_calculator_page():
                                active_calculator='active')
 
     if current_user.is_authenticated:
-        """Get user_inputs from database and insert into form"""
-        db_sess = db_session.create_session()
-        current_user_inputs = db_sess.query(UserInputs).filter(
-            UserInputs.user_id == current_user.id).first()
+        """Get user_inputs from api and insert into form"""
+        results_json = requests.get(f"{DOMAIN}/api/user/{current_user.id}/inputs").json()
+        form.age.data = results_json['user_inputs']['age']
 
-        form.age.data = current_user_inputs.age
 
     return render_template("heart_rate_calculator.html",
                            title='Калькулятор частоты сердечных сокращений', form=form,
@@ -346,8 +341,8 @@ def recommendations_page():
 
     if current_user.is_authenticated:
 
-        resp = requests.get(f"{DOMAIN}/api/user/{current_user.id}/results")
-        body_type = resp.json()['user_results']['body_type']
+        results_json = requests.get(f"{DOMAIN}/api/user/{current_user.id}/results").json()
+        body_type = results_json['user_results']['body_type']
         return render_template('recommendations.html', title='Регистрация', body_type=body_type,
                                active_recommendations='active')
     else:
