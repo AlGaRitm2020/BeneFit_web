@@ -8,15 +8,17 @@ from data.user_results import UserResults
 
 
 def abort_if_inputs_not_found(news_id):
+    """Response for incorrect user id"""
     session = db_session.create_session()
-    news = session.query(UserInputs).get(news_id)
-    if not news:
-        abort(404, message=f"News {news_id} not found")
+    user = session.query(UserInputs).get(user_id)
+    if not user:
+        abort(404, message=f"User {news_id} not found")
 
 
 class InputsResource(Resource):
 
     def get(self, user_id):
+        """this method return all of user inputs in json from database"""
         abort_if_inputs_not_found(user_id)
         session = db_session.create_session()
         user_inputs = session.query(UserInputs).get(user_id)
@@ -27,21 +29,13 @@ class InputsResource(Resource):
 
 
 class UpdateUser(Resource):
+    """NOT WORKING
+    """
+
     def post(self):
+        """this method post all of user inputs in database"""
         args = parser.parse_args()
         session = db_session.create_session()
-
-        # inputs = UserInputs(
-        #     height=args['height'],
-        #     weight=args['weight'],
-        #     age=args['age'],
-        #     gender=args['gender'],
-        #     activity=args['activity'],
-        #     wrists=args['wrists'],
-        #     waist=args['waist'],
-        #     neck=args['neck'],
-        #     hip=args['hip']
-        # )
 
         current_user.user_inputs[0].weight = args['weight']
         current_user.user_inputs[0].height = args['height']
@@ -61,6 +55,7 @@ class UpdateUser(Resource):
 
 class ResultsResource(Resource):
     def get(self, **user_id):
+        """this method return same user results(BMI, body type) in json from database"""
         abort_if_inputs_not_found(user_id)
         session = db_session.create_session()
         user_results = session.query(UserResults).get(user_id)
@@ -68,37 +63,8 @@ class ResultsResource(Resource):
             only=(
                 'BMI', 'body_type'))})
 
-    # def delete(self, user_id):
-    #     abort_if_inputs_not_found(user_id)
-    #     session = db_session.create_session()
-    #     user_inputs = session.query(UserInputs).get(user_id)
-    #     session.delete(user_inputs)
-    #     session.commit()
-    #     return jsonify({'success': 'OK'})
 
-
-# class InputsListResource(Resource):
-#     def get(self):
-#         session = db_session.create_session()
-#         news = session.query(UserInputs).all()
-#         return jsonify({'news': [item.to_dict(
-#             only=('title', 'content', 'user.name')) for item in news]})
-#
-#     def post(self):
-#         args = parser.parse_args()
-#         session = db_session.create_session()
-#         news = News(
-#             title=args['title'],
-#             content=args['content'],
-#             user_id=args['user_id'],
-#             is_published=args['is_published'],
-#             is_private=args['is_private']
-#         )
-#         session.add(news)
-#         session.commit()
-#         return jsonify({'success': 'OK'})
-#
-#
+"""parser for UpdateUser class"""
 parser = reqparse.RequestParser()
 parser.add_argument('height', type=int)
 parser.add_argument('weight', type=int)

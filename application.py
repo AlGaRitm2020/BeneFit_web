@@ -34,6 +34,7 @@ from forms.nutrition_search_form import NutritionSearchForm
 
 # extra modules
 import csv
+
 # flask init
 
 DOMAIN = 'http://benefit2021.herokuapp.com'
@@ -62,10 +63,9 @@ def home_page():
     return render_template("index.html", active_home='active')
 
 
-@app.route("/calculators", methods=['GET', "POST"])
-def calculators_page():
-    """Show all calculators"""
-    return render_template("calculators.html", title='Калькулятор')
+'''Pages
+active_{pagename} attribute mean that this tab is active and send to template class 'active'
+ in order to highlight this tab'''
 
 
 @app.route("/calculators/BMI", methods=['GET', "POST"])
@@ -139,7 +139,6 @@ def heart_rate_calculator_page():
         inputs_json = requests.get(f"{DOMAIN}/api/user/{current_user.id}/inputs").json()
         form.age.data = inputs_json['user_inputs']['age']
 
-
     return render_template("heart_rate_calculator.html",
                            title='Калькулятор частоты сердечных сокращений', form=form,
                            active_calculator='active')
@@ -182,7 +181,6 @@ def water_calculator_page():
         form.gender.data = inputs_json['user_inputs']['gender']
         form.weight.data = inputs_json['user_inputs']['weight']
         form.activity.data = str(inputs_json['user_inputs']['activity'])
-
 
     return render_template("water_calculator.html",
                            title='Калькулятор дневной нормы воды', form=form,
@@ -320,24 +318,29 @@ def body_fat_calculator_page():
         form.hip.data = inputs_json['user_inputs']['hip']
         form.neck.data = inputs_json['user_inputs']['neck']
 
-
-
     return render_template("body_fat_calculator.html",
                            title='Калькулятор процента жира', form=form, active_calculator='active')
 
 
 @app.route('/recommendations', methods=['GET'])
 def recommendations_page():
-
+    """"recommendations page
+    get query to API and return personal recommendations based on user data"""
     if current_user.is_authenticated:
+        """User is authenticated 
+        enable personal recommendations"""
 
         results_json = requests.get(f"{DOMAIN}/api/user/{current_user.id}/results").json()
         body_type = results_json['user_results']['body_type']
         return render_template('recommendations.html', title='Регистрация', body_type=body_type,
                                active_recommendations='active')
     else:
+        """User isn't authenticated 
+        disable personal recommendations"""
 
-        return render_template('recommendations.html', title='Регистрация', active_recommendations='active')
+        return render_template('recommendations.html',
+                               title='Регистрация', active_recommendations='active')
+
 
 @app.route('/nutrition', methods=['GET', 'POST'])
 def nutrition_page():
@@ -348,13 +351,14 @@ def nutrition_page():
     form = NutritionSearchForm()
 
     if form.validate_on_submit():
-        """Submit pressed"""
-        return render_template('nutrition.html', title='Питание', nutrition_dict=nutrition_dict, form=form,
-                               active_nutrition='active')
-
-    return render_template('nutrition.html', title='Питание', nutrition_dict=nutrition_dict, form=form,
-                           active_nutrition='active')
-
+        """Submit pressed
+        show selected product data"""
+        return render_template('nutrition.html', title='Питание', nutrition_dict=nutrition_dict,
+                               form=form, active_nutrition='active')
+    """submit isn't pressed
+     hide product data field"""
+    return render_template('nutrition.html', title='Питание', nutrition_dict=nutrition_dict,
+                           form=form, active_nutrition='active')
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -520,7 +524,6 @@ def logout_page():
     return redirect("/")
 
 
-
 def create_nutrition_dict():
     """This function create list of tuples based on file pfcc.csv where saved data of products"""
     global nutrition_dict
@@ -531,6 +534,7 @@ def create_nutrition_dict():
             if row:
                 nutrition_dict[row[0]] = (row[1].replace(" ", ""), row[2].replace(
                     " ", ""), row[3].replace(" ", ""), row[4].replace(" ", ""))
+
 
 if __name__ == '__main__':
     create_nutrition_dict()
