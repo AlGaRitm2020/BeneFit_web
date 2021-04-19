@@ -7,7 +7,7 @@ from data.user_inputs import UserInputs
 from data.user_results import UserResults
 
 
-def abort_if_inputs_not_found(news_id):
+def abort_if_inputs_not_found(user_id):
     """Response for incorrect user id"""
     session = db_session.create_session()
     user = session.query(UserInputs).get(user_id)
