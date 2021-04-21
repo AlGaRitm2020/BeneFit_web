@@ -379,13 +379,17 @@ def register_page():
     form = RegisterForm()
     # register button
 
+    # random background image 1 of 5
+    bg_index = randint(0, 4)
+
     if form.validate_on_submit():
         # check password match
         if form.password.data != form.password_again.data:
             # passwords isn't match
             return render_template('register.html', title='Регистрация',
                                    form=form,
-                                   message="Пароли не совпадают")
+                                   message="Пароли не совпадают",
+                                   bg_index=bg_index)
         # new session
         db_sess = db_session.create_session()
 
@@ -393,7 +397,8 @@ def register_page():
         if db_sess.query(UserLogin).filter(UserLogin.email == form.email.data).first():
             return render_template('register.html', title='Регистрация',
                                    form=form,
-                                   message="Такой пользователь уже есть")
+                                   message="Такой пользователь уже есть",
+                                   bg_index=bg_index)
         # user login info
         user_login = UserLogin(
             name=form.name.data,
@@ -430,8 +435,7 @@ def register_page():
         db_sess.commit()
 
         return redirect('/login')
-    # random background image 1 of 5
-    bg_index = randint(0, 4)
+
 
 
     return render_template('register.html', title='Регистрация', form=form, bg_index=bg_index)
