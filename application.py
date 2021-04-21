@@ -367,7 +367,9 @@ def register_page():
     Fields: name, email, about, password"""
     form = RegisterForm()
     # register button
-    print('reg page')
+
+    # random background image 1 of 5
+    bg_index = randint(0, 4)
 
     if form.validate_on_submit():
         # check password match
@@ -375,14 +377,17 @@ def register_page():
             # passwords isn't match
             return render_template('register.html', title='Регистрация',
                                    form=form,
-                                   message="Пароли не совпадают")
+                                   message="Пароли не совпадают",
+                                   bg_index=bg_index)
         # new session
         db_sess = db_session.create_session()
+
         # check registered
         if db_sess.query(UserLogin).filter(UserLogin.email == form.email.data).first():
             return render_template('register.html', title='Регистрация',
                                    form=form,
-                                   message="Такой пользователь уже есть")
+                                   message="Такой пользователь уже есть",
+                                   bg_index=bg_index)
         # user login info
         user_login = UserLogin(
             name=form.name.data,
@@ -419,8 +424,8 @@ def register_page():
         db_sess.commit()
 
         return redirect('/login')
-    # random background image 1 of 5
-    bg_index = randint(0, 4)
+
+
 
     return render_template('register.html', title='Регистрация', form=form, bg_index=bg_index)
 
@@ -432,6 +437,9 @@ def login_page():
     After that, redirect to home(/) """
     # login form
     form = LoginForm()
+
+    # random background image 1 of 5
+    bg_index = randint(0, 4)
 
     # submit button
     if form.validate_on_submit():
@@ -449,8 +457,7 @@ def login_page():
                                message="Неправильный логин или пароль",
                                form=form,
                                bg_index=bg_index)
-    # random background image 1 of 5
-    bg_index = randint(0, 4)
+
     # return template
     return render_template('login.html', title='Авторизация', form=form, bg_index=bg_index)
 

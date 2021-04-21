@@ -34,6 +34,7 @@ from forms.nutrition_search_form import NutritionSearchForm
 
 # extra modules
 import csv
+
 # flask init
 
 DOMAIN = 'http://benefit2021.herokuapp.com'
@@ -62,10 +63,9 @@ def home_page():
     return render_template("index.html", active_home='active')
 
 
-@app.route("/calculators", methods=['GET', "POST"])
-def calculators_page():
-    """Show all calculators"""
-    return render_template("calculators.html", title='Калькулятор')
+'''Pages
+active_{pagename} attribute mean that this tab is active and send to template class 'active'
+ in order to highlight this tab'''
 
 
 @app.route("/calculators/BMI", methods=['GET', "POST"])
@@ -97,13 +97,10 @@ def BMI_calculator_page():
                                form=form, BMI=BMI, active_calculator='active')
 
     if current_user.is_authenticated:
-        """Get user_inputs from database and insert into form"""
-        db_sess = db_session.create_session()
-        current_user_inputs = db_sess.query(UserInputs).filter(
-            UserInputs.user_id == current_user.id).first()
-
-        form.height.data = current_user_inputs.height
-        form.weight.data = current_user_inputs.weight
+        """Get user_inputs from api and insert into form"""
+        inputs_json = requests.get(f"{DOMAIN}/api/user/{current_user.id}/inputs").json()
+        form.height.data = inputs_json['user_inputs']['height']
+        form.weight.data = inputs_json['user_inputs']['weight']
 
     return render_template("BMI_calculator.html", title='Калькулятор индекса массы тела',
                            form=form, active_calculator='active')
@@ -138,12 +135,9 @@ def heart_rate_calculator_page():
                                active_calculator='active')
 
     if current_user.is_authenticated:
-        """Get user_inputs from database and insert into form"""
-        db_sess = db_session.create_session()
-        current_user_inputs = db_sess.query(UserInputs).filter(
-            UserInputs.user_id == current_user.id).first()
-
-        form.age.data = current_user_inputs.age
+        """Get user_inputs from api and insert into form"""
+        inputs_json = requests.get(f"{DOMAIN}/api/user/{current_user.id}/inputs").json()
+        form.age.data = inputs_json['user_inputs']['age']
 
     return render_template("heart_rate_calculator.html",
                            title='Калькулятор частоты сердечных сокращений', form=form,
@@ -182,14 +176,11 @@ def water_calculator_page():
                                water_norm=water_norm, active_calculator='active')
 
     if current_user.is_authenticated:
-        """Get user_inputs from database and insert into form"""
-        db_sess = db_session.create_session()
-        current_user_inputs = db_sess.query(UserInputs).filter(
-            UserInputs.user_id == current_user.id).first()
-
-        form.weight.data = current_user_inputs.weight
-        form.gender.data = current_user_inputs.gender
-        form.activity.data = str(current_user_inputs.activity)
+        """Get user_inputs from API and insert into form"""
+        inputs_json = requests.get(f"{DOMAIN}/api/user/{current_user.id}/inputs").json()
+        form.gender.data = inputs_json['user_inputs']['gender']
+        form.weight.data = inputs_json['user_inputs']['weight']
+        form.activity.data = str(inputs_json['user_inputs']['activity'])
 
     return render_template("water_calculator.html",
                            title='Калькулятор дневной нормы воды', form=form,
@@ -227,22 +218,18 @@ def calories_calculator_page():
 
         physical_activity_quotient = calculate_physical_activity_quotient(activity)
         calories_norm = calculate_calories(weight, height, age, gender, physical_activity_quotient)
-        print(calories_norm)
         return render_template("calories_calculator.html",
                                title='Калькулятор дневной нормы калорий', form=form,
                                calories_norm=calories_norm, active_calculator='active')
 
     if current_user.is_authenticated:
-        """Get user_inputs from database and insert into form"""
-        db_sess = db_session.create_session()
-        current_user_inputs = db_sess.query(UserInputs).filter(
-            UserInputs.user_id == current_user.id).first()
-
-        form.weight.data = current_user_inputs.weight
-        form.height.data = current_user_inputs.height
-        form.age.data = current_user_inputs.age
-        form.gender.data = current_user_inputs.gender
-        form.activity.data = str(current_user_inputs.activity)
+        """Get user_inputs from API and insert into form"""
+        inputs_json = requests.get(f"{DOMAIN}/api/user/{current_user.id}/inputs").json()
+        form.gender.data = inputs_json['user_inputs']['gender']
+        form.weight.data = inputs_json['user_inputs']['weight']
+        form.height.data = inputs_json['user_inputs']['height']
+        form.age.data = inputs_json['user_inputs']['age']
+        form.activity.data = str(inputs_json['user_inputs']['activity'])
 
     return render_template("calories_calculator.html",
                            title='Калькулятор дневной нормы калорий', form=form,
@@ -280,13 +267,10 @@ def body_type_calculator_page():
                                body_type=body_type, active_calculator='active')
 
     if current_user.is_authenticated:
-        """Get user_inputs from database and insert into form"""
-        db_sess = db_session.create_session()
-        current_user_inputs = db_sess.query(UserInputs).filter(
-            UserInputs.user_id == current_user.id).first()
-
-        form.wrists.data = current_user_inputs.wrists
-        form.gender.data = current_user_inputs.gender
+        """Get user_inputs from API and insert into form"""
+        inputs_json = requests.get(f"{DOMAIN}/api/user/{current_user.id}/inputs").json()
+        form.gender.data = inputs_json['user_inputs']['gender']
+        form.wrists.data = inputs_json['user_inputs']['wrists']
 
     return render_template("body_type_calculator.html",
                            title='Калькулятор типа телосложения', form=form,
@@ -326,16 +310,13 @@ def body_fat_calculator_page():
                                body_fat=body_fat, active_calculator='active')
 
     if current_user.is_authenticated:
-        """Get user_inputs from database and insert into form"""
-        db_sess = db_session.create_session()
-        current_user_inputs = db_sess.query(UserInputs).filter(
-            UserInputs.user_id == current_user.id).first()
-
-        form.height.data = current_user_inputs.height
-        form.waist.data = current_user_inputs.waist
-        form.neck.data = current_user_inputs.neck
-        form.hip.data = current_user_inputs.hip
-        form.gender.data = current_user_inputs.gender
+        """Get user_inputs from API and insert into form"""
+        inputs_json = requests.get(f"{DOMAIN}/api/user/{current_user.id}/inputs").json()
+        form.gender.data = inputs_json['user_inputs']['gender']
+        form.waist.data = inputs_json['user_inputs']['waist']
+        form.height.data = inputs_json['user_inputs']['height']
+        form.hip.data = inputs_json['user_inputs']['hip']
+        form.neck.data = inputs_json['user_inputs']['neck']
 
     return render_template("body_fat_calculator.html",
                            title='Калькулятор процента жира', form=form, active_calculator='active')
@@ -343,16 +324,23 @@ def body_fat_calculator_page():
 
 @app.route('/recommendations', methods=['GET'])
 def recommendations_page():
-
+    """"recommendations page
+    get query to API and return personal recommendations based on user data"""
     if current_user.is_authenticated:
+        """User is authenticated 
+        enable personal recommendations"""
 
-        resp = requests.get(f"{DOMAIN}/api/user/{current_user.id}/results")
-        body_type = resp.json()['user_results']['body_type']
+        results_json = requests.get(f"{DOMAIN}/api/user/{current_user.id}/results").json()
+        body_type = results_json['user_results']['body_type']
         return render_template('recommendations.html', title='Регистрация', body_type=body_type,
                                active_recommendations='active')
     else:
+        """User isn't authenticated 
+        disable personal recommendations"""
 
-        return render_template('recommendations.html', title='Регистрация', active_recommendations='active')
+        return render_template('recommendations.html',
+                               title='Регистрация', active_recommendations='active')
+
 
 @app.route('/nutrition', methods=['GET', 'POST'])
 def nutrition_page():
@@ -363,13 +351,14 @@ def nutrition_page():
     form = NutritionSearchForm()
 
     if form.validate_on_submit():
-        """Submit pressed"""
-        return render_template('nutrition.html', title='Питание', nutrition_dict=nutrition_dict, form=form,
-                               active_nutrition='active')
-
-    return render_template('nutrition.html', title='Питание', nutrition_dict=nutrition_dict, form=form,
-                           active_nutrition='active')
-
+        """Submit pressed
+        show selected product data"""
+        return render_template('nutrition.html', title='Питание', nutrition_dict=nutrition_dict,
+                               form=form, active_nutrition='active')
+    """submit isn't pressed
+     hide product data field"""
+    return render_template('nutrition.html', title='Питание', nutrition_dict=nutrition_dict,
+                           form=form, active_nutrition='active')
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -476,7 +465,7 @@ def login_page():
 @app.route('/profile', methods=['GET', 'POST'])
 @login_required
 def profile_page():
-    """"In this page user can edit all of yours parameters"""
+    """"In this page user can edit all of him parameters"""
 
     form = ProfileForm()
 
@@ -514,20 +503,19 @@ def profile_page():
                                title='Профиль пользователя', form=form)
 
     if current_user.is_authenticated:
-        """Get user_inputs from database and insert into form"""
-        db_sess = db_session.create_session()
-        current_user_inputs = db_sess.query(UserInputs).filter(
-            UserInputs.user_id == current_user.id).first()
+        """Get user_inputs from API and insert into form"""
+        inputs_json = requests.get(f"{DOMAIN}/api/user/{current_user.id}/inputs").json()
+        form.height.data = inputs_json['user_inputs']['height']
+        form.weight.data = inputs_json['user_inputs']['weight']
+        form.age.data = inputs_json['user_inputs']['age']
+        form.gender.data = inputs_json['user_inputs']['gender']
+        form.activity.data = str(inputs_json['user_inputs']['activity'])
+        form.wrists.data = inputs_json['user_inputs']['wrists']
+        form.waist.data = inputs_json['user_inputs']['waist']
 
-        form.weight.data = current_user_inputs.weight
-        form.height.data = current_user_inputs.height
-        form.age.data = current_user_inputs.age
-        form.gender.data = current_user_inputs.gender
-        form.activity.data = str(current_user_inputs.activity)
-        form.wrists.data = current_user_inputs.wrists
-        form.waist.data = current_user_inputs.waist
-        form.neck.data = current_user_inputs.neck
-        form.hip.data = current_user_inputs.hip
+        form.hip.data = inputs_json['user_inputs']['hip']
+        form.neck.data = inputs_json['user_inputs']['neck']
+
 
     return render_template("profile.html",
                            title='Профиль пользователя', form=form)
@@ -542,7 +530,6 @@ def logout_page():
     return redirect("/")
 
 
-
 def create_nutrition_dict():
     """This function create list of tuples based on file pfcc.csv where saved data of products"""
     global nutrition_dict
@@ -554,12 +541,13 @@ def create_nutrition_dict():
                 nutrition_dict[row[0]] = (row[1].replace(" ", ""), row[2].replace(
                     " ", ""), row[3].replace(" ", ""), row[4].replace(" ", ""))
 
+
 if __name__ == '__main__':
     create_nutrition_dict()
     db_session.global_init("db/users.db")
     port = int(os.environ.get("PORT", 8080))
     # app.run(host='0.0.0.0', port=port)
-    # api.add_resource(restful_resources.InputsResource, '/api/user/<int:user_id>/inputs')
+    api.add_resource(restful_resources.InputsResource, '/api/user/<int:user_id>/inputs')
     api.add_resource(restful_resources.ResultsResource, '/api/user/<int:user_id>/results')
 
     # api.add_resource(restful_resources.UpdateUser, '/api/user')
