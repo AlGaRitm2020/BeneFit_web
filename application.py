@@ -367,6 +367,7 @@ def register_page():
     Fields: name, email, about, password"""
     form = RegisterForm()
     # register button
+    print('reg page')
 
     if form.validate_on_submit():
         # check password match
@@ -381,8 +382,7 @@ def register_page():
         if db_sess.query(UserLogin).filter(UserLogin.email == form.email.data).first():
             return render_template('register.html', title='Регистрация',
                                    form=form,
-                                   message="Такой пользователь уже есть",
-                                   bg_index=bg_index)
+                                   message="Такой пользователь уже есть")
         # user login info
         user_login = UserLogin(
             name=form.name.data,
@@ -544,7 +544,7 @@ if __name__ == '__main__':
     api.add_resource(restful_resources.InputsResource, '/api/user/<int:user_id>/inputs')
     api.add_resource(restful_resources.ResultsResource, '/api/user/<int:user_id>/results')
 
-    api.add_resource(restful_resources.UpdateUser, '/api/user')
+    # api.add_resource(restful_resources.UpdateUser, '/api/user')
 
     # api.add_resource(restful_resources.I, '/api/user_inputs/<int:user_id>')
     serve(app, host='0.0.0.0', port=port)
