@@ -449,6 +449,9 @@ def login_page():
     # login form
     form = LoginForm()
 
+    # random background image 1 of 5
+    bg_index = randint(0, 4)
+
     # submit button
     if form.validate_on_submit():
         db_sess = db_session.create_session()
@@ -465,8 +468,7 @@ def login_page():
                                message="Неправильный логин или пароль",
                                form=form,
                                bg_index=bg_index)
-    # random background image 1 of 5
-    bg_index = randint(0, 4)
+
     # return template
     return render_template('login.html', title='Авторизация', form=form, bg_index=bg_index)
 
