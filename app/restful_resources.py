@@ -12,7 +12,7 @@ def abort_if_inputs_not_found(user_id):
     session = db_session.create_session()
     user = session.query(UserInputs).get(user_id)
     if not user:
-        abort(404, message=f"User {news_id} not found")
+        abort(404, message=f"User {user_id} not found")
 
 
 class InputsResource(Resource):
@@ -29,7 +29,7 @@ class InputsResource(Resource):
 
 
 class UpdateUser(Resource):
-    """NOT WORKING
+    """NOT USED NOW
     """
 
     def post(self):
