@@ -1,5 +1,5 @@
 from flask import jsonify, request
-from flask_login import current_user
+
 from flask_restful import Resource, abort, reqparse
 
 from data import db_session
@@ -7,10 +7,10 @@ from data.user_inputs import UserInputs
 from data.user_results import UserResults
 
 
-def abort_if_inputs_not_found(user_id):
+def abort_if_not_found(user_id):
     """Response for incorrect user id"""
     session = db_session.create_session()
-    user = session.query(UserInputs).get(user_id)
+    user = session.query(User).get(user_id)
     if not user:
         abort(404, message=f"User {user_id} not found")
 
@@ -62,6 +62,31 @@ class ResultsResource(Resource):
         return jsonify({'user_results': user_results.to_dict(
             only=(
                 'BMI', 'body_type'))})
+
+
+class UpdateUser(Resource):
+    """NOT WORKING
+    """
+
+    def post(self, user_id):
+        """this method post all of user inputs in database"""
+        args = parser.parse_args()
+        session = db_session.create_session()
+        user = session.query(User).get(user_id)
+        print(user)
+        user.user_inputs[0].weight = args['weight']
+        user.user_inputs[0].height = args['height']
+        user.user_inputs[0].age = args['age']
+        user.user_inputs[0].gender = args['gender']
+        user.user_inputs[0].activity = args['activity']
+        user.user_inputs[0].wrists = args['wrists']
+        user.user_inputs[0].waist = args['waist']
+        user.user_inputs[0].neck = args['neck']
+        user.user_inputs[0].hip = args['hip']
+
+        session.merge(user)
+        session.commit()
+        return jsonify({'success': 'OK'})
 
 
 """parser for UpdateUser class"""
