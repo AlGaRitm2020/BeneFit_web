@@ -1,8 +1,7 @@
 # BeneFit
-_____
-Flask project
-
-Open [deployment](https://benefit2021.herokuapp.com) of this project.
+---------
+Based on Flask<br>
+Open [deployment](https://benefit2021.herokuapp.com) of this project (Heroku).
 
 
 Introduction
@@ -33,8 +32,6 @@ BeneFit using:
 - WTForms <https://wtforms.readthedocs.io/en/2.3.x/>
 
 - Bootstrap 5 <https://getbootstrap.com/>
-
-- Peewee <https://github.com/coleifer/peewee>
 
 - GIT <https://git-scm.com>
 
