@@ -1,6 +1,7 @@
 """NOT USED NOW"""
 
-from flask_restful import Resource, reqparse
+from flask_restful import Resource, reqparse, abort
+from tools.misc import make_response
 
 parser = reqparse.RequestParser()
 parser.add_argument('email', required=True)
@@ -15,10 +16,8 @@ class RegisterRes(Resource):
         # check password match
         if args['password'] != args['password_again']:
             # passwords isn't match
-            return render_template('register.html', title='Регистрация',
-                                   form=form,
-                                   message="Пароли не совпадают",
-                                   bg_index=bg_index)
+            abort(400, message="passwords didn't match")
+
         # new session
         db_sess = db_session.create_session()
 
@@ -34,6 +33,7 @@ class RegisterRes(Resource):
             email=form.email.data,
             about=form.about.data
         )
+
 
         user_login.set_password(form.password.data)
         db_sess.add(user_login)
@@ -64,4 +64,3 @@ class RegisterRes(Resource):
         db_sess.commit()
 
         return redirect('/login')
-
