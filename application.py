@@ -425,8 +425,6 @@ def register_page():
 
         return redirect('/login')
 
-
-
     return render_template('register.html', title='Регистрация', form=form, bg_index=bg_index)
 
 

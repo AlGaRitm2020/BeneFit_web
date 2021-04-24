@@ -3,11 +3,13 @@ from flask import jsonify, request
 from flask_restful import Resource, abort, reqparse
 
 from data import db_session
+from data.user_login import User
 from data.user_inputs import UserInputs
 from data.user_results import UserResults
+from flask_login import current_user
 
 
-def abort_if_not_found(user_id):
+def abort_if_inputs_not_found(user_id):
     """Response for incorrect user id"""
     session = db_session.create_session()
     user = session.query(User).get(user_id)
@@ -73,7 +75,6 @@ class UpdateUser(Resource):
         args = parser.parse_args()
         session = db_session.create_session()
         user = session.query(User).get(user_id)
-        print(user)
         user.user_inputs[0].weight = args['weight']
         user.user_inputs[0].height = args['height']
         user.user_inputs[0].age = args['age']
