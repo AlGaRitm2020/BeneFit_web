@@ -3,7 +3,7 @@ from flask import jsonify, request
 from flask_restful import Resource, abort, reqparse
 
 from data import db_session
-from data.user_login import User
+from data.user_login import UserLogin
 from data.user_inputs import UserInputs
 from data.user_results import UserResults
 from flask_login import current_user
@@ -12,7 +12,12 @@ from flask_login import current_user
 def abort_if_inputs_not_found(user_id):
     """Response for incorrect user id"""
     session = db_session.create_session()
-    user = session.query(User).get(user_id)
+    print('session created')
+    # user = session.query(UserLogin).get(user_id)
+    user = load_user(user_id)
+    print('user created')
+
+
     if not user:
         abort(404, message=f"User {user_id} not found")
 
@@ -21,7 +26,7 @@ class InputsResource(Resource):
 
     def get(self, user_id):
         """this method return all of user inputs in json from database"""
-        abort_if_inputs_not_found(user_id)
+        # abort_if_inputs_not_found(user_id)
         session = db_session.create_session()
         user_inputs = session.query(UserInputs).get(user_id)
         user_results = session.query(UserResults).get(user_id)
@@ -58,7 +63,7 @@ class UpdateUser(Resource):
 class ResultsResource(Resource):
     def get(self, **user_id):
         """this method return same user results(BMI, body type) in json from database"""
-        abort_if_inputs_not_found(user_id)
+        # abort_if_inputs_not_found(user_id)
         session = db_session.create_session()
         user_results = session.query(UserResults).get(user_id)
         return jsonify({'user_results': user_results.to_dict(
