@@ -70,8 +70,6 @@ body {
 }
 
 
-
-
 /* RESPONSIVE CSS
 -------------------------------------------------- */
 
@@ -86,40 +84,10 @@ body {
   .featurette-heading {
     font-size: 50px;
   }
-
-
 }
 
 @media (min-width: 62em) {
   .featurette-heading {
     margin-top: 7rem;
   }
-  
 }
-
-
-@media(max-width: 1200px){
-  .features-img{
-    height: 500px;
-    width: 500px;
-  }
-
-}
-
-
-@media(max-width: 991px){
-  .features-img{
-    height: 400px;
-    width: 400px;
-  }
-}
-
-@media(max-width: 450px){
-  .features-img{
-    height: 300px;
-    width: 300px;
-  }
-}
-
-
-
