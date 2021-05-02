@@ -84,6 +84,10 @@
 </nav>
 
 
+{% if active_home == 'active' %}
+    {% block home_page%}{% endblock %}
+{% else %}
+
 
 <!-- Сontent -->
 <main role="main" >
@@ -107,7 +111,7 @@
     </div>
   </div>
 </main>
-
+{% endif %}
 
 
 
