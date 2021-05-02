@@ -1,167 +1,45 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Hugo 0.82.0">
-    <title>BeneFit</title>
+{% extends "base.html" %}
 
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/carousel/">
-    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet"
-          href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-          crossorigin="anonymous">
-
-    
-
-    <!-- Bootstrap core CSS -->
-
-
-    <style>
-      header{
-        margin-bottom: -2rem;
-      }
-      /*.main{
-        margin-top: 0;
-      }
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }*/
-    </style>
-
-    
-    <!-- Custom styles for this template -->
-    <link href="../static/css/carousel.css" rel="stylesheet">
-    <link rel="stylesheet" href="../static/css/style.css">
-  </head>
-  <body>
-    
-<header>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light nav fixed-top">
-  <div class="container-fluid">
-    <a class="nav-brand navbar-brand" href="/">
-      <img src="../static/img/logo_original_cutted.png" height="45px"  alt="BeneFit">
-    </a>
-
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link {{active_home}}" aria-current="page" href="/">Главная</a>
-        </li>
-
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle {{active_calculator}}" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-          Калькуляторы
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" href="/calculators/BMI">Калькулятор индекса массы тела</a></li>
-            <li><a class="dropdown-item" href="/calculators/heart_rate">Калькулятор частоты сердечных сокращений</a></li>
-            <li><a class="dropdown-item" href="/calculators/water">Калькулятор нормы воды в день </a></li>
-            <li><a class="dropdown-item" href="/calculators/calories">Калькулятор калорийности рациона</a></li>
-            <li><a class="dropdown-item" href="/calculators/body_type">Калькулятор типа телосложения</a></li>
-            <li><a class="dropdown-item" href="/calculators/body_fat">Калькулятор процента жира</a></li>
-          </ul>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link {{active_recommendations}}" href="/recommendations">Рекоммендации</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link {{active_nutrition}}" href="/nutrition">Питание</a>
-        </li>
-       
-        
-      </ul>
-
-      <div class="container-fluid">
-        <a href=""></a>
-        <form class="d-flex flex-space-between">
-              {% if current_user.is_authenticated %}
-
-    <div class="btn-group dropstart">
-  <a type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-    {{ current_user.name }}
-  </a>
-  <ul class="dropdown-menu">
-    <li><a class="dropdown-item" href='/logout'>Выйти</a></li>
-    <li><a class="dropdown-item" href="/profile">Профиль</a></li>
-    
-  </ul>
-</div>
-
-          
-    
-{% else %}
-    <p>
-        <a class="btn nav-btn-reg" href="/register">Зарегистрироваться</a>
-        <a class="btn nav-btn-auth" href="/login">Войти</a>
-    </p>
-{% endif %}
-        </form>
-      </div>
-
-
-    </div>
-
-  </div>
-</nav>
-</header>
-
-<main>
+{% block home_page %}
+    <main>
 
   <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-indicators">
-      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2" class=""></button>
+      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3" class="active" aria-current="true"></button>
     </div>
     <div class="carousel-inner">
+      <div class="carousel-item">
+        <img class="bd-placeholder-img" width="100%" height="500px" href="../static/img/green_run.jpg">
+
+        <div class="container">
+          <div class="carousel-caption text-start">
+            <h1>Example headline.</h1>
+            <p>Some representative placeholder content for the first slide of the carousel.</p>
+            <p><a class="btn btn-lg btn-primary" href="#" style="">Sign up today</a></p>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"></rect></svg>
+
+        <div class="container">
+          <div class="carousel-caption">
+            <h1>Another example headline.</h1>
+            <p>Some representative placeholder content for the second slide of the carousel.</p>
+            <p><a class="btn btn-lg btn-primary" href="#">Learn more</a></p>
+          </div>
+        </div>
+      </div>
       <div class="carousel-item active">
-        <img src="../static/img/green_run.jpg" alt="" height="100%" wight="100%">
+        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"></rect></svg>
 
         <div class="container">
-          <div class="carousel-caption text-start">
-            <h1>Будь всегда в форме</h1>
-            <p>BeneFit поможет тебе в этом</p>
-            <p><a class="btn btn-lg btn-primary" href="/register">Зарегистрироваться</a></p>
-          </div>
-        </div>
-      </div>
-      <div class="carousel-item">
-        <img src="../static/img/bike.jpg" alt="" height="100%" wight="100%">
-
-        <div class="container">
-          <div class="carousel-caption text-start">
-            <h1>Узнай скорость своего обмена веществ</h1>
-            <p>Этот, а также 5 других показателей ты можешь рассчитать в наших калькуляторах</p>
-            <p><a class="btn btn-lg btn-primary" href="/calculators/calories">Рассчитать метаболизм</a></p>
-          </div>
-        </div>
-      </div>
-      <div class="carousel-item">
-        <img src="../static/img/nutrition_4.jpg" alt="" height="100%" wight="100%">
-
-        <div class="container">
-          <div class="carousel-caption text-start">
-            <h1>Составь идеальный план питания</h1>
-            <p>Сформируй свои рационы согласно полученным рекомендациям</p>
-            <p><a class="btn btn-lg btn-primary" href="/nutrition">Узнать пищевую ценность продукта</a></p>
+          <div class="carousel-caption text-end">
+            <h1>One more for good measure.</h1>
+            <p>Some representative placeholder content for the third slide of this carousel.</p>
+            <p><a class="btn btn-lg btn-primary" href="#">Browse gallery</a></p>
           </div>
         </div>
       </div>
@@ -182,47 +60,30 @@
   <!-- Wrap the rest of the page in another container to center all the content. -->
 
   <div class="container marketing">
-    <h1 class="text-center mb-5">Особенности</h1>
+
     <!-- Three columns of text below the carousel -->
     <div class="row">
       <div class="col-lg-4">
-        <svg class=" featurette-image img-fluid mx-auto rounded-circle" width="140" height="140"  >
-          
-          <rect class='features-rect' width="100%" height="100%" />
-          <image xlink:href="../static/img/opensource.png" height="100%" width="100%" alt="" />
-        </svg>
-        <!-- <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/></svg> -->
-        <div class="features-block">
-          <h2>Общедоступность</h2>
-          <p>Данный сайт является полностью бесплатным и любой желающий может начать менять свою жизнь к лучшему. Кроме того сайт имеет открытый исходный код, что позволит другим разработчикам узнать как он устроен.<br></p>
-        </div>
-        <p><a class="btn btn-primary" href="https://github.com/AlGaRitm2020/BeneFit_Web">Посмотреть исходный код &raquo;</a></p>
-      </div><!-- /.col-lg-4 -->
-      <div class="col-lg-4">
-        <svg class=" featurette-image img-fluid mx-auto rounded-circle" width="140" height="140"  >
-          
-          <rect class='features-rect' width="100%" height="100%" />
-          <image xlink:href="../static/img/adaptive.png" height="100%" width="100%" alt="" />
-        </svg>
-        <div class="features-block">
-          <h2>Адаптивность</h2>
-          <p >Вы можете пользоваться этим сайтом с любого устройства. Планшет, смартфон или ноутбук - неважно. Везде будет комфортный интерфейс.<br><br><br> </p>
-        </div>
-        <p><a class="btn btn-primary" href="https://sobe.ru/na/support_BeneFit">Поддержать проект &raquo;</a></p>
-      </div><!-- /.col-lg-4 -->
-      <div class="col-lg-4">
-        <svg class=" featurette-image img-fluid mx-auto rounded-circle" width="140" height="140"  >
-          
-          <rect class='features-rect' width="100%" height="100%" />
-          <image xlink:href="../static/img/cloud.png" height="100%" width="100%" alt="" />
-        </svg>
-        <div class="features-block">
-          <h2>Сохранение данных</h2>
-          <p>Если вы вошли в аккаунт, то не нужно каждый раз заново вводить данные в калькуляторе. Это также помогает в выдаче рекомендаций.<br><br></p>
-        </div>
-        <p><a class="btn btn-primary" href="/login">Войти в аккаунт &raquo;</a></p>
-      </div><!-- /.col-lg-4 -->
+        <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
 
+        <h2>Heading</h2>
+        <p>Some representative placeholder content for the three columns of text below the carousel. This is the first column.</p>
+        <p><a class="btn btn-secondary" href="#">View details »</a></p>
+      </div><!-- /.col-lg-4 -->
+      <div class="col-lg-4">
+        <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
+
+        <h2>Heading</h2>
+        <p>Another exciting bit of representative placeholder content. This time, we've moved on to the second column.</p>
+        <p><a class="btn btn-secondary" href="#" style="">View details »</a></p>
+      </div><!-- /.col-lg-4 -->
+      <div class="col-lg-4">
+        <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
+
+        <h2>Heading</h2>
+        <p>And lastly this, the third column of representative placeholder content.</p>
+        <p><a class="btn btn-secondary" href="#" style="">View details »</a></p>
+      </div><!-- /.col-lg-4 -->
     </div><!-- /.row -->
 
 
@@ -232,15 +93,12 @@
 
     <div class="row featurette">
       <div class="col-md-7">
-        <h2 class="featurette-heading">Калькуляторы <br> <span class="text-muted">Проверь свое здоровье</span></h2>
-        <p class="lead">В этом разделе вы можете рассчитать индекс массы тела, тренировочную и максимальную частоту сердечных сокращений, норму воды, норму калорий, тип телосложения, процент жира</p>
-        <p><a class="btn btn-primary" href="/calculators/BMI">Узнать свой индекс массы тела &raquo;</a></p>
+        <h2 class="featurette-heading">First featurette heading. <span class="text-muted">It’ll blow your mind.</span></h2>
+        <p class="lead">Some great placeholder content for the first featurette here. Imagine some exciting prose here.</p>
       </div>
       <div class="col-md-5">
-        <svg class=" featurette-image img-fluid mx-auto" width="500" height="500"  >
-          <image xlink:href="../static/img/calculator.jpg" height="100%" width="100%" alt="" />
-        <!-- <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"/><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text></svg>
- -->
+        <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"></rect><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text></svg>
+
       </div>
     </div>
 
@@ -248,14 +106,11 @@
 
     <div class="row featurette">
       <div class="col-md-7 order-md-2">
-        <h2 class="featurette-heading">Питание<br> <span class="text-muted">"Умеренный в еде — сам себе доктор"</span></h2>
-        <p class="lead">Раздел питание предназначен для того, чтобы вы могли узнать содержание белков, жиров, углеводов и калорий в любом продукте питания.</p>
-        <p><a class="btn btn-primary" href="/nutrition">Открыть раздел питание &raquo;</a></p>
+        <h2 class="featurette-heading">Oh yeah, it’s that good. <span class="text-muted">See for yourself.</span></h2>
+        <p class="lead">Another featurette? Of course. More placeholder content here to give you an idea of how this layout would work with some actual real-world content in place.</p>
       </div>
       <div class="col-md-5 order-md-1">
-        <svg class=" featurette-image img-fluid mx-auto" width="500" height="500"  >
-          <image xlink:href="../static/img/nutrition_3.jpg" height="100%" width="100%" alt="" />
-        </svg>
+        <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"></rect><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text></svg>
 
       </div>
     </div>
@@ -264,14 +119,11 @@
 
     <div class="row featurette">
       <div class="col-md-7">
-        <h2 class="featurette-heading">Рекомендации<br><span class="text-muted">Определи свой путь</span></h2>
-        <p class="lead">После регистрации и ввода данных вы можете получить персональные рекомендации по питанию. Попробуйте следовать им - и вы поймете подходят они вам или нет.</p>
-        <p><a class="btn btn-primary" href="/register">Зарегистрироваться &raquo;</a></p>
+        <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
+        <p class="lead">And yes, this is the last block of representative placeholder content. Again, not really intended to be actually read, simply here to give you a better view of what this would look like with some actual content. Your content.</p>
       </div>
       <div class="col-md-5">
-        <svg class=" featurette-image img-fluid mx-auto" width="500" height="500"  >
-          <image xlink:href="../static/img/road.jpg" height="100%" width="100%" alt="" />
-        </svg>
+        <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"></rect><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text></svg>
 
       </div>
     </div>
@@ -285,33 +137,12 @@
 
   <!-- FOOTER -->
   <footer class="container">
-    <p class="float-end"><a href="#">Наверх</a></p>
-    <p class="float-start">&copy; 2021 AlGaRitm &middot</p>
-    <p class="float-start">
-      <a href="https://t.me/albert_gareev">
-        <svg class=" featurette-image img-fluid mx-auto rounded-circle footer-icon" width="40" height="40"  >
-          
-          <rect class='footer-rect' width="100%" height="100%" />
-          <image xlink:href="../static/img/telegram.png" height="100%" width="100%" alt="" />
-        </svg>
-      </a>
-
-      <a href="https://github.com/AlGaRitm2020">
-        <svg class=" featurette-image img-fluid mx-auto rounded-circle footer-icon" width="40" height="40"  >   
-          <rect class='footer-rect' width="100%" height="100%" />
-          <image xlink:href="../static/img/github.png" height="100%" width="100%" alt="" />
-        </svg>
-      </a>
-    </p>
-
+    <p class="float-end"><a href="#">Back to top</a></p>
+    <p>© 2021 BeneFit · <a href="#">Privacy</a> · <a href="#">Terms</a></p>
   </footer>
 </main>
+        
+    
 
+{% endblock %}
 
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js" integrity="sha384-KsvD1yqQ1/1+IA7gi3P0tyJcT3vR+NdBTt13hSJ2lnve8agRGXTTyNaBYmCR/Nwi" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.min.js" integrity="sha384-nsg8ua9HAw1y0W1btsyWgBklPnCUAFLuTMS2G72MMONqmOymq585AcH49TLBQObG" crossorigin="anonymous"></script>
-<script src="../static/js/bootstrap.bundle.min.js"></script>
-
-      
-  </body>
-</html>
