@@ -19,7 +19,7 @@
 	
 <main class="form-signin">
 	
-  <form class='form' method="post">
+  <form action="" class='form' method="post">
 
 	<img class="mb-4" src="../static/img/logo.png" alt="" width="300" height="100">
 	<h1 class="h3 mb-3 fw-normal">Регистрация</h1>
@@ -47,15 +47,33 @@
 	</div>
 
 	<div class="form-floating">
-	  <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+		{{ form.password(class="form-control", type="password" ,        placeholder=' ', id='floatingPassword') }}<br>
+		{% for error in form.password.errors %}
+		    <p class="alert alert-danger" role="alert">
+		        {{ error }}
+		    </p>
+		{% endfor %}
 	  <label for="floatingPassword">Пароль</label>
+	</div>
+
+	<div class="form-floating">
+		{{ form.password_again(class="form-control", type="password" ,        placeholder=' ', id='floatingPasswordAgain') }}<br>
+		{% for error in form.password_again.errors %}
+		    <p class="alert alert-danger" role="alert">
+		        {{ error }}
+		    </p>
+		{% endfor %}
+	  <label for="floatingPasswordAgain">Повторите пароль</label>
 	</div>
 
 	
 	</div>
-	<a class="w-100 btn btn-lg btn-submit" type="submit">Создать аккаунт</a>
+	{{message}}
+	{{ form.submit(type="submit", class="w-100 btn btn-lg btn-submit") }}
+	
 	<a href='/' class="w-100 btn btn-another" type="submit">Уже есть аккаунт? Авторизуйтесь</a>
-	<p class="mt-5 mb-3 text-muted">&copy; 2021</p>
+	
+
   </form>
 </main>
 
