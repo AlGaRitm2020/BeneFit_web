@@ -1,3 +1,24 @@
+.body {
+  font-size: 20px;
+  height: 100vh;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.body-bg-apples {
+  background-image: url(../img/register-apples.jpg);
+}
+.body-bg-avocados {
+  background-image: url(../img/register-avocados.jpg);
+}
+.body-bg-cabbages {
+  background-image: url(../img/register-cabbage.jpg);
+}
+.body-bg-limes {
+  background-image: url(../img/register-limes.jpg);
+}
+.body-bg-salad {
+  background-image: url(../img/register-salad.jpg);
+}
 .arrow-back {
   z-index: 100;
   position: relative;

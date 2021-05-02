@@ -13,9 +13,10 @@
 	<link href="../static/css/bootstrap.min.css" rel="stylesheet">
 	<!-- Custom styles for this template -->
 		<link href="../static/css/register.css" rel="stylesheet">
+	{% set list_of_bg = ['body-bg-apples', 'body-bg-avocados', 'body-bg-cabbages', 'body-bg-limes', 'body-bg-salad'] %}
 
   </head>
-  <body class="text-center body-cabbages">
+  <body class="text-center {{list_of_bg[bg_index]}}">
 	
 <main class="form-signin">
 	
