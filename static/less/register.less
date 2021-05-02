@@ -167,14 +167,19 @@ body {
     
 
   }
-  input:focus{
-    border-color:@health-color;
-    box-shadow: 0 0 15px @health-color !important;
+  .input{
+    background-color: @bg-main;
+    &:focus{
+      border-color:@health-color;
+      box-shadow: 0 0 15px @health-color !important;
+    }
+    &:focus ~ label{
+      color:@health-color;
+    }
+    &:hover{
+      background-color: #fff;
+    }
   }
-  input:focus ~ label{
-    color:@health-color;
-  }
-  
 }
 
 .form-control{
@@ -201,6 +206,10 @@ body {
     &:focus{
       border-color:@health-color;
       box-shadow: 0 0 15px @health-color !important;
+    }
+    &:hover{
+      background-color:lighten(@health-color, 10%);
+      color:lighten(@bg-main, 10%);
     }
     border: 2px solid lighten(@health-color, 10%);
     border-radius: 5px;
