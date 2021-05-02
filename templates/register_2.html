@@ -1,22 +1,16 @@
 <!doctype html>
 <html lang="en">
   <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="">
-	<meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-	<meta name="generator" content="Hugo 0.82.0">
-	<title>Signin Template · Bootstrap v5.0</title>
+    <meta charset="utf-8">
+  	  <meta name="viewport" content="width=device-width, initial-scale=1">
+	  <meta name="description" content="">
+	  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+	  <meta name="generator" content="Hugo 0.82.0">
+	  <title>Signin Template · Bootstrap v5.0</title>
 
-	<link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/sign-in/">
-
-	
-
-	<!-- Bootstrap core CSS -->
-<link href="../static/css/bootstrap.min.css" rel="stylesheet">
-
- 
-	
+	  <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/sign-in/">
+	  <!-- Bootstrap core CSS -->
+	<link href="../static/css/bootstrap.min.css" rel="stylesheet">
 	<!-- Custom styles for this template -->
 		<link href="../static/css/register.css" rel="stylesheet">
 
@@ -25,15 +19,33 @@
 	
 <main class="form-signin">
 	
-  <form class='form'>
+  <form class='form' method="post">
 
 	<img class="mb-4" src="../static/img/logo.png" alt="" width="300" height="100">
 	<h1 class="h3 mb-3 fw-normal">Регистрация</h1>
+	{{ form.hidden_tag() }}
+	<div class="form-floating">
+		{{ form.email(class="form-control", type="email", placeholder='     ', id="floatingInput") }}<br>
+		{% for error in form.email.errors %}
+		        <p class="alert alert-danger" role="alert">
+		            {{ error }}
+		        </p>
+		{% endfor %}
+	 	<!-- <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com"> -->
+	  	<label for="floatingInput">Email</label>
+	</div>
 
 	<div class="form-floating">
-	  <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-	  <label for="floatingInput">Email</label>
+		{{ form.name(class="form-control", id='floatingName', placeholder='name') }}<br>
+		{% for error in form.name.errors %}
+		    <p class="alert alert-danger" role="alert">
+		        {{ error }}
+		    </p>
+		{% endfor %}
+
+	  	<label for="floatingName">Имя пользователя</label>
 	</div>
+
 	<div class="form-floating">
 	  <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
 	  <label for="floatingPassword">Пароль</label>
