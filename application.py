@@ -377,7 +377,7 @@ def register_page():
         # check password match
         if form.password.data != form.password_again.data:
             # passwords isn't match
-            return render_template('register_2.html', title='Регистрация',
+            return render_template('register.html', title='Регистрация',
                                    form=form,
                                    message="Пароли не совпадают",
                                    bg_index=bg_index)
@@ -386,7 +386,7 @@ def register_page():
 
         # check registered
         if db_sess.query(UserLogin).filter(UserLogin.email == form.email.data).first():
-            return render_template('register_2.html', title='Регистрация',
+            return render_template('register.html', title='Регистрация',
                                    form=form,
                                    message="Такой пользователь уже есть",
                                    bg_index=bg_index)
@@ -427,7 +427,7 @@ def register_page():
 
         return redirect('/login')
 
-    return render_template('register_2.html', title='Регистрация', form=form, bg_index=bg_index)
+    return render_template('register.html', title='Регистрация', form=form, bg_index=bg_index)
 
 
 @app.route('/login', methods=['GET', 'POST'])
