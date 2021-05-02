@@ -427,7 +427,7 @@ def register_page():
 
         return redirect('/login')
 
-    return render_template('register.html', title='Регистрация', form=form, bg_index=bg_index)
+    return render_template('register_2.html', title='Регистрация', form=form, bg_index=bg_index)
 
 
 @app.route('/login', methods=['GET', 'POST'])

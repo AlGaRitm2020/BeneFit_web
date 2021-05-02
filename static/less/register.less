@@ -1,41 +1,41 @@
 
 @bg-main:#f7f7f7;
 @bg-form:#ffcc00;
-@health-color:#7fbb48;
+@health-color:#4ca64f;
 @accent-color:#BC4123;
 
-*{
-  margin: 0;
-  padding: 0;
+// *{
+//   margin: 0;
+//   padding: 0;
 
-  // box-sizing: content-box;
-}
+//   // box-sizing: content-box;
+// }
 
-.body{
-  font-size:20px;
-  height: 100vh;
-  background-repeat: no-repeat;
-  background-position: center;
+// .body{
+//   font-size:20px;
+//   height: 100vh;
+//   background-repeat: no-repeat;
+//   background-position: center;
 
-  &-bg{
-    &-apples{
-      background-image: url(../img/register-apples.jpg);
-    }
-    &-avocados{
-      background-image: url(../img/register-avocados.jpg);
-    }
-    &-cabbages{
-      background-image: url(../img/register-cabbage.jpg);
+//   &-bg{
+//     &-apples{
+//       background-image: url(../img/register-apples.jpg);
+//     }
+//     &-avocados{
+//       background-image: url(../img/register-avocados.jpg);
+//     }
+//     &-cabbages{
+//       background-image: url(../img/register-cabbage.jpg);
   
-    }
-    &-limes{
-      background-image: url(../img/register-limes.jpg);
-    }
-    &-salad{
-      background-image: url(../img/register-salad.jpg);
-    }
-  }
-}
+//     }
+//     &-limes{
+//       background-image: url(../img/register-limes.jpg);
+//     }
+//     &-salad{
+//       background-image: url(../img/register-salad.jpg);
+//     }
+//   }
+// }
 
 // .container{
 //   margin-left:-30px;
@@ -46,21 +46,21 @@
 // }
 
 
-// .arrow-back{
-//   z-index: 9;
-//   position: relative;
-//   transition: 0.3s;
-//   margin:0;
-//   right: -40;
-//   top: -202px;
-//   &:hover{
-//     opacity: 0.5;
-//   transition: 0.3s;
-//   }
-//   &-auth{
-//     top: -132px;
-//   }
-// }
+.arrow-back{
+  z-index: 100;
+  position: relative;
+  transition: 0.3s;
+  margin:0;
+  right: -40;
+  top: 0px;
+  &:hover{
+    opacity: 0.5;
+  transition: 0.3s;
+  }
+  &-auth{
+    top: -132px;
+  }
+}
 
 
 // .form{
@@ -138,7 +138,7 @@
 html,
 body {
   height: 100%;
-  color:#7fbb48;
+  color:@health-color;
 }
 
 body {
@@ -146,7 +146,13 @@ body {
   align-items: center;
   padding-top: 40px;
   padding-bottom: 40px;
-  
+  background-image: url(../../static/img/register-cabbage.jpg);
+}
+
+
+
+.form{
+
 }
 
 .form-signin {
@@ -154,6 +160,21 @@ body {
   max-width: 330px;
   padding: 15px;
   margin: auto;
+  background-color: @bg-main;
+  outline:none;
+  label{
+    color:grey;
+    
+
+  }
+  input:focus{
+    border-color:@health-color;
+  box-shadow: 0 0 15px @health-color !important;
+  }
+  input:focus ~ label{
+    color:@health-color;
+  }
+  
 }
 
 .form-signin .checkbox {
@@ -175,18 +196,11 @@ body {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
-
-
-.bd-placeholder-img {
-    font-size: 1.125rem;
-    text-anchor: middle;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    user-select: none;
-    }
-
-    @media (min-width: 768px) {
-    .bd-placeholder-img-lg {
-      font-size: 3.5rem;
-    }
-    }
+ .btn{
+  &-submit{
+    border: 2px solid lighten(@health-color, 10%);
+    border-radius: 5px;
+    color: @bg-main;
+    background-color: @health-color;
+  }
+ }

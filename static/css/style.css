@@ -4,7 +4,7 @@
   box-sizing: border-box;
 }
 .border-health {
-  border: 1px solid #7fbb48;
+  border: 1px solid #4ca64f;
 }
 .header {
   font-weight: 600;
@@ -14,39 +14,39 @@
   color: #888;
 }
 .btn:hover {
-  box-shadow: #7fbb48;
+  box-shadow: #4ca64f;
 }
 .input:focus {
-  border-color: #7fbb48;
-  box-shadow: 0 0 15px #7fbb48 !important;
+  border-color: #4ca64f;
+  box-shadow: 0 0 15px #4ca64f !important;
 }
 .nav {
   background-color: #fff !important;
 }
 .nav-brand {
-  color: #7fbb48 !important;
+  color: #4ca64f !important;
   font-size: 30px;
   color: #fff;
 }
 .nav-btn-auth {
-  background-color: #7fbb48;
-  border: 1px solid #99c96d;
+  background-color: #4ca64f;
+  border: 1px solid #6abb6d;
   color: #f7f7f7;
 }
 .nav-btn-auth:hover {
   color: #f7f7f7;
-  background-color: #99c96d;
-  border: 1px solid #99c96d;
+  background-color: #6abb6d;
+  border: 1px solid #6abb6d;
 }
 .nav-btn-reg {
   background-color: #f7f7f7;
-  border: 1px solid #7fbb48;
-  color: #7fbb48;
+  border: 1px solid #4ca64f;
+  color: #4ca64f;
 }
 .nav-btn-reg:hover {
   background-color: #ffffff;
-  color: #99c96d;
-  border: 1px solid #99c96d;
+  color: #6abb6d;
+  border: 1px solid #6abb6d;
 }
 .base {
   margin-bottom: 2rem;
@@ -67,30 +67,30 @@
   border: none;
 }
 .btn-primary {
-  background-color: #7fbb48;
-  border-color: #7fbb48;
+  background-color: #4ca64f;
+  border-color: #4ca64f;
 }
 .btn-primary:hover {
-  background-color: #99c96d;
-  border-color: #7fbb48;
+  background-color: #6abb6d;
+  border-color: #4ca64f;
 }
 .btn-primary:active {
-  background-color: #99c96d;
-  border-color: #7fbb48;
+  background-color: #6abb6d;
+  border-color: #4ca64f;
 }
 main {
   background: #f7f7f7;
   margin-top: 70px;
 }
 .card-head {
-  background-color: #7fbb48;
+  background-color: #4ca64f;
   text-align: center;
   height: 50px;
   font-size: 30px;
   color: #f7f7f7;
 }
 .card-head-main {
-  background-color: #7fbb48;
+  background-color: #4ca64f;
   text-align: center;
   height: 50px;
   font-size: 30px;
@@ -98,23 +98,23 @@ main {
   font-weight: 900;
 }
 .sidebar-card {
-  border: 1px solid #7fbb48;
+  border: 1px solid #4ca64f;
 }
 .sidebar-card-head {
-  background-color: #7fbb48;
+  background-color: #4ca64f;
 }
 .home-btn-download {
   width: 200px;
 }
 .calculator-btn {
-  background-color: #7fbb48;
-  border-color: #7fbb48;
+  background-color: #4ca64f;
+  border-color: #4ca64f;
   color: #fff;
 }
 .calculator-btn:hover {
   color: #fff;
-  background-color: #99c96d;
-  border-color: #7fbb48;
+  background-color: #6abb6d;
+  border-color: #4ca64f;
 }
 .calculator-result {
   font-size: 30px;
@@ -129,18 +129,18 @@ main {
   font-size: 24px;
 }
 .list-group .active {
-  background-color: #7fbb48;
-  border-color: #99c96d;
+  background-color: #4ca64f;
+  border-color: #6abb6d;
 }
 .health-button {
-  background-color: #7fbb48;
-  border-color: #7fbb48;
+  background-color: #4ca64f;
+  border-color: #4ca64f;
   color: #fff;
 }
 .health-button:hover {
   color: #fff;
-  background-color: #99c96d;
-  border-color: #7fbb48;
+  background-color: #6abb6d;
+  border-color: #4ca64f;
 }
 .recommendations {
   background-color: #ffffff;
@@ -148,12 +148,12 @@ main {
   font-size: 20px;
 }
 .nutrition-card {
-  background-color: #7fbb48;
+  background-color: #4ca64f;
   color: #ffffff;
   border-radius: 15px;
 }
 .nutrition-card-head {
   background-color: #ffffff;
-  color: #7fbb48;
+  color: #4ca64f;
   border-radius: 15px 15px 0 0;
 }
