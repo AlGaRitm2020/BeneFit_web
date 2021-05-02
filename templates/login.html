@@ -1,49 +1,66 @@
-<head>
-    <link rel="stylesheet" href="../static/css/register.css">
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="description" content="">
+      <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+      <meta name="generator" content="Hugo 0.82.0">
+      <title>Signin Template · Bootstrap v5.0</title>
+
+      <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/sign-in/">
+      <!-- Bootstrap core CSS -->
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+        <link href="../static/css/register.css" rel="stylesheet">
     {% set list_of_bg = ['body-bg-apples', 'body-bg-avocados', 'body-bg-cabbages', 'body-bg-limes', 'body-bg-salad'] %}
-</head>
 
-<body class='body {{list_of_bg[bg_index]}}'>
+  </head>
+  <body class="text-center {{list_of_bg[bg_index]}}">
+    
+<main class="form-signin">
+    
+  <form action="" class='form' method="post">
 
-
-    <div class="container">
-        <a href="/" class="arrow-back arrow-back-auth"><img src="../static/img/back_arrow.png" height="30px"        title="Вернуться"></a>
-        <form action="" method="post" class='form form-auth'>
-
-            <h1 class="form-title">Авторизация  </h1>
-            {{ form.hidden_tag() }}
-            <div class="form-group">
-                {{ form.email(class="form-control form-input", type="email", placeholder='     ') }}<br>
-                {% for error in form.email.errors %}
-                        <p class="alert alert-danger" role="alert">
-                            {{ error }}
-                        </p>
-                {% endfor %}
-              <label class="form-label">Email</label>
-            </div>
-        
-           
-        
-            <div class="form-group">
-                {{ form.password(class="form-control form-input", type="password" ,        placeholder=' ') }}<br>
-                {% for error in form.password.errors %}
-                    <p class="alert alert-danger" role="alert">
-                        {{ error }}
-                    </p>
-                {% endfor %}
-              <label class="form-label">Пароль</label>
-            </div>
-
-            <p class="form-message">{{message}}</p>
-        
-            <div class="form-button-block">
-
-                {{ form.submit(type="submit", class="form-button") }}
-        
-            </div>
-            <a class="form-button-another" href="/register">Нет аккаунта? Зарегистрируйтесь</a>
-        
-        
-        </form>
+    <img class="mb-4" src="../static/img/logo.png" alt="" width="300" height="100">
+    <h1 class="h3 mb-3 fw-normal">Авторизация</h1>
+    {{ form.hidden_tag() }}
+    <div class="form-floating">
+        {{ form.email(class="form-control input", type="email", placeholder='     ', id="floatingInput") }}<br>
+        {% for error in form.email.errors %}
+                <p class="alert alert-danger" role="alert">
+                    {{ error }}
+                </p>
+        {% endfor %}
+        <!-- <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com"> -->
+        <label for="floatingInput">Email</label>
     </div>
-</body>
+
+  
+
+    <div class="form-floating">
+        {{ form.password(class="form-control input", type="password" ,        placeholder=' ', id='floatingPassword') }}<br>
+        {% for error in form.password.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+      <label for="floatingPassword">Пароль</label>
+    </div>
+
+    
+    </div>
+    {{message}}
+    {{ form.submit(type="submit", class="w-100 btn btn-lg btn-submit") }}
+    
+    <a href='/register' class="w-100 btn btn-another" type="submit">Нет аккаунта?
+    Зарегистрируйтесь</a>
+    
+
+  </form>
+</main>
+
+
+    
+  </body>
+</html>
