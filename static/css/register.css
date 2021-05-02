@@ -3,8 +3,8 @@
   position: relative;
   transition: 0.3s;
   margin: 0;
-  right: -40;
-  top: 0px;
+  right: 100;
+  top: 100px;
 }
 .arrow-back:hover {
   opacity: 0.5;
@@ -32,6 +32,7 @@ body {
   margin: auto;
   background-color: #f7f7f7;
   outline: none;
+  border-radius: 10px;
 }
 .form-signin label {
   color: grey;
@@ -42,9 +43,6 @@ body {
 }
 .form-signin input:focus ~ label {
   color: #4ca64f;
-}
-.form-signin .checkbox {
-  font-weight: 400;
 }
 .form-signin .form-floating:focus-within {
   z-index: 2;
@@ -64,4 +62,12 @@ body {
   border-radius: 5px;
   color: #f7f7f7;
   background-color: #4ca64f;
+}
+.btn-submit:focus {
+  border-color: #4ca64f;
+  box-shadow: 0 0 15px #4ca64f !important;
+}
+.btn-another {
+  text-decoration: none !important;
+  color: grey;
 }

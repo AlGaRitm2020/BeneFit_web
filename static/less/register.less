@@ -47,13 +47,13 @@
 
 
 .arrow-back{
-  
+
   z-index: 100;
   position: relative;
   transition: 0.3s;
   margin:0;
-  right: -40;
-  top: 0px;
+  right: 100;
+  top: 100px;
   &:hover{
     opacity: 0.5;
   transition: 0.3s;
@@ -152,9 +152,7 @@ body {
 
 
 
-.form{
 
-}
 
 .form-signin {
   width: 100%;
@@ -163,6 +161,7 @@ body {
   margin: auto;
   background-color: @bg-main;
   outline:none;
+  border-radius: 10px;
   label{
     color:grey;
     
@@ -170,7 +169,7 @@ body {
   }
   input:focus{
     border-color:@health-color;
-  box-shadow: 0 0 15px @health-color !important;
+    box-shadow: 0 0 15px @health-color !important;
   }
   input:focus ~ label{
     color:@health-color;
@@ -178,9 +177,7 @@ body {
   
 }
 
-.form-signin .checkbox {
-  font-weight: 400;
-}
+
 
 .form-signin .form-floating:focus-within {
   z-index: 2;
@@ -199,9 +196,17 @@ body {
 }
  .btn{
   &-submit{
+    &:focus{
+      border-color:@health-color;
+      box-shadow: 0 0 15px @health-color !important;
+    }
     border: 2px solid lighten(@health-color, 10%);
     border-radius: 5px;
     color: @bg-main;
     background-color: @health-color;
+  }
+  &-another{
+    text-decoration: none !important;
+    color:grey;
   }
  }
