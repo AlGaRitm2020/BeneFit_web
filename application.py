@@ -39,7 +39,7 @@ import csv
 
 DOMAIN = 'http://benefit2021.herokuapp.com'
 LOCAL_HOST = 'http://127.0.0.1:8080'
-DOMAIN = LOCAL_HOST
+
 
 app = Flask(__name__)
 api = Api(app)
@@ -98,9 +98,9 @@ def BMI_calculator_page():
 
     if current_user.is_authenticated:
         """Get user_inputs from api and insert into form"""
-        print(current_user.id)
+
         inputs_json = requests.get(f"{DOMAIN}/api/user/{current_user.id}/inputs").json()
-        print(inputs_json)
+
         form.height.data = inputs_json['user_inputs']['height']
         form.weight.data = inputs_json['user_inputs']['weight']
 
