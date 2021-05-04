@@ -157,9 +157,15 @@ main {
   color: #4ca64f;
   border-radius: 15px 15px 0 0;
 }
-rect {
-  fill: #7cc37e;
-}
 .features-block {
   min-height: 250px;
+}
+.features-rect {
+  fill: #7cc37e;
+}
+.footer-rect {
+  fill: #d1d1d1;
+}
+.footer-icon {
+  margin-top: -8px;
 }

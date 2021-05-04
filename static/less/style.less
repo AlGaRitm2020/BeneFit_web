@@ -235,16 +235,24 @@ main{
 	}
 }
 
-rect{
-	fill:lighten(@health-color, 15%);
+
+.features{
+	&-block{
+		min-height: 250px;
+	}
+	&-rect{
+		fill:lighten(@health-color, 15%);
+	}
 }
 
-.features-block{
-	min-height: 250px;
+.footer{
+	&-rect{
+		fill:darken(@bg-main, 15%);
+	}
+	&-icon{
+		margin-top:-8px;
+	}
 }
-
-
-
 // @media screen(max-width: 450px) {
 // 	.card-head{
 // 		font-size: 12px;
