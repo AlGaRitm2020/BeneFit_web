@@ -157,3 +157,9 @@ main {
   color: #4ca64f;
   border-radius: 15px 15px 0 0;
 }
+rect {
+  fill: #4ca64f;
+}
+.features-block {
+  min-height: 250px;
+}
