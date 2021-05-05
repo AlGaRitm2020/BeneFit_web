@@ -62,4 +62,3 @@ To run this project in your local environment
     5. Go to http://127.0.0.1:8080
 ```
 
-
