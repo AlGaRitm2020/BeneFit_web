@@ -1,10 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-	<div class="card  row justify-content--center" style="width: 100%;">
-        <div class="card-head main-card-head">{{ title }}</div>
-    	<form action="" method="post" class='col-md-8 m-auto calculator-form'>
+<!-- 	<div class="justify-content--center" style="width: 100%;"> -->
+		<h1 class="calculator-title m-auto">{{title}}</h1>
+        <!-- <div class="card-head main-card-head">{{ title }}</div> -->
+    	<form action="" method="post" class='col-md-8 col-sm-10 col-xs-10 m-auto calculator-form'>
     		{% block calculator_content %}{% endblock %}
     	</form>
-    </div>
+<!--     </div> -->
 {% endblock %}
