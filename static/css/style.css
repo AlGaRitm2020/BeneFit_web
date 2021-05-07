@@ -21,6 +21,7 @@
   box-shadow: 0 0 15px #4ca64f !important;
 }
 .nav {
+  font-size: 16px;
   background-color: #fff !important;
 }
 .nav-brand {
@@ -47,6 +48,10 @@
   background-color: #ffffff;
   color: #6abb6d;
   border: 1px solid #6abb6d;
+}
+.nav-right-block {
+  margin-right: 2rem;
+  margin-top: 1rem;
 }
 .base {
   margin-bottom: 2rem;
