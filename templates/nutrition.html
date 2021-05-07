@@ -15,10 +15,10 @@
 
 
   <h1 class="page-title m-auto">{{title}}</h1>
-  <form action="" method="post" class='col-md-8 m-auto calculator-form'>
+  <form action="" method="post" class=' calculator-form'>
           {{ form.hidden_tag() }}
-      
-
+          <div class="row justify-content-center">
+          <div class="col-md-6">
           <p>
               {{ form.query.label }}<br>
               {{ form.query(class="form-control input", list='product_names_list') }}<br>
@@ -32,10 +32,10 @@
 
           </p>
 
-          <p>{{ form.submit(type="submit", class="btn health-button") }}</p>
-
+          <p>{{ form.submit(type="submit", class="btn health-button m-auto") }}</p>
+          </div>
           {% if form.validate_on_submit():%}
-    
+          <div class="col-md-6">
               {% for product_name, product_data in nutrition_dict.items() %}
                       {% if form.query.data == product_name:%}
                           <div class="card nutrition-card d-flex justify-content-center">
@@ -53,6 +53,8 @@
 
 
           {% endif %}
+        </div>
+        </div>
   </form>
 
 {% endblock %}
