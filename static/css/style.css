@@ -143,9 +143,11 @@ main {
   border-color: #4ca64f;
 }
 .recommendations {
-  background-color: #ffffff;
+  background-color: #4ca64f;
   padding: 3px;
+  color: #ffffff;
   font-size: 20px;
+  border: solid 1px #cdcdcd;
 }
 .nutrition-card {
   background-color: #4ca64f;
