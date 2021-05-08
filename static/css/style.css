@@ -3,6 +3,9 @@
   padding: 0;
   box-sizing: border-box;
 }
+body {
+  background-color: #f7f7f7;
+}
 .border-health {
   border: 1px solid #4ca64f;
 }
@@ -84,7 +87,6 @@
   border-color: #4ca64f;
 }
 .main {
-  background: #f7f7f7;
   margin-top: 70px;
 }
 .main-content {
@@ -131,6 +133,7 @@
   font-weight: 800;
   font-size: 40px;
   color: #BC4123;
+  color: #4ca64f;
 }
 .error-message {
   color: #bc4123;

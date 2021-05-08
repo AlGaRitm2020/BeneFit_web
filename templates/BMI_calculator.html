@@ -3,7 +3,8 @@
 {% block calculator_content %}
 
         	{{ form.hidden_tag() }}
-	
+	       <div class="row">
+           <div class="col-md-7 mr-auto">
         	<p>
         	    {{ form.height.label }}<br>
         	    {{ form.height(class="form-control input", type="number", min='60', max='250') }}<br>
@@ -26,9 +27,11 @@
 	
     		
         	<p>{{ form.submit(type="submit", class="btn calculator-btn") }}</p>
-	
+	         </div>
+
        		{% if form.validate_on_submit():%}
-<p class="calculator-result">Ваш индекс массы тела равен <strong class="calculator-result-value">{{BMI}}</strong></p>
+          <div class="col-md-4 m-auto calculator-result-block">
+            <p class="calculator-result">Ваш индекс массы тела равен <strong class="calculator-result-value">{{BMI}}</strong></p>
        			{% if BMI >= 40 %}
        			    <p class='text-danger calculator-result'>Ожирение третьей степени </p>
        			{% elif BMI >= 35%}
@@ -44,9 +47,10 @@
        			{% else %}
        			    <p class='text-danger calculator-result'>Выраженный дефицит массы тела</p>
        			{% endif %}
+          </div>
        		{% endif %}
 
-        
+        </div>
     
 
 {% endblock %}

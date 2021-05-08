@@ -9,7 +9,9 @@
     padding: 0;
     box-sizing: border-box;
 }
-
+body{
+	background-color: @bg-main;
+}
 .border(@width: 1px, @type: solid, @color: @health-color){
     border:@arguments;
 }
@@ -127,7 +129,6 @@
 	}
 }
 .main{
-    background:@bg-main;
     margin-top: 70px;
     &-content{
     	margin-top:90px;
@@ -189,10 +190,15 @@
 
 	&-result{
 	    font-size:30px;
+	    &-block{
+	    	// background-color: @health-color;
+	    	// color:@light;
+	    }
 	    &-value{
 	    font-weight:800;
 	    font-size:40px;
 	    color:#BC4123;
+	    color:@health-color;
 	    }
 	}
 

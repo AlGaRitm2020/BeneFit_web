@@ -3,7 +3,8 @@
 {% block calculator_content %}
 
         	{{ form.hidden_tag() }}
-	
+	       <div class="row">
+            <div class="col-md-7 mr-auto">
         
 	
         	<p>
@@ -58,14 +59,15 @@
 	
     		
         	<p>{{ form.submit(type="submit", class="btn calculator-btn") }}</p>
-	
+	   </div>
        		{% if form.validate_on_submit():%}
-          <p class="calculator-result">Ваша норма калорий равна <strong class="calculator-result-value">{{calories_norm}}</strong> ккал</p>
-       			
+        <div class="col-md-4 m-auto calculator-result-block">
+          <p class="calculator-result">Ваша дневная норма калорий равна <strong class="calculator-result-value">{{calories_norm}}</strong> ккал</p>
+       	</div>
        		{% endif %}
 
         
     
-
+        </div>
 {% endblock %}
 
