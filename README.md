@@ -1,7 +1,7 @@
 ![BeneFit](static/img/logo_original_cutted.png "BeneFit")
 ---------
 Based on Flask<br>
-Open [deployment](https://benefit2021.herokuapp.com) of this project (Heroku).
+Open [deployment](https://www.benefithealth.ru) of this project (Heroku).
 
 
 Introduction
