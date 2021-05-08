@@ -17,7 +17,7 @@ There are sections
 Frameworks and libraries
 -----------
 BeneFit using:
-- Flask <https://flask.palletsprojects.com/en/1.1.x/>
+- Flask <http://flask.palletsprojects.com/en/1.1.x/>
 
 - SQLAlchemy <http://www.sqlalchemy.org/>
 
