@@ -3,7 +3,8 @@
 {% block calculator_content %}
 
         	{{ form.hidden_tag() }}
-	
+	   <div class="row">
+        <div class="col-md-7 mr-auto">
         
 	
         	<p>
@@ -38,14 +39,13 @@
 	
     		
         	<p>{{ form.submit(type="submit", class="btn calculator-btn") }}</p>
-	
-       		{% if form.validate_on_submit():%}
-<p class="calculator-result">Ваша норма воды равна <strong class="calculator-result-value">{{water_norm}}</strong> литра</p>
-       			
-       		{% endif %}
+	      </div>
 
-        
-    
+       	{% if form.validate_on_submit():%}
+          <div class="col-md-4 m-auto calculator-result-block">
+            <p class="calculator-result">Ваша норма воды равна <strong class="calculator-result-value">{{water_norm}}</strong> литра</p>
+       		</div>
+       	{% endif %}
 
 {% endblock %}
 

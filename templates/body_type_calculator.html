@@ -2,8 +2,9 @@
 
 {% block calculator_content %}
 
-        	{{ form.hidden_tag() }}
-	
+  {{ form.hidden_tag() }}
+	<div class="row">
+    <div class="col-md-7 mr-auto">
         	<p>
         	    {{ form.wrists.label }}<br>
         	    {{ form.wrists(class="form-control input", type="number", max="30", min="10") }}<br>
@@ -28,13 +29,12 @@
 	
     		
         	<p>{{ form.submit(type="submit", class="btn calculator-btn") }}</p>
-	
-       		{% if form.validate_on_submit():%}
-  
-<p class="calculator-result">Ваш тип телосложения: <strong class="calculator-result-value">{{body_type}}</strong></p>
-
-
-       		{% endif %}
+	 </div>
+    {% if form.validate_on_submit():%}
+      <div class="col-md-4 m-auto calculator-result-block">
+        <p class="calculator-result">Ваш тип телосложения: <strong class="calculator-result-value">{{body_type}}</strong></p>
+      </div>
+    {% endif %}
 
         
     
