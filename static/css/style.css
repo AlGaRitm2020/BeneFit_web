@@ -185,3 +185,8 @@ body {
 .page-title {
   text-align: center;
 }
+iframe {
+  margin-top: 3rem;
+  height: 315px;
+  width: 100%;
+}
