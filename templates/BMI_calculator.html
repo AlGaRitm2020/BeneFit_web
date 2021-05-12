@@ -4,7 +4,7 @@
 
         	{{ form.hidden_tag() }}
 	       <div class="row">
-           <div class="col-md-7 mr-auto">
+           <div class="col-md-6 mr-auto">
         	<p>
         	    {{ form.height.label }}<br>
         	    {{ form.height(class="form-control input", type="number", min='60', max='250') }}<br>
@@ -30,7 +30,7 @@
 	         </div>
 
        		{% if form.validate_on_submit():%}
-          <div class="col-md-4 m-auto calculator-result-block">
+          <div class="col-md-5 m-auto calculator-result-block">
             <p class="calculator-result">Ваш индекс массы тела равен <strong class="calculator-result-value">{{BMI}}</strong></p>
        			{% if BMI >= 40 %}
        			    <p class='text-danger calculator-result'>Ожирение третьей степени </p>
@@ -48,9 +48,50 @@
        			    <p class='text-danger calculator-result'>Выраженный дефицит массы тела</p>
        			{% endif %}
           </div>
-       		{% endif %}
+       		
+          <div class="col-md-6"></div>
+          <div class="col-md-5 m-auto">
+          
+          <table class="calculator-table">
+            <tr>
+              <th>Индекс массы тела</th>
+              <th>Результат</th>
+            </tr>
+            <tr>
+              <td>Менее 16</td>
+              <td>Выраженный дефицит массы тела</td>
+            </tr>
+            <tr>
+              <td>От 16 до 18.5</td>
+              <td>Недостаточная масса тела</td>
+            </tr>
+            <tr>
+              <td>От 18.5 до 25</td>
+              <td>Норма</td>
+            </tr>
+            <tr>
+              <td>От 25 до 30</td>
+              <td>Избыточная масса тела </td>
+            </tr>
+            <tr>
+              <td>От 30 до 35</td>
+              <td>Ожирение первой степени </td>
+            </tr>
+            <tr>
+              <td>От 35 до 40</td>
+              <td>Ожирение второй степени </td>
+            </tr>
+            <tr>
+              <td>Более 40</td>
+              <td>Ожирение третьей степени</td>
+            </tr>
+          </table>
+          </div>
+          {% endif %}
 
         </div>
+
+
     
 
 {% endblock %}
